@@ -56,7 +56,8 @@ class ReportController extends Controller
             $tools->disableRefreshButton();
         });
         $grid->paginate(100);
-        $grid->exporter(new ExcelExpoter('dataCustomer', 'Customer list'));
+        $grid->disableExport(false);
+        $grid->exporter(new ExcelExpoter($function = 'dataCustomer', $filename = 'Customer list', $title = 'Export data Customer', $sheetname = 'Sheet name'));
 
         return $grid;
     }

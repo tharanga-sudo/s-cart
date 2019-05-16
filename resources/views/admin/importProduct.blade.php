@@ -14,6 +14,7 @@
         @endforeach
 </div>
 @endif
+<script type="text/javascript" src="{{ asset('vendor/laravel-admin/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
 <div class="row">
  <div class="col-md-6">
 <form method="post" action="" enctype="multipart/form-data">

@@ -4,27 +4,27 @@ namespace App\Admin\Extensions;
 
 use App\User;
 use Encore\Admin\Grid\Exporters\AbstractExporter;
-use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ExcelExpoter extends AbstractExporter
 {
     public $filename;
     public $sheetname;
     public $limit;
-    public $type;
+    public $title;
     public $function;
-    public function __construct($function = null, $filename = 'Export File', $type = "xls", $sheetname = 'Sheet')
+    public function __construct($function = null, $filename = 'Export File', $title = "Title export", $sheetname = 'Sheet')
     {
         $this->filename  = $filename;
         $this->sheetname = $sheetname;
-        $this->type      = $type;
+        $this->title     = $title;
         $this->function  = $function;
 
     }
 
     public function export()
     {
-        // dd($this->getData());
         if ($this->function == null) {
             $dataExport = $this->getData();
             $header     = true;
@@ -32,25 +32,20 @@ class ExcelExpoter extends AbstractExporter
             $dataExport = $this->{$this->function}();
             $header     = false;
         }
-        Excel::create($this->filename, function ($excel) use ($dataExport, $header) {
-            $excel->sheet($this->sheetname, function ($sheet) use ($dataExport, $header) {
-                $sheet->fromArray($dataExport, $nullValue = null, $startCell = 'A1', $strictNullComparison = false, $headingGeneration = $header);
 
-                // $sheet->cell('A1', function ($cell) {$cell->setValue('Dữ Liệu');});
-                // $sheet->cell('B1', function ($cell) {$cell->setValue('Mã hóa');});
-                // $sheet->cell('C1', function ($cell) {$cell->setValue('Email');});
-                // if (!empty($data)) {
-                //     foreach ($data as $key => $value) {
-                //         $i = $key + 2;
-                //         $sheet->cell('A' . $i, $value['firstname']);
-                //         $sheet->cell('B' . $i, $value['lastname']);
-                //         $sheet->cell('C' . $i, $value['email']);
-                //     }
-                // }
+        $spreadsheet = new Spreadsheet();
 
-            });
+        $worksheet = $spreadsheet->getActiveSheet();
 
-        })->export($this->type);
+        $worksheet->setTitle($this->sheetname);
+        $worksheet->getCell('A1')->setValue($this->title);
+        $worksheet->fromArray($dataExport, $nullValue = null, $startCell = 'A2');
+        $writer = IOFactory::createWriter($spreadsheet, "Xls");
+        // $writer->save('write.xls');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment; filename="' . $this->filename . '.xls"');
+        header('Cache-Control: max-age=0');
+        $writer->save("php://output");
     }
 
     public function dataOrder()

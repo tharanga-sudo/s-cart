@@ -80,7 +80,9 @@ class ShopCustomerController extends Controller
             $grid->created_at(trans('language.admin.created_at'));
             $grid->updated_at(trans('language.admin.last_modify'));
             $grid->model()->orderBy('id', 'desc');
-            $grid->exporter(new ExcelExpoter('dataCustomer', 'Customer list'));
+            $grid->disableExport(false);
+            $grid->exporter(new ExcelExpoter($function = 'dataCustomer', $filename = 'Customer list', $title = 'Export data Customer', $sheetname = 'Sheet name'));
+
             $grid->actions(function ($actions) {
                 $actions->disableView();
             });
