@@ -70,7 +70,7 @@
     </tbody>
   </table>
   </div>
-<form class="shipping_address" id="form-order" role="form" method="POST" action="{{ route('addOrder') }}">
+<form class="shipping_address" id="form-order" role="form" method="POST" action="{{ route('order.add') }}">
     {{ csrf_field() }}
     <div class="row">
     <div class="col-md-6">

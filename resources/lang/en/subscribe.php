@@ -3,6 +3,7 @@ return [
     'id'     => 'ID',
     'email'  => 'Email',
     'status' => 'Status',
+    'subscribe_success' => 'Subscribe success!',
     'admin'  => [
         'title'          => 'Subscribe',
         'create_success' => 'Create new item success!',

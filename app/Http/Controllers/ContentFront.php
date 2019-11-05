@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ShopEmailTemplate;
 use App\Models\ShopNews;
 use App\Models\ShopPage;
+use App\Models\ShopSubscribe;
 use Illuminate\Http\Request;
 
 class ContentFront extends GeneralController
@@ -116,20 +117,20 @@ class ContentFront extends GeneralController
         }
     }
 
-/**
- * [getPage description]
- * @param  [type] $key [description]
- * @return [type]      [description]
- */
+    /**
+     * [getPage description]
+     * @param  [type] $key [description]
+     * @return [type]      [description]
+     */
     public function getPage($key = null)
     {
         return ShopPage::where('key', $key)->where('status', 1)->first();
     }
 
-/**
- * [news description]
- * @return [type] [description]
- */
+    /**
+     * [news description]
+     * @return [type] [description]
+     */
     public function news()
     {
         $news = (new ShopNews)->getItemsNews($limit = sc_config('product_new'), $opt = 'paginate');
@@ -143,6 +144,14 @@ class ContentFront extends GeneralController
         );
     }
 
+    /**
+     * News detail
+     *
+     * @param   [type]  $name 
+     * @param   [type]  $id
+     *
+     * @return  view
+     */
     public function newsDetail($name, $id)
     {
         $news_currently = ShopNews::find($id);
@@ -168,6 +177,28 @@ class ContentFront extends GeneralController
             );
         }
 
+    }
+
+    /**
+     * email subscribe
+     * @param  Request $request
+     * @return json
+     */
+    public function emailSubscribe(Request $request)
+    {
+        $validator = $request->validate([
+            'subscribe_email' => 'required|email',
+            ], [
+            'email.required' => trans('validation.required'),
+            'email.email'    => trans('validation.email'),
+        ]);
+        $data       = $request->all();
+        $checkEmail = ShopSubscribe::where('email', $data['subscribe_email'])->first();
+        if (!$checkEmail) {
+            ShopSubscribe::insert(['email' => $data['subscribe_email']]);
+        }
+        return redirect()->back()
+            ->with(['success'=>trans('subscribe.subscribe_success')]);
     }
 
 }
