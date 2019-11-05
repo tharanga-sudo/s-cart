@@ -3,6 +3,7 @@ return [
     'id'     => 'ID',
     'email'  => 'Email',
     'status' => 'Status',
+    'subscribe_success' => 'Đăng ký thành công!',
     'admin'  => [
         'title'          => 'Người đăng ký',
         'create_success' => 'Tạo mới thành công!',
