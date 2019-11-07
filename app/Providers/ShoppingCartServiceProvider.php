@@ -17,13 +17,5 @@ class ShoppingCartServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('cart', 'App\Library\ShoppingCart\Cart');
-
-        $config = config_path('cart.php');
-        $this->mergeConfigFrom($config, 'cart');
-        $this->app['events']->listen(Logout::class, function () {
-            if ($this->app['config']->get('cart.destroy_on_logout')) {
-                $this->app->make(SessionManager::class)->forget('cart');
-            }
-        });
     }
 }

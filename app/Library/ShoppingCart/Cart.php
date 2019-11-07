@@ -230,58 +230,31 @@ class Cart
     /**
      * Get the total price of the items in the cart.
      *
-     * @param int    $decimals
-     * @param string $decimalPoint
-     * @param string $thousandSeperator
      * @return string
      */
-    public function total($decimals = null, $decimalPoint = null, $thousandSeperator = null)
+    public function total()
     {
         $content = $this->getContent();
 
         $total = $content->reduce(function ($total, CartItem $cartItem) {
             return $total + ($cartItem->qty * $cartItem->priceTax);
         }, 0);
-
-        return $this->numberFormat($total, $decimals, $decimalPoint, $thousandSeperator);
+        return $total;
     }
 
     /**
-     * Get the total tax of the items in the cart.
+     * Get the subtotal of the items in the cart.
      *
-     * @param int    $decimals
-     * @param string $decimalPoint
-     * @param string $thousandSeperator
      * @return float
      */
-    public function tax($decimals = null, $decimalPoint = null, $thousandSeperator = null)
-    {
-        $content = $this->getContent();
-
-        $tax = $content->reduce(function ($tax, CartItem $cartItem) {
-            return $tax + ($cartItem->qty * $cartItem->tax);
-        }, 0);
-
-        return $this->numberFormat($tax, $decimals, $decimalPoint, $thousandSeperator);
-    }
-
-    /**
-     * Get the subtotal (total - tax) of the items in the cart.
-     *
-     * @param int    $decimals
-     * @param string $decimalPoint
-     * @param string $thousandSeperator
-     * @return float
-     */
-    public function subtotal($decimals = null, $decimalPoint = null, $thousandSeperator = null)
+    public function subtotal()
     {
         $content = $this->getContent();
 
         $subTotal = $content->reduce(function ($subTotal, CartItem $cartItem) {
             return $subTotal + ($cartItem->qty * $cartItem->price);
         }, 0);
-
-        return $this->numberFormat($subTotal, $decimals, $decimalPoint, $thousandSeperator);
+        return $subTotal;
     }
 
     /**
@@ -313,26 +286,6 @@ class Cart
         $cartItem = $this->get($rowId);
 
         $cartItem->associate($model);
-
-        $content = $this->getContent();
-
-        $content->put($cartItem->rowId, $cartItem);
-
-        $this->session->put($this->instance, $content);
-    }
-
-    /**
-     * Set the tax rate for the cart item with the given rowId.
-     *
-     * @param string    $rowId
-     * @param int|float $taxRate
-     * @return void
-     */
-    public function setTax($rowId, $taxRate)
-    {
-        $cartItem = $this->get($rowId);
-
-        $cartItem->setTaxRate($taxRate);
 
         $content = $this->getContent();
 
@@ -413,10 +366,6 @@ class Cart
             return $this->total();
         }
 
-        if ($attribute === 'tax') {
-            return $this->tax();
-        }
-
         if ($attribute === 'subtotal') {
             return $this->subtotal();
         }
@@ -461,8 +410,6 @@ class Cart
             $cartItem = CartItem::fromAttributes($id, $name, $price, $options);
             $cartItem->setQuantity($qty);
         }
-
-        $cartItem->setTaxRate(config('cart.tax'));
 
         return $cartItem;
     }
@@ -510,8 +457,9 @@ class Cart
      */
     private function getTableName()
     {
-        return config('cart.database.table', 'shoppingcart');
+        return 'shop_shoppingcart';
     }
+
 
     /**
      * Get the database connection name.
@@ -520,38 +468,12 @@ class Cart
      */
     private function getConnectionName()
     {
-        $connection = config('cart.database.connection');
-
-        return is_null($connection) ? config('database.default') : $connection;
+        return 'mysql';
     }
 
-    /**
-     * Get the Formated number
-     *
-     * @param $value
-     * @param $decimals
-     * @param $decimalPoint
-     * @param $thousandSeperator
-     * @return string
-     */
-    private function numberFormat($value, $decimals, $decimalPoint, $thousandSeperator)
-    {
-        if (is_null($decimals)) {
-            $decimals = is_null(config('cart.format.decimals')) ? 2 : config('cart.format.decimals');
-        }
-        if (is_null($decimalPoint)) {
-            $decimalPoint = is_null(config('cart.format.decimal_point')) ? '.' : config('cart.format.decimal_point');
-        }
-        if (is_null($thousandSeperator)) {
-            $thousandSeperator = is_null(config('cart.format.thousand_seperator')) ? ',' : config('cart.format.thousand_seperator');
-        }
-
-        return number_format($value, $decimals, $decimalPoint, $thousandSeperator);
-    }
-
-/*
-Get list Cart
- */
+    /*
+    Get list Cart
+    */
     public static function getListCart($instance = 'default')
     {
         $cart = \Cart::instance($instance);
