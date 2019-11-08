@@ -41,7 +41,7 @@ Support this project :stuck_out_tongue_winking_eye: :pray:
 
 ======= ADMIN =======
 
-- Manage &amp; permission users, groups
+- Admin roles, permission
 - Customer management
 - Upload management
 - Order management: edit orders, update payment status, shipping status ...
@@ -72,12 +72,12 @@ Support this project :stuck_out_tongue_winking_eye: :pray:
 
 ## Requirements:
 
-Version 3.x:
+Version 3.2:
 
-> Core laravel framework 5.8. Requirements::
+> Core laravel framework 6.x Requirements::
 
 ```
-- PHP >= 7.1.3
+- PHP >= 7.2
 - OpenSSL PHP Extension
 - PDO PHP Extension
 - Mbstring PHP Extension

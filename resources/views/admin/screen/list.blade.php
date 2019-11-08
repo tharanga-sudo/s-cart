@@ -47,7 +47,7 @@
       </div>
       <div class="box-footer clearfix">
          {!! $result_items??'' !!}
-         {{ $pagination??'' }}
+         {!! $pagination??'' !!}
       </div>
     </section>
       <!-- /.box-body -->
