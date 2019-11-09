@@ -82,7 +82,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
 } else {
 
     $requirements = [
-        'PHP >= 7.1.3'                 => version_compare(PHP_VERSION, '7.1.3', '>='),
+        'PHP >= 7.2.0'                 => version_compare(PHP_VERSION, '7.2.0', '>='),
         'BCMath PHP Extension'         => extension_loaded('bcmath'),
         'Ctype PHP Extension'          => extension_loaded('ctype'),
         'JSON PHP Extension'           => extension_loaded('json'),
