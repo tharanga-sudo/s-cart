@@ -22,7 +22,7 @@
           $arrPage = explode(',', $layout->page)
         @endphp
         @if ($layout->page == '*' ||  (isset($layout_page) && in_array($layout_page, $arrPage)))
-          @if ($layout->page =='html')
+          @if ($layout->type =='html')
             {{$layout->text }}
           @endif
         @endif
@@ -51,7 +51,7 @@
         $arrPage = explode(',', $layout->page)
       @endphp
         @if ($layout->page == '*' ||  (isset($layout_page) && in_array($layout_page, $arrPage)))
-          @if ($layout->page =='html')
+          @if ($layout->type =='html')
             {{$layout->text }}
           @endif
         @endif
