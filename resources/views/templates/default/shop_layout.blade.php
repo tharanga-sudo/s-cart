@@ -23,7 +23,7 @@
         @endphp
         @if ($layout->page == '*' ||  (isset($layout_page) && in_array($layout_page, $arrPage)))
           @if ($layout->type =='html')
-            {{$layout->text }}
+            {!! $layout->text !!}
           @endif
         @endif
       @endforeach
@@ -52,7 +52,7 @@
       @endphp
         @if ($layout->page == '*' ||  (isset($layout_page) && in_array($layout_page, $arrPage)))
           @if ($layout->type =='html')
-            {{$layout->text }}
+          {!! $layout->text !!}
           @endif
         @endif
       @endforeach
