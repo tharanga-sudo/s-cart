@@ -7,7 +7,7 @@
     <ul class="dropdown-menu">
         @foreach ($languages as $key=> $language)
         <li>
-            <a href="{{ route('admin.locale', ['locale' => $key]) }}"><img src="{{ asset($language['icon']) }}" style="height: 25px;"></a>
+            <a href="{{ route('admin.locale', ['code' => $key]) }}"><img src="{{ asset($language['icon']) }}" style="height: 25px;"></a>
         </li>
         @endforeach
     </ul>
