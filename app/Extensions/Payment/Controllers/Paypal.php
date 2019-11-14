@@ -5,6 +5,8 @@ namespace App\Extensions\Payment\Controllers;
 use App\Extensions\ExtensionDefault;
 use App\Models\AdminConfig;
 use App\Models\ShopOrderStatus;
+use App\Models\ShopProduct;
+use Cart;
 
 class Paypal extends \App\Http\Controllers\GeneralController
 {
@@ -200,6 +202,51 @@ class Paypal extends \App\Http\Controllers\GeneralController
             $return = ['error' => 1, 'msg' => 'Error update'];
         }
         return $return;
+    }
+
+    /**
+     * Process order
+     *
+     * @return  [type]  [return description]
+     */
+    public function processOrder(){
+
+        $orderID = session('orderID') ?? 0;
+        $dataOrder = session('dataOrder')??null;
+        $arrCartDetail = session('arrCartDetail')??null;
+        
+        if ($orderID && $dataOrder && $arrCartDetail) {
+
+            $dataPayment = [];
+            foreach ($arrCartDetail as $item) {
+                $product = ShopProduct::find($item['product_id']);
+                $dataPayment[] = [
+                    'name' => $item['name'],
+                    'quantity' => $item['qty'],
+                    'price' => sc_currency_value($item['price']),
+                    'sku' => $product->sku,
+                ];
+            }
+            $dataPayment[] =
+                [
+                'name' => 'Shipping',
+                'quantity' => 1,
+                'price' => $dataOrder['shipping']??0,
+                'sku' => 'shipping',
+            ];
+            $dataPayment[] =
+                [
+                'name' => 'Discount',
+                'quantity' => 1,
+                'price' => $dataOrder['discount']??0,
+                'sku' => 'discount',
+            ];
+            $dataPayment['order_id'] = $orderID;
+            $dataPayment['currency'] = sc_currency_code();
+            return redirect()->route('paypal')->with('dataPayment', $dataPayment);
+        } else {
+            return json_encode(['error'=>1,'msg' => 'Data not correct!']);
+        }
     }
 
 }

@@ -15,14 +15,15 @@ class ContentFront extends GeneralController
         parent::__construct();
     }
 
-/**
- * [getContact description]
- * @return [type] [description]
- */
+    /**
+     * [getContact description]
+     * @return [type] [description]
+     */
     public function getContact()
     {
         $page = $this->getPage('contact');
-        return view('templates.' . sc_store('template') . '.shop_contact',
+        return view(
+            'templates.' . sc_store('template') . '.shop_contact',
             array(
                 'title' => trans('front.contact'),
                 'description' => '',
@@ -33,11 +34,11 @@ class ContentFront extends GeneralController
         );
     }
 
-/**
- * [postContact description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
+    /**
+     * [postContact description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function postContact(Request $request)
     {
         $validator = $request->validate([
@@ -60,7 +61,10 @@ class ContentFront extends GeneralController
         $data['content'] = str_replace("\n", "<br>", $data['content']);
 
         if (sc_config('contact_to_admin')) {
-            $checkContent = (new ShopEmailTemplate)->where('group', 'contact_to_admin')->where('status', 1)->first();
+            $checkContent = (new ShopEmailTemplate)
+                ->where('group', 'contact_to_admin')
+                ->where('status', 1)
+                ->first();
             if ($checkContent) {
                 $content = $checkContent->text;
                 $dataFind = [
@@ -89,52 +93,58 @@ class ContentFront extends GeneralController
                 ];
                 sc_send_mail('mail.contact_to_admin', $data_email, $config, []);
             }
-
         }
 
-        return redirect()->route('contact')->with('success', trans('front.thank_contact'));
-
+        return redirect()
+            ->route('contact')
+            ->with('success', trans('front.thank_contact'));
     }
 
-/**
- * [pages description]
- * @param  [type] $key [description]
- * @return [type]      [description]
- */
+    /**
+     * Render page
+     * @param  [type] $key [description]
+     * @return [type]      [description]
+     */
     public function pages($key = null)
     {
         $page = $this->getPage($key);
         if ($page) {
-            return view('templates.' . sc_store('template') . '.shop_page',
+            return view(
+                'templates.' . sc_store('template') . '.shop_page',
                 array(
                     'title' => $page->title,
                     'description' => '',
                     'keyword' => '',
                     'page' => $page,
-                ));
+                )
+            );
         } else {
             return $this->pageNotFound();
         }
     }
 
     /**
-     * [getPage description]
+     * Get page info
      * @param  [type] $key [description]
      * @return [type]      [description]
      */
     public function getPage($key = null)
     {
-        return ShopPage::where('key', $key)->where('status', 1)->first();
+        return ShopPage::where('key', $key)
+            ->where('status', 1)
+            ->first();
     }
 
     /**
-     * [news description]
+     * Render news
      * @return [type] [description]
      */
     public function news()
     {
-        $news = (new ShopNews)->getItemsNews($limit = sc_config('product_new'), $opt = 'paginate');
-        return view('templates.' . sc_store('template') . '.shop_news',
+        $news = (new ShopNews)
+            ->getItemsNews($limit = sc_config('product_new'), $opt = 'paginate');
+        return view(
+            'templates.' . sc_store('template') . '.shop_news',
             array(
                 'title' => trans('front.blog'),
                 'description' => sc_store('description'),
@@ -157,7 +167,8 @@ class ContentFront extends GeneralController
         $news_currently = ShopNews::find($id);
         if ($news_currently) {
             $title = ($news_currently) ? $news_currently->title : trans('front.not_found');
-            return view('templates.' . sc_store('template') . '.shop_news_detail',
+            return view(
+                'templates.' . sc_store('template') . '.shop_news_detail',
                 array(
                     'title' => $title,
                     'news_currently' => $news_currently,
@@ -168,7 +179,8 @@ class ContentFront extends GeneralController
                 )
             );
         } else {
-            return view('templates.' . sc_store('template') . '.notfound',
+            return view(
+                'templates.' . sc_store('template') . '.notfound',
                 array(
                     'title' => trans('front.not_found'),
                     'description' => '',
@@ -176,7 +188,6 @@ class ContentFront extends GeneralController
                 )
             );
         }
-
     }
 
     /**
@@ -193,12 +204,12 @@ class ContentFront extends GeneralController
             'email.email'    => trans('validation.email'),
         ]);
         $data       = $request->all();
-        $checkEmail = ShopSubscribe::where('email', $data['subscribe_email'])->first();
+        $checkEmail = ShopSubscribe::where('email', $data['subscribe_email'])
+            ->first();
         if (!$checkEmail) {
             ShopSubscribe::insert(['email' => $data['subscribe_email']]);
         }
         return redirect()->back()
-            ->with(['success'=>trans('subscribe.subscribe_success')]);
+            ->with(['success' => trans('subscribe.subscribe_success')]);
     }
-
 }
