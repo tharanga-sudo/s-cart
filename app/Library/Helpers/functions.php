@@ -277,3 +277,13 @@ if (!function_exists('sc_block_render')) {
         return \App\Library\FindClass::renderClass($nameSpace);
     }
 }
+
+    /*
+    Get locale
+    */
+    if (!function_exists('sc_get_locale')) {
+        function sc_get_locale()
+        {
+            return app()->getLocale();
+        }
+    }

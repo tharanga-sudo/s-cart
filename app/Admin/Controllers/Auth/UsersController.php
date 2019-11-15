@@ -12,11 +12,11 @@ use Validator;
 
 class UsersController extends Controller
 {
-    public $lang;
+    
 
     public function __construct()
     {
-        $this->lang = app()->getLocale();
+        
 
     }
 

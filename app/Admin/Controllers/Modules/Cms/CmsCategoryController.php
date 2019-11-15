@@ -11,11 +11,11 @@ use Validator;
 
 class CmsCategoryController extends Controller
 {
-    public $lang, $languages;
+    public  $languages;
 
     public function __construct()
     {
-        $this->lang = app()->getLocale();
+        
         $this->languages = ShopLanguage::getList();
 
     }
@@ -61,7 +61,7 @@ class CmsCategoryController extends Controller
 
         $obj = $obj
             ->leftJoin('cms_category_description', 'cms_category_description.category_id', 'cms_category.id')
-            ->where('cms_category_description.lang', $this->lang);
+            ->where('cms_category_description.lang', sc_get_locale());
         if ($keyword) {
             $obj = $obj->whereRaw('(id = ' . (int) $keyword . ' OR cms_category_description.title like "%' . $keyword . '%" )');
         }

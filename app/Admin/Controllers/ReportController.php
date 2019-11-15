@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public $lang, $languages, $types, $kinds, $virtuals, $attributeGroup;
+    public  $languages, $types, $kinds, $virtuals, $attributeGroup;
 
     public function __construct()
     {
-        $this->lang = app()->getLocale();
+        
         $this->languages = ShopLanguage::getList();
         $this->attributeGroup = ShopAttributeGroup::getList();
         $this->types = [
@@ -84,7 +84,7 @@ class ReportController extends Controller
 
         $obj = $obj
             ->leftJoin('shop_product_description', 'shop_product_description.product_id', 'shop_product.id')
-            ->where('shop_product_description.lang', $this->lang);
+            ->where('shop_product_description.lang', sc_get_locale());
         if ($keyword) {
             $obj = $obj->whereRaw('(shop_product_description.name like "%' . $keyword . '%"  OR sku like "%' . $keyword . '%")');
         }
