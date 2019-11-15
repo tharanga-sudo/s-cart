@@ -6,7 +6,6 @@ use App\Extensions\ExtensionDefault;
 use App\Models\AdminConfig;
 use App\Models\ShopOrderStatus;
 use App\Models\ShopProduct;
-use Cart;
 
 class Paypal extends \App\Http\Controllers\GeneralController
 {

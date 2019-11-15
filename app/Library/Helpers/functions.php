@@ -311,4 +311,15 @@ if (!function_exists('sc_zip')) {
         }
         return false;
     }
+
+    /*
+    Get locale
+    */
+    if (!function_exists('sc_get_locale')) {
+        function sc_get_locale()
+        {
+            return app()->getLocale();
+        }
+    }
+
 }
