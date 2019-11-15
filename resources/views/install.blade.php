@@ -32,12 +32,12 @@
         </div>
 
         <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"><img src="https://s-cart.org/documents/website/language/flag_uk.png" style="height: 25px;">
+        <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown"><img src="https://s-cart.org/data/language/flag_uk.png" style="height: 25px;">
         <span class="caret"></span>
       </button>
           <ul class="dropdown-menu" >
-              <li><a href="install.php"><img src="https://s-cart.org/documents/website/language/flag_uk.png" style="height: 25px;"></a></li>
-              <li><a href="install.php?lang=vi"><img src="https://s-cart.org/documents/website/language/flag_vn.png" style="height: 25px;"></a></li>
+              <li><a href="install.php"><img src="https://s-cart.org/data/language/flag_uk.png" style="height: 25px;"></a></li>
+              <li><a href="install.php?lang=vi"><img src="https://s-cart.org/data/language/flag_vn.png" style="height: 25px;"></a></li>
           </ul>
         </div>
         <div style="clear: both;display: block;">
