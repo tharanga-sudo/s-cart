@@ -112,19 +112,6 @@ Step4:
 Access your-domain.com/install.php to install S-cart.
 If installing with link "install.php" unsuccessful, you can install it manually below.
 ```
-OR manual installation:
-```
-- Import file sql database/file-s-cart.sql to database.
-- Copy and rename file .env.example to .env if file .env not exist.
-- Genarate API key if APP_KEY is null. Use command "<code>php artisan key:generate</code>"
-- Config value of file .env:
-    APP_URL=http://localhost
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=s-cart
-    DB_USERNAME=root
-    DB_PASSWORD=
-```
 
 Step5:
 
@@ -133,6 +120,25 @@ NOTE: Please <b>remove</b> or <b>rename</b> file <code>public/install.php</code>
 Step6:
 - Access to url admin: <b>your-domain/sc_admin</b>.
 - User/pass <code><b>admin</b>/<b>admin</b></code>
+
+OR manual installation:
+```
+- Step1: Create database, then import file .sql in folder database to database.
+- Step2: Rename or delete file public/install.php
+- Step3: Copy file .env.example to .env if file .env not exist.
+- Step4: Generate API key if APP_KEY is null. 
+  Use command "php artisan key:generate"
+- Step5: Config value of file .env:
+APP_DEBUG=false (Set "false" is security)
+DB_HOST=127.0.0.1 (Database host)
+DB_PORT=3306 (Database port)
+DB_DATABASE=s-cart (Database name)
+DB_USERNAME=root (User name use database)
+DB_PASSWORD= (Password connect to database)
+APP_URL=http://localhost (Your url)
+ADMIN_PREFIX=sc_admin (Path to admin)
+```
+
 
 ## License:
 

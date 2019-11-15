@@ -318,12 +318,12 @@ class PayPalService
 
     public function index(Request $request)
     {
-        $data = session('data_payment');
+        $data = session('dataPayment');
         $order_id = $data['order_id'];
         $currency = $data['currency'];
         unset($data['order_id']);
         unset($data['currency']);
-        session()->forget('data_payment');
+        session()->forget('dataPayment');
         $transactionDescription = "From website";
         try {
             $paypalCheckoutUrl = $this
@@ -362,7 +362,7 @@ class PayPalService
                     'order_status_id' => sc_config('paypal_order_status_success'),
                 ];
                 (new ShopOrder)->addOrderHistory($dataHistory);
-                return (new ShopCart)->completeOrder($order_id);
+                return (new ShopCart)->completeOrder();
             } else {
                 return redirect()->route('cart')->with(['error' => 'Have an error paypal']);
             }

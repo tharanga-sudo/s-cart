@@ -11,11 +11,10 @@ use Validator;
 
 class ShopCustomerController extends Controller
 {
-    public $lang, $languages, $countries;
+    public $languages, $countries;
 
     public function __construct()
     {
-        $this->lang = app()->getLocale();
         $this->languages = ShopLanguage::getList();
         $this->countries = ShopCountry::getList();
 

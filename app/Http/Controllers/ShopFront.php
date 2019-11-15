@@ -15,10 +15,10 @@ class ShopFront extends GeneralController
     {
         parent::__construct();
     }
-/**
- * [index description]
- * @return [type] [description]
- */
+    /**
+     * [index description]
+     * @return [type] [description]
+     */
     public function index(Request $request)
     {
         return view('templates.' . sc_store('template') . '.shop_home',
@@ -34,11 +34,11 @@ class ShopFront extends GeneralController
         );
     }
 
-/**
- * [getCategories description]
- * @param  Request $request [description]
- * @return [type]           [description]
- */
+    /**
+     * [getCategories description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function getCategories(Request $request)
     {
         $sortBy = null;

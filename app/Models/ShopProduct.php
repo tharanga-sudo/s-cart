@@ -21,14 +21,12 @@ class ShopProduct extends Model
         'description',
         'content',
     ];
-    public $lang = 'en';
 
     protected static $listSingle = null;
 
     public function __construct()
     {
         parent::__construct();
-        $this->lang = app()->getLocale();
     }
 
 /*
@@ -192,7 +190,7 @@ Get final price
  */
     public function getProducts($type = null, $limit = null, $opt = null, $sortBy = null, $sortOrder = 'desc')
     {
-        $lang = $this->lang;
+        $lang = sc_get_locale();
         $query = $this->where($this->getTable() . '.status', 1)
             ->with(['descriptions' => function ($q) use ($lang) {
                 $q->where('lang', $lang);
@@ -226,14 +224,14 @@ Get final price
 
     public function getSearch($keyword, $limit = 12, $sortBy = null, $sortOrder = 'desc')
     {
-        $lang = $this->lang;
+        $lang = sc_get_locale();
 
         return $this->where('status', 1)->with(['descriptions' => function ($q) use ($lang) {
             $q->where('lang', $lang);
         }])
             ->with('promotionPrice')
             ->leftJoin((new ShopProductDescription)->getTable(), (new ShopProductDescription)->getTable() . '.product_id', $this->getTable() . '.id')
-            ->where((new ShopProductDescription)->getTable() . '.lang', $this->lang)
+            ->where((new ShopProductDescription)->getTable() . '.lang', sc_get_locale())
             ->where(function ($sql) use ($keyword) {
                 $sql->where((new ShopProductDescription)->getTable() . '.name', 'like', '%' . $keyword . '%')
                     ->orWhere($this->getTable() . '.sku', 'like', '%' . $keyword . '%');
@@ -480,7 +478,7 @@ Get image
 
     public function processDescriptions()
     {
-        return $this->descriptions->keyBy('lang')[$this->lang] ?? [];
+        return $this->descriptions->keyBy('lang')[sc_get_locale()] ?? [];
     }
 
 /*

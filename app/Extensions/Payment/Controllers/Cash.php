@@ -99,4 +99,14 @@ class Cash extends \App\Http\Controllers\GeneralController
         return $return;
     }
 
+    /**
+     * Process order
+     *
+     * @return  [type]  [return description]
+     */
+    public function processOrder(){
+        
+        return (new \App\Http\Controllers\ShopCart)->completeOrder();
+    }
+
 }

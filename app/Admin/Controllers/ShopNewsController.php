@@ -11,11 +11,10 @@ use Validator;
 
 class ShopNewsController extends Controller
 {
-    public $lang, $languages;
+    public $languages;
 
     public function __construct()
     {
-        $this->lang = app()->getLocale();
         $this->languages = ShopLanguage::getList();
 
     }
@@ -58,7 +57,7 @@ class ShopNewsController extends Controller
 
         $obj = $obj
             ->leftJoin('shop_news_description', 'shop_news_description.shop_news_id', 'shop_news.id')
-            ->where('shop_news_description.lang', $this->lang);
+            ->where('shop_news_description.lang', sc_get_locale());
         if ($keyword) {
             $obj = $obj->whereRaw('(shop_news_description.title like "%' . $keyword . '%" )');
         }
