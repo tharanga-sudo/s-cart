@@ -17,11 +17,9 @@ class ShopCategory extends Model
         'keyword',
         'description',
     ];
-    public $lang = 'en';
     public function __construct()
     {
         parent::__construct();
-        $this->lang = app()->getLocale();
     }
     public function products()
     {
@@ -125,7 +123,7 @@ class ShopCategory extends Model
  */
     public function getCategoriesTop()
     {
-        $lang = $this->lang;
+        $lang = sc_get_locale();
         return $this->with(['descriptions' => function ($q) use ($lang) {
             $q->where('lang', $lang);
         }])->where('status', 1)->where('top', 1)->get();
@@ -192,7 +190,7 @@ Get image
 
     public function processDescriptions()
     {
-        return $this->descriptions->keyBy('lang')[$this->lang] ?? [];
+        return $this->descriptions->keyBy('lang')[sc_get_locale()] ?? [];
     }
 
     public function getCategoriesAll($onlyActive = false, $sortBy = null, $sortOrder = 'asc')
@@ -221,7 +219,7 @@ Get image
 
     public function getCategoriesActive($sortBy = null, $sortOrder = 'asc')
     {
-        $lang = $this->lang;
+        $lang = sc_get_locale();
         $listFullCategory = $this->with(['descriptions' => function ($q) use ($lang) {
             $q->where('lang', $lang);
         }])->where('status', 1)->sort($sortBy, $sortOrder)->get()->groupBy('parent');
@@ -230,7 +228,7 @@ Get image
 
     public function getCategoriesFull($sortBy = null, $sortOrder = 'asc')
     {
-        $lang = $this->lang;
+        $lang = sc_get_locale();
         $listFullCategory = $this->with(['descriptions' => function ($q) use ($lang) {
             $q->where('lang', $lang);
         }])->sort($sortBy, $sortOrder)->get()->groupBy('parent');

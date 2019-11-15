@@ -18,11 +18,9 @@ class CmsCategory extends Model
         'keyword',
         'description',
     ];
-    public $lang = 'en';
     public function __construct()
     {
         parent::__construct();
-        $this->lang = app()->getLocale();
     }
     public function descriptions()
     {
@@ -172,7 +170,7 @@ class CmsCategory extends Model
 
     public function getCategoriesActive($sortBy = null, $sortOrder = 'asc')
     {
-        $lang = $this->lang;
+        $lang = sc_get_locale();
         $listFullCategory = $this->with(['descriptions' => function ($q) use ($lang) {
             $q->where('lang', $lang);
         }])->where('status', 1)->sort($sortBy, $sortOrder)->get()->groupBy('parent');
@@ -181,7 +179,7 @@ class CmsCategory extends Model
 
     public function getCategoriesFull($sortBy = null, $sortOrder = 'asc')
     {
-        $lang = $this->lang;
+        $lang = sc_get_locale();
         $listFullCategory = $this->with(['descriptions' => function ($q) use ($lang) {
             $q->where('lang', $lang);
         }])->sort($sortBy, $sortOrder)->get()->groupBy('parent');
@@ -289,7 +287,7 @@ class CmsCategory extends Model
     }
     public function processDescriptions()
     {
-        return $this->descriptions->keyBy('lang')[$this->lang] ?? [];
+        return $this->descriptions->keyBy('lang')[sc_get_locale()] ?? [];
     }
 
 }

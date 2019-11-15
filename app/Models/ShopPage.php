@@ -15,11 +15,9 @@ class ShopPage extends Model
         'description',
         'content',
     ];
-    public $lang = 'en';
     public function __construct()
     {
         parent::__construct();
-        $this->lang = app()->getLocale();
     }
     public function descriptions()
     {
@@ -88,6 +86,6 @@ Get image
     }
     public function processDescriptions()
     {
-        return $this->descriptions->keyBy('lang')[$this->lang] ?? [];
+        return $this->descriptions->keyBy('lang')[sc_get_locale()] ?? [];
     }
 }
