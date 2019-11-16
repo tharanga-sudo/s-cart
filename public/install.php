@@ -20,7 +20,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
     $step = request('step');
     switch ($step) {
         case 'step1':
-            $domain            = request()->getSchemeAndHttpHost();
+            $domain            = str_replace('/install.php', '', url()->current());
             $database_host     = request('database_host') ?? '127.0.0.1';
             $database_port     = request('database_port') ?? '3306';
             $database_name     = request('database_name') ?? '';
