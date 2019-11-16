@@ -28,7 +28,7 @@
     <div class="col-md-12  col-sm-offset-1">
 
     <div class="col-md-4 col-sm-8">
-        <div style="text-align: center;display: inline"><img alt="Logo-Scart" title="Logo-Scart" src="/images/scart-min.png" style="width: 130px; max-height: 50px;padding: 5px;">
+        <div style="text-align: center;display: inline"><img alt="Logo-Scart" title="Logo-Scart" src="images/scart-min.png" style="width: 130px; max-height: 50px;padding: 5px;">
         </div>
 
         <div class="btn-group">

@@ -21,7 +21,7 @@ return [
     'relative_paths' => false,
 
     // The url to this package. Change it if necessary.
-    // 'url_prefix' => config('admin.route.prefix') . '/uploads',
+    'url_prefix' => 'uploads',
     /*
     |--------------------------------------------------------------------------
     | Multi-User Mode

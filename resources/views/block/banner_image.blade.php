@@ -16,7 +16,7 @@
                @foreach ($banners as $key => $banner)
                   <div class="item {{ ($key)?'':'active' }}">
                     <div class="col-sm-12">
-                      <img src="{{ $banner->image }}" class="girl img-responsive" alt="" />
+                      <img src="{{ asset($banner->image) }}" class="girl img-responsive" alt="" />
                     </div>
                   </div>
                @endforeach

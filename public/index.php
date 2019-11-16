@@ -56,7 +56,7 @@ $response = $kernel->handle(
 );
 // Configuration
 if (is_file('install.php')) {
-    header('Location: /install.php');
+    header('Location: '.route('home').'/install.php');
     exit;
 }
 $response->send();

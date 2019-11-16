@@ -7,7 +7,7 @@
 
         this.on('click', function(e) {
           type = $(this).data('type') || type;//sc
-          var route_prefix = (options && options.prefix) ? options.prefix : '/{{ config('lfm.url_prefix') }}';
+          var route_prefix = (options && options.prefix) ? options.prefix : '{{ route('admin.home').'/'.config('lfm.url_prefix') }}';
           var target_input = $('#' + $(this).data('input'));
           var target_preview = $('#' + $(this).data('preview'));
           window.open(route_prefix + '?type=' + type, '{{ trans('admin.file_manager') }}', 'width=900,height=600');
