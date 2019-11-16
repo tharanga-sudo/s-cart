@@ -304,5 +304,5 @@ return [
         'date'      => 'Thời gian',
         'view_all'  => 'Xem tất cả',
        ],
-
+    'extensions_more' =>'<a href="https://s-cart.org/extension.html" target=_new><i class="fa fa-download" aria-hidden="true"></i> Tải thêm TẠI ĐÂY</a>'
 ];

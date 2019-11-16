@@ -7,6 +7,7 @@
             <div class="box-header with-border">
                 <h2 class="box-title"></h2>
                 <div class="box-tools">
+                  {!! trans('admin.extensions_more') !!}
                 </div>
             </div>
             <!-- /.box-header -->

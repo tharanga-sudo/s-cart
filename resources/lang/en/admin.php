@@ -299,5 +299,6 @@ return [
   'date'      => 'Date',
   'view_all'  => 'View all',
  ],
+ 'extensions_more' =>'<a href="https://s-cart.org/extension.html" target=_new><i class="fa fa-download" aria-hidden="true"></i> Download more HERE</a>'
 
 ];
