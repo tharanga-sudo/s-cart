@@ -51,6 +51,11 @@ return [
     'created_at'            => 'Date',
     'qty'                   => 'Quantity',
     'search'                => 'Search order',
+    'success'               => [
+        'title' =>'Order success',
+        'msg' => 'Thank you for your purchase!',
+        'order_info' => 'Your order: #:order_id',
+    ],
     'send_mail'             => [
         'title'     => 'Email',
         'new_title' => 'NEW ORDER',

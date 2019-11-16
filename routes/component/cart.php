@@ -1,4 +1,5 @@
 <?php
+
 Route::get('/wishlist.html', 'ShopCart@wishlist')
 ->name('wishlist');
 Route::get('/wishlist_remove/{id}', 'ShopCart@removeItemWishlist')
@@ -30,3 +31,6 @@ Route::post('/checkout.html', 'ShopCart@processCart')
 
 Route::post('/order_add', 'ShopCart@addOrder')
 ->name('order.add');
+
+Route::get('/order-success.html', 'ShopCart@orderSuccess')
+->name('order.success');

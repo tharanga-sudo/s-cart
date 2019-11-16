@@ -712,6 +712,26 @@ class ShopCart extends GeneralController
 
         }
 
-        return redirect()->route('cart')->with('success', trans('order.success'));
+        return redirect()->route('order.success')->with('orderID', $orderID);
     }
+
+    /**
+     * Page order success
+     *
+     * @return  [type]  [return description]
+     */
+    public function orderSuccess(){
+
+        if(!session('orderID')) {
+            return redirect()->route('home');
+        }
+        return view(
+            'templates.' . sc_store('template') . '.shop_order_success',
+            [
+                'title' => trans('order.success.title'),
+                'layout_page' =>'shop_order_success',
+            ]
+        );
+    }
+
 }

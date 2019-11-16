@@ -580,7 +580,7 @@ class CreateShopTables extends Migration
             ['type' => '', 'code' => 'env', 'key' => 'ADMIN_NAME', 'value' => 'S-Cart System', 'sort' => '0', 'detail' => 'lang::env.ADMIN_NAME', 'store_id' => '1'],
             ['type' => '', 'code' => 'env', 'key' => 'ADMIN_TITLE', 'value' => 'S-Cart System', 'sort' => '0', 'detail' => 'lang::env.ADMIN_TITLE', 'store_id' => '1'],
             ['type' => '', 'code' => 'env', 'key' => 'ADMIN_LOGO', 'value' => 'S-Cart Admin', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOGO', 'store_id' => '1'],
-            ['type' => '', 'code' => 'env', 'key' => 'ADMIN_LOGO_MINI', 'value' => '<img src="/data/logo/favicon.png">', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOGO_MINI', 'store_id' => '1'],
+            ['type' => '', 'code' => 'env', 'key' => 'ADMIN_LOGO_MINI', 'value' => '<i class="fa fa-map-o" aria-hidden="true"></i>', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOGO_MINI', 'store_id' => '1'],
 
         ]);
         DB::table('admin_store')->insert(

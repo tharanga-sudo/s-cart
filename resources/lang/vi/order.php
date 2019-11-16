@@ -51,6 +51,11 @@ return [
  'created_at'            => 'Ngày tạo',
  'qty'                   => 'Số lượng',
  'search'                => 'Tìm kiếm đơn hàng',
+ 'success'               => [
+     'title' =>'Đơn hàng thành công',
+     'msg' => 'Cảm ơn vì đơn hàng của bạn!',
+     'order_info' => 'Đơn hàng của bạn: #:order_id',
+ ],
  'send_mail'             => [
   'title'     => 'Email',
   'new_title' => 'ĐƠN HÀNG MỚI',
