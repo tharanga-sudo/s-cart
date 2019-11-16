@@ -201,10 +201,10 @@
 <script type="text/javascript">
 $('textarea.editor').ckeditor(
     {
-        filebrowserImageBrowseUrl: '/{{ config('lfm.url_prefix') }}?type=page',
-        filebrowserImageUploadUrl: '/{{ config('lfm.url_prefix') }}/upload?type=page&_token={{csrf_token()}}',
-        filebrowserBrowseUrl: '/{{ config('lfm.url_prefix') }}?type=Files',
-        filebrowserUploadUrl: '/{{ config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
+        filebrowserImageBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=page',
+        filebrowserImageUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=page&_token={{csrf_token()}}',
+        filebrowserBrowseUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}?type=Files',
+        filebrowserUploadUrl: '{{ route('admin.home').'/'.config('lfm.url_prefix') }}/upload?type=file&_token={{csrf_token()}}',
         filebrowserWindowWidth: '900',
         filebrowserWindowHeight: '500'
     }
