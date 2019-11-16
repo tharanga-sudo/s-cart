@@ -42,7 +42,7 @@
                                                 {{ $errors->first('image') }}
                                             </span>
                                         @endif
-                                    <div id="preview_image" class="img_holder"><img src="{{ old('image',$banner['image']??'') }}"></div>
+                                    <div id="preview_image" class="img_holder"><img src="{{ asset(old('image',$banner['image']??'')) }}"></div>
                                 </div>
                             </div>
 
