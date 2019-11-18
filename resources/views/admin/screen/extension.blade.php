@@ -32,40 +32,40 @@
                       <td colspan="5" style="text-align: center;color: red;">{{ trans('Extensions/language.empty') }}</td>
                     </tr>
                   @else
-                  @foreach ($extensions as $key => $extension)
+                  @foreach ($extensions as $codeExtension => $extensionClassName)
                   @php
-                    $extensionClassName = $namespace.'\\'.$extension;
-                    $extensionClass = new $extensionClassName;
-                    if(!array_key_exists($extension, $extensionsInstalled->toArray())){
+                    $classConfig = $extensionClassName.'\\AppConfig';
+                    $extensionClass = new $classConfig;
+                    if(!array_key_exists($codeExtension, $extensionsInstalled->toArray())){
                       $extensionStatusTitle = trans('Extensions/language.not_install');
-                      $extensionAction = '<span onClick="installExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.install').'" type="button" class="btn btn-flat btn-success"><i class="fa fa-plus-circle"></i></span>';
+                      $extensionAction = '<span onClick="installExtension($(this),\''.$codeExtension.'\');" title="'.trans('Extensions/language.install').'" type="button" class="btn btn-flat btn-success"><i class="fa fa-plus-circle"></i></span>';
                     }else{
-                      if($extensionsInstalled[$extension]['value']){
+                      if($extensionsInstalled[$codeExtension]['value']){
                         $extensionStatusTitle = trans('Extensions/language.actived');
-                        $extensionAction ='<span onClick="disableExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.disable').'" type="button" class="btn btn-flat btn-warning btn-flat"><i class="fa fa-power-off"></i></span>&nbsp;';
+                        $extensionAction ='<span onClick="disableExtension($(this),\''.$codeExtension.'\');" title="'.trans('Extensions/language.disable').'" type="button" class="btn btn-flat btn-warning btn-flat"><i class="fa fa-power-off"></i></span>&nbsp;';
                           if($extensionClass->config()){
-                            $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$extension.'"><span title="'.trans('Extensions/language.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
+                            $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$codeExtension.'"><span title="'.trans('Extensions/language.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
-                              $extensionAction .='<span onClick="uninstallExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                              $extensionAction .='<span onClick="uninstallExtension($(this),\''.$codeExtension.'\');" title="'.trans('Extensions/language.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
                       }else{
                         $extensionStatusTitle = trans('Extensions/language.disabled');
-                        $extensionAction = '<span onClick="enableExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.enable').'" type="button" class="btn btn-flat btn-primary"><i class="fa fa-paper-plane"></i></span>&nbsp;';
+                        $extensionAction = '<span onClick="enableExtension($(this),\''.$codeExtension.'\');" title="'.trans('Extensions/language.enable').'" type="button" class="btn btn-flat btn-primary"><i class="fa fa-paper-plane"></i></span>&nbsp;';
                           if($extensionClass->config()){
-                            $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$extension.'"><span title="'.trans('Extensions/language.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
+                            $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$codeExtension.'"><span title="'.trans('Extensions/language.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
                               $extensionAction .='
-                              <span onClick="uninstallExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                              <span onClick="uninstallExtension($(this),\''.$codeExtension.'\');" title="'.trans('Extensions/language.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
                       }
                     }
                   @endphp
                     <tr>
                       <td>{!! sc_image_render($extensionClass->image,'50px') !!}</td>
-                      <td>{{ $extension }}</td>
+                      <td>{{ $codeExtension }}</td>
                       <td>{{ $extensionClass->title }}</td>
                       <td>{{ $extensionClass->version??'' }}</td>
                       <td>{{ $extensionClass->auth??'' }}</td>
                       <td>{{ $extensionClass->link??'' }}</td>
-                      <td>{{ $extensionsInstalled[$extension]['sort']??'' }}</td>
+                      <td>{{ $extensionsInstalled[$codeExtension]['sort']??'' }}</td>
                       <td>{{ $extensionStatusTitle }}</td>
                       <td>{!! $extensionAction !!}</td>
                     </tr>

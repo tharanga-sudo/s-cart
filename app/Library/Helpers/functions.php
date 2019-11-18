@@ -1,4 +1,5 @@
 <?php
+
 use App\Library\Helper;
 use App\Models\AdminConfig;
 use App\Models\AdminStore;
@@ -9,9 +10,11 @@ use App\Models\ShopLink;
 /*
 Get extension in group
  */
+
 if (!function_exists('sc_get_extension')) {
     function sc_get_extension($group, $onlyActive = true)
     {
+        $group = sc_word_format_class($group);
         return AdminConfig::getExtensionsGroup($group, $onlyActive);
     }
 }
@@ -73,7 +76,8 @@ if (!function_exists('sc_word_format_url')) {
         return strtolower(preg_replace(
             array('/[\'\/~`\!@#\$%\^&\*\(\)\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', '/[\s-]+|[-\s]+|[--]+/', '/^[-\s_]|[-_\s]$/'),
             array('', '-', ''),
-            strtolower($str)));
+            strtolower($str)
+        ));
     }
 }
 
@@ -274,7 +278,14 @@ Render block
 if (!function_exists('sc_block_render')) {
     function sc_block_render($nameSpace)
     {
-        return \App\Library\FindClass::renderClass($nameSpace);
+        $fullNameSpace = '\\App\Plugins\Modules\Block\Controlers\\' . $nameSpace;
+        if (class_exists($fullNameSpace)) {
+            $class = (new $fullNameSpace);
+            if (method_exists($class, 'render')) {
+                return $class->render();
+            }
+        }
+        return false;
     }
 }
 
@@ -297,9 +308,9 @@ if (!function_exists('sc_zip')) {
                         foreach ($files as $file) {
                             $file = str_replace('\\', '/', realpath($file));
                             if (is_dir($file)) {
-                                $zip->addEmptyDir(str_replace($source.'/', '', $file . '/'));
+                                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
                             } else if (is_file($file)) {
-                                $zip->addFromString(str_replace($source.'/', '', $file), file_get_contents($file));
+                                $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
                             }
                         }
                     } else if (is_file($source)) {
@@ -311,15 +322,120 @@ if (!function_exists('sc_zip')) {
         }
         return false;
     }
-
-    /*
+}
+/*
     Get locale
     */
-    if (!function_exists('sc_get_locale')) {
-        function sc_get_locale()
-        {
-            return app()->getLocale();
-        }
+if (!function_exists('sc_get_locale')) {
+    function sc_get_locale()
+    {
+        return app()->getLocale();
     }
+}
 
+
+if (!function_exists('sc_get_array_namespace_plugin')) {
+    /**
+     * Get class plugin
+     *
+     * @param   [string]  $group  Extentions,Modules
+     * @param   [string]  $code  Payment, Shipping
+     *
+     * @return  [array] 
+     */
+    function sc_get_array_namespace_plugin($group, $code)
+    {
+        $group = sc_word_format_class($group);
+        $code = sc_word_format_class($code);
+        $arrClass = [];
+        $dirs = array_filter(glob(app_path() . '/Plugins/' . $group . '/' . $code . '/*'), 'is_dir');
+        if ($dirs) {
+            foreach ($dirs as $dir) {
+                $tmp = explode('/', $dir);
+                $nameSpace = '\App\Plugins\\' . $group . '\\' . $code . '\\' . end($tmp);
+                $nameSpaceConfig = $nameSpace . '\\AppConfig';
+                if (file_exists($dir . '/AppConfig.php') && class_exists($nameSpaceConfig)) {
+                    $arrClass[end($tmp)] = $nameSpace;
+                }
+            }
+        }
+        return $arrClass;
+    }
+}
+
+/*
+    Get class payment config
+    */
+if (!function_exists('sc_get_class_payment_config')) {
+    function sc_get_class_payment_config($paymentMethod)
+    {
+        $paymentMethod = sc_word_format_class($paymentMethod);
+        $class = '\App\Plugins\Extensions\Payment\\' . $paymentMethod . '\AppConfig';
+        return $class;
+    }
+}
+
+/*
+    Get class payment controller
+    */
+if (!function_exists('sc_get_class_payment_controller')) {
+    function sc_get_class_payment_controller($paymentMethod)
+    {
+        $paymentMethod = sc_word_format_class($paymentMethod);
+        $nameSpace = '\App\Plugins\Extensions\Payment\\' . $paymentMethod;
+        $class = $nameSpace . '\Controllers\\' . $paymentMethod . 'Controller';
+        return $class;
+    }
+}
+
+/*
+    Get class shipping config
+    */
+if (!function_exists('sc_get_class_shipping_config')) {
+    function sc_get_class_shipping_config($shippingMethod)
+    {
+        $shippingMethod = sc_word_format_class($shippingMethod);
+        $class = '\App\Plugins\Extensions\Shipping\\' . $shippingMethod . '\AppConfig';
+        return $class;
+    }
+}
+
+/*
+    Get class shipping controller
+    */
+if (!function_exists('sc_get_class_shipping_controller')) {
+    function sc_get_class_shipping_controller($shippingMethod)
+    {
+        $shippingMethod = sc_word_format_class($shippingMethod);
+        $nameSpace = '\App\Plugins\Extensions\Shipping\\' . $shippingMethod;
+        $class = $nameSpace . '\Controllers\\' . $shippingMethod . 'Controller';
+        return $class;
+    }
+}
+
+
+
+/*
+    Get class total config
+    */
+if (!function_exists('sc_get_class_total_config')) {
+    function sc_get_class_total_config($totalMethod)
+    {
+        $totalMethod = sc_word_format_class($totalMethod);
+        $class = '\App\Plugins\Extensions\Total\\' . $totalMethod . '\AppConfig';
+        return $class;
+    }
+}
+
+/*
+    Get class total controller
+    */
+if (!function_exists('sc_get_class_total_controller')) {
+    function sc_get_class_total_controller($totalMethod)
+    {
+        $totalMethod = sc_word_format_class($totalMethod);
+        $nameSpace = '\App\Plugins\Extensions\Total\\' . $totalMethod;
+        $class = $nameSpace . '\Controllers\\' . $totalMethod . 'Controller';
+        return $class;
+    }
 }

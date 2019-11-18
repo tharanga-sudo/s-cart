@@ -21,12 +21,12 @@ class ShopOrderTotal extends Model
     const PAID = 2;
     const NEED_REFUND = 3;
 
-/**
- * [processDataTotal description]
- * @param  array      $objects  [description]
- * @param  float|null $subtotal [description]
- * @return [type]               [description]
- */
+    /**
+     * [processDataTotal description]
+     * @param  array      $objects  [description]
+     * @param  float|null $subtotal [description]
+     * @return [type]               [description]
+     */
     public static function processDataTotal(array $objects = [])
     {
         $subtotal = sc_currency_sumcart(Cart::content());
@@ -53,7 +53,6 @@ class ShopOrderTotal extends Model
             } else {
                 unset($objects[$key]);
             }
-
         }
         $arrayTotal = array(
             'title' => trans('order.totals.total'),
@@ -70,7 +69,7 @@ class ShopOrderTotal extends Model
         usort($objects, function ($a, $b) {
             return $a['sort'] > $b['sort'];
         });
-//
+        //
 
         return $objects;
     }
@@ -96,7 +95,7 @@ class ShopOrderTotal extends Model
         $arrShipping = [];
         $shippingMethod = session('shippingMethod') ?? '';
         if ($shippingMethod) {
-            $moduleClass = '\App\Extensions\Shipping\Controllers\\' . $shippingMethod;
+            $moduleClass = sc_get_class_shipping_config($shippingMethod);
             $returnModuleShipping = (new $moduleClass)->getData();
             $arrShipping = [
                 'title' => $returnModuleShipping['title'],
@@ -114,7 +113,7 @@ class ShopOrderTotal extends Model
         $arrPayment = [];
         $paymentMethod = session('paymentMethod') ?? '';
         if ($paymentMethod) {
-            $moduleClass = '\App\Extensions\Payment\Controllers\\' . $paymentMethod;
+            $moduleClass = sc_get_class_payment_config($paymentMethod);
             $returnModulePayment = (new $moduleClass)->getData();
             $arrPayment = [
                 'title' => $returnModulePayment['title'],
@@ -135,7 +134,7 @@ class ShopOrderTotal extends Model
             'sort' => self::POSITION_DISCOUNT,
         );
         if (!empty(sc_config('Discount'))) {
-            $moduleClass = '\App\Extensions\Total\Controllers\Discount';
+            $moduleClass = sc_get_class_total_config('Discount');
             $returnModuleDiscount = (new $moduleClass)->getData();
             $arrDiscount = [
                 'title' => $returnModuleDiscount['title'],
@@ -160,11 +159,11 @@ class ShopOrderTotal extends Model
         );
     }
 
-/**
- * Get item order total, then re-sort
- * @param  [int] $order_id [description]
- * @return [array]           [description]
- */
+    /**
+     * Get item order total, then re-sort
+     * @param  [int] $order_id [description]
+     * @return [array]           [description]
+     */
     public static function getTotal($order_id)
     {
         $objects = self::where('order_id', $order_id)->get()->toArray();
@@ -174,12 +173,12 @@ class ShopOrderTotal extends Model
         return $objects;
     }
 
-/**
- * [updateSubTotal description]
- * @param  [type] $order_id [description]
- * @param  [type] $subtotal_value    [description]
- * @return [type]           [description]
- */
+    /**
+     * [updateSubTotal description]
+     * @param  [type] $order_id [description]
+     * @param  [type] $subtotal_value    [description]
+     * @return [type]           [description]
+     */
     public static function updateSubTotal($order_id, $subtotal_value)
     {
 
@@ -204,11 +203,15 @@ class ShopOrderTotal extends Model
             $order->save();
 
             //Update total
-            $updateTotal = self::where('order_id', $order_id)->where('code', 'total')->first();
+            $updateTotal = self::where('order_id', $order_id)
+                ->where('code', 'total')
+                ->first();
             $updateTotal->value = $total;
             $updateTotal->save();
             //Update Subtotal
-            $updateSubTotal = self::where('order_id', $order_id)->where('code', 'subtotal')->first();
+            $updateSubTotal = self::where('order_id', $order_id)
+                ->where('code', 'subtotal')
+                ->first();
             $updateSubTotal->value = $subtotal_value;
             $updateSubTotal->save();
 
@@ -216,14 +219,13 @@ class ShopOrderTotal extends Model
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-
     }
 
-/**
- * [updateField description]
- * @param  [type] $field [description]
- * @return [type]        [description]
- */
+    /**
+     * [updateField description]
+     * @param  [type] $field [description]
+     * @return [type]        [description]
+     */
     public static function updateField($field)
     {
         //Udate field
@@ -255,7 +257,9 @@ class ShopOrderTotal extends Model
         }
 
         //Update total
-        $updateTotal = self::where('order_id', $order_id)->where('code', 'total')->first();
+        $updateTotal = self::where('order_id', $order_id)
+            ->where('code', 'total')
+            ->first();
         $updateTotal->value = $total;
         $updateTotal->save();
 

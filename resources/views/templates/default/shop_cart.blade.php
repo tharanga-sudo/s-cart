@@ -330,7 +330,7 @@ $('#submit-order').click(function(){
         $('#coupon-button').button('loading');
         setTimeout(function() {
             $.ajax({
-                url: '{{ route('useDiscount') }}',
+                url: '{{ route('discount.process') }}',
                 type: 'POST',
                 dataType: 'json',
                 data: {
@@ -365,7 +365,7 @@ $('#submit-order').click(function(){
     });
     $('#removeCoupon').click(function() {
             $.ajax({
-                url: '{{ route('removeDiscount') }}',
+                url: '{{ route('discount.remove') }}',
                 type: 'POST',
                 dataType: 'json',
                 data: {

@@ -1,4 +1,13 @@
 <?php
+
+//Admin route config
+define('SC_ADMIN_GROUP', 
+    [
+        'middleware' => ['web', 'admin', 'localization'],
+        'namespace' => 'App\Admin\Controllers',
+        'prefix' => config('app.admin_prefix'),
+    ]
+);
 //Product kind
 define('SC_PRODUCT_SINGLE', 0);
 define('SC_PRODUCT_BUILD', 1);
@@ -22,3 +31,9 @@ define('SC_GUARD_CURRENCY', ['1', '2']);
 define('SC_GUARD_ROLES', ['1', '2']);
 // list ID Page guard
 define('SC_GUARD_PAGES', ['1', '2']);
+
+/**
+ * Admin define
+ */
+define('SC_ADMIN_MIDDLEWARE', ['web', 'admin', 'localization']);
+define('SC_ADMIN_PREFIX', config('app.admin_prefix'));

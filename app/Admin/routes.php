@@ -1,10 +1,14 @@
 <?php
+
 use Illuminate\Routing\Router;
-Route::group([
-    'middleware' => ['web', 'admin', 'localization'],
-    'namespace' => 'App\Admin\Controllers',
-    'prefix' => config('app.admin_prefix'),
-], function (Router $router) {
+
+Route::group(
+    [
+        'prefix' => SC_ADMIN_PREFIX,
+        'middleware' => SC_ADMIN_MIDDLEWARE,
+        'namespace' => 'App\Admin\Controllers'
+    ], 
+    function (Router $router) {
     foreach (glob(__DIR__ . '/Routes/*.php') as $filename) {
         require_once $filename;
     }
@@ -16,5 +20,4 @@ Route::group([
         session(['locale' => $code]);
         return back();
     })->name('admin.locale');
-
 });

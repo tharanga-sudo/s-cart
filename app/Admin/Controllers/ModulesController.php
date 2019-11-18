@@ -16,9 +16,9 @@ class ModulesController extends Controller
     public function __construct()
     {
         $this->namespaceGroup = [
-            'Cms' => '\App\Modules\Cms\Controllers',
-            'Other' => '\App\Modules\Other\Controllers',
-            'Block' => '\App\Modules\Block\Controllers',
+            'Cms' => '\App\Modules\Cms',
+            'Other' => '\App\Modules\Other',
+            'Block' => '\App\Modules\Block',
         ];
 
     }
@@ -32,18 +32,16 @@ class ModulesController extends Controller
     {
         $group = sc_word_format_class($group);
         $modulesInstalled = sc_get_extension($group, $onlyActive = false);
-        $modules = \FindClass::classNames('Modules', $group);
-        $namespace = $this->namespaceGroup[$group];
-        $title = trans('Modules/language.' . $group);
-        return $this->render($modulesInstalled, $modules, $namespace, $title, $group);
+        $modules = sc_get_array_namespace_plugin('Modules', $group);
+        $title = trans('admin.module_manager.' . $group);
+        return $this->render($modulesInstalled, $modules,  $title, $group);
     }
 
-    public function render($modulesInstalled, $modules, $namespace, $title, $group)
+    public function render($modulesInstalled, $modules, $title, $group)
     {
         return view('admin.screen.module')->with(
             [
                 "title" => $title,
-                "namespace" => $namespace,
                 "modulesInstalled" => $modulesInstalled,
                 "modules" => $modules,
                 "group" => $group,
@@ -56,7 +54,7 @@ class ModulesController extends Controller
         $group = request('group');
         $group = sc_word_format_class($group);
         $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
+        $class = $namespace . '\\' . $key.'\\AppConfig';
         $response = (new $class)->install();
         return json_encode($response);
     }
@@ -66,7 +64,7 @@ class ModulesController extends Controller
         $group = request('group');
         $group = sc_word_format_class($group);
         $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
+        $class = $namespace . '\\' . $key.'\\AppConfig';
         $response = (new $class)->uninstall();
         return json_encode($response);
     }
@@ -76,7 +74,7 @@ class ModulesController extends Controller
         $group = request('group');
         $group = sc_word_format_class($group);
         $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
+        $class = $namespace . '\\' . $key.'\\AppConfig';
         $response = (new $class)->enable();
         return json_encode($response);
     }
@@ -86,7 +84,7 @@ class ModulesController extends Controller
         $group = request('group');
         $group = sc_word_format_class($group);
         $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
+        $class = $namespace . '\\' . $key.'\\AppConfig';
         $response = (new $class)->disable();
         return json_encode($response);
     }
@@ -95,7 +93,7 @@ class ModulesController extends Controller
         $data = request()->all();
         $group = sc_word_format_class($group);
         $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
+        $class = $namespace . '\\' . $key.'\\AppConfig';
         $response = (new $class)->processConfig($data);
         return json_encode($response);
     }

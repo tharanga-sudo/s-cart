@@ -15,7 +15,7 @@ class ScartServiceProvider extends ServiceProvider
     {
         $this->bootScart();
     }
-//
+
     /**
      * Register services.
      *
@@ -51,12 +51,13 @@ class ScartServiceProvider extends ServiceProvider
                 config(['mail.password' => $smtpPassword]);
             }
 
-            config(['mail.from' =>
-                [
-                    'address' => sc_store('email'),
-                    'name' => sc_store('title'),
-                ],
-            ]
+            config(
+                ['mail.from' =>
+                    [
+                        'address' => sc_store('email'),
+                        'name' => sc_store('title'),
+                    ],
+                ]
             );
             //email
 
