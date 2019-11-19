@@ -1,6 +1,6 @@
 <?php
 #App\Plugins\Modules\Cms\Content\Controllers\ContentController.php
-namespace App\Plugins\Moduless\Cms\Content\Controllers;
+namespace App\Plugins\Modules\Cms\Content\Controllers;
 
 use App\Plugins\Modules\Cms\Content\Models\CmsCategory;
 use App\Plugins\Modules\Cms\Content\Models\CmsContent;
@@ -14,8 +14,10 @@ class ContentController extends GeneralController
 public function category($name, $id)
 {
     $category_currently = CmsCategory::find($id);
-    $entries = (new CmsCategory)->getContentsToCategory($id, $limit = sc_config('product_new'), $opt = 'paginate');
-    return view('Modules/Cms/Content':'cms_category',
+    $entries = (new CmsCategory)
+        ->getContentsToCategory($id, $limit = sc_config('product_new'), $opt = 'paginate');
+    return view(
+        'Modules/Cms/Content::cms_category',
         array(
             'title' => $category_currently['title'],
             'description' => $category_currently['description'],

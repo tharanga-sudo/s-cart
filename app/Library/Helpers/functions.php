@@ -449,3 +449,22 @@ if (!function_exists('sc_get_class_total_controller')) {
         return $class;
     }
 }
+
+
+    /**
+     * Get namespace module
+     *
+     * @param   [string]  $code  Block, Cms,..
+     * @param   [string]  $key  Content,..
+     *
+     * @return  [array] 
+     */
+    if (!function_exists('sc_get_module_namespace')) {
+        function sc_get_module_namespace($code, $key)
+        {
+            $code = sc_word_format_class($code);
+            $key = sc_word_format_class($key);
+            $nameSpace = '\App\Plugins\Modules\\'.$code.'\\' . $key;
+            return $nameSpace;
+        }
+    }
