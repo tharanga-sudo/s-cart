@@ -16,9 +16,9 @@ class ModulesController extends Controller
     public function __construct()
     {
         $this->namespaceGroup = [
-            'Cms' => '\App\Modules\Cms',
-            'Other' => '\App\Modules\Other',
-            'Block' => '\App\Modules\Block',
+            'Cms' => '\App\Plugins\Modules\Cms',
+            'Other' => '\App\Plugins\Modules\Other',
+            'Block' => '\App\Plugins\Modules\Block',
         ];
 
     }

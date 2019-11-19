@@ -13,10 +13,10 @@ class ExtensionsController extends Controller
     public function __construct()
     {
         $this->namespaceGroup = [
-            'Shipping' => '\App\Extensions\Shipping',
-            'Payment' => '\App\Extensions\Payment',
-            'Total' => '\App\Extensions\Total',
-            'Other' => '\App\Extensions\Other',
+            'Shipping' => '\App\Plugins\Extensions\Shipping',
+            'Payment' => '\App\Plugins\Extensions\Payment',
+            'Total' => '\App\Plugins\Extensions\Total',
+            'Other' => '\App\Plugins\Extensions\Other',
         ];
 
     }
