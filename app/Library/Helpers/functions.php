@@ -487,7 +487,7 @@ if (!function_exists('sc_get_class_total_controller')) {
         {
             $code = sc_word_format_class($code);
             $key = sc_word_format_class($key);
-            $nameSpace = '\App\Plugins\Extension\\'.$code.'\\' . $key;
+            $nameSpace = '\App\Plugins\Extensions\\'.$code.'\\' . $key;
             return $nameSpace;
         }
     }
