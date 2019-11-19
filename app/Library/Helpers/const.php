@@ -1,13 +1,5 @@
 <?php
 
-//Admin route config
-define('SC_ADMIN_GROUP', 
-    [
-        'middleware' => ['web', 'admin', 'localization'],
-        'namespace' => 'App\Admin\Controllers',
-        'prefix' => config('app.admin_prefix'),
-    ]
-);
 //Product kind
 define('SC_PRODUCT_SINGLE', 0);
 define('SC_PRODUCT_BUILD', 1);
