@@ -29,9 +29,8 @@ return [
         'select_page' => 'Chọn trang',
         'helper_html' => 'Basic HTML content.',
         'helper_view' => 'File trong thư mục "resources/views/block".',
-        'helper_module' => 'File trong "app/Modules/Block/Controllers". Module phải có hàm render().',
-        'sort_order' => [
-        ],
+        'helper_module' => 'File trong "app/Plugins/Modules/Block". Module phải có hàm render().',
+        'sort_order' => [],
 
     ],
 ];

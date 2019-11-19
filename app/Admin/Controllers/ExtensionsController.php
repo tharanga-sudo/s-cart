@@ -39,7 +39,7 @@ class ExtensionsController extends Controller
         $group = sc_word_format_class($group);
         $extensionsInstalled = sc_get_extension($group, $onlyActive = false);
         $extensions = sc_get_array_namespace_plugin('Extensions', $group);
-        $title = trans('Extensions/language.' . $group);
+        $title = trans('admin.extension_manager.' . $group);
         return $this->render($extensionsInstalled, $extensions, $title, $group);
     }
 

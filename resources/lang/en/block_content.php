@@ -30,7 +30,7 @@ return [
         'select_page' => 'Select page',
         'helper_html' => 'Basic HTML content.',
         'helper_view' => 'View files are in "resources/views/block" directory.',
-        'helper_module' => 'File in "app/Modules/Block/Controllers". Module must have render() method available to display content.',
+        'helper_module' => 'File in "app/Plugins/Modules/Block". Module must have render() method available to display content.',
 
         'search_place' => 'Search ID or email',
         'sort_order' => [

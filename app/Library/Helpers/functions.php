@@ -266,9 +266,19 @@ if (!function_exists('sc_token')) {
 Create write log
  */
 if (!function_exists('sc_log')) {
-    function sc_log($msg, $action = null)
+    function sc_log($msg, $type = null)
     {
-        \Illuminate\Support\Facades\Log::error($msg);
+        $arrType = [
+            'info',
+            'error',
+            'emergency',
+            'critical',
+            'warning',
+            'notice',
+            'debug'
+        ];
+        $type = in_array($type,$arrType)?$type:'error';
+        \Illuminate\Support\Facades\Log::{$type}($msg);
     }
 }
 
@@ -278,7 +288,7 @@ Render block
 if (!function_exists('sc_block_render')) {
     function sc_block_render($nameSpace)
     {
-        $fullNameSpace = '\\App\Plugins\Modules\Block\Controlers\\' . $nameSpace;
+        $fullNameSpace = '\\App\Plugins\Modules\Block\\'.$nameSpace.'\Controllers\\' . $nameSpace.'Controller';
         if (class_exists($fullNameSpace)) {
             $class = (new $fullNameSpace);
             if (method_exists($class, 'render')) {

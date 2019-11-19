@@ -1,6 +1,6 @@
 <?php
 #App\Plugins\Modules\Block\LastViewProduct\Controllers\LastViewProductController.php
-namespace App\Plugins\Moduless\Block\LastViewProduct\Controllers;
+namespace App\Plugins\Modules\Block\LastViewProduct\Controllers;
 use App\Models\ShopProduct;
 use App\Http\Controllers\GeneralController;
 class LastViewProductController extends GeneralController
@@ -12,7 +12,7 @@ class LastViewProductController extends GeneralController
      */
     public function render()
     {
-        if (!empty(sc_config($this->configKey))) {
+        if (!empty(sc_config('LastViewProduct'))) {
             $arrProductsLastView = array();
             $lastView = empty(\Cookie::get('productsLastView')) ? [] : json_decode(\Cookie::get('productsLastView'), true);
             if ($lastView) {
