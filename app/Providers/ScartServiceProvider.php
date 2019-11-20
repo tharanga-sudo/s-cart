@@ -33,6 +33,9 @@ class ScartServiceProvider extends ServiceProvider
     {
 
         try {
+            if (sc_config('LOG_SLACK_WEBHOOK_URL')) {
+                config(['logging.channels.slack.url' => sc_config('LOG_SLACK_WEBHOOK_URL')]);
+            }
             config(['app.name' => sc_store('title')]);
 
             //Config for  email
