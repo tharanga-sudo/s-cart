@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-
 class Handler extends ExceptionHandler
 {
     /**
@@ -36,6 +35,15 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+
+        $arrMsg = [
+            'message' => $exception->getMessage()??'',
+            'file' => $exception->getFile()??'',
+            'line' => $exception->getLine()??'',
+            'code' => $exception->getCode()??'',
+        ];
+        sc_report(json_encode($arrMsg));
+
         parent::report($exception);
     }
 

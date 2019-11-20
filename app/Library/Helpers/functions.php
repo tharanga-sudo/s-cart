@@ -7,8 +7,6 @@ use App\Models\ShopBlockContent;
 use App\Models\ShopLanguage;
 use App\Models\ShopLink;
 
-
-
 /*
 Get extension in group
  */
@@ -265,22 +263,22 @@ if (!function_exists('sc_token')) {
 }
 
 /*
-Create write log
+Handle report
  */
-if (!function_exists('sc_log')) {
-    function sc_log($msg, $type = null)
+if (!function_exists('sc_report')) {
+    function sc_report($msg, $method = null)
     {
-        $arrType = [
-            'info',
-            'error',
-            'emergency',
-            'critical',
-            'warning',
-            'notice',
-            'debug'
-        ];
-        $type = in_array($type,$arrType)?$type:'error';
-        \Illuminate\Support\Facades\Log::{$type}($msg);
+        $msg = date('Y-m-d H:i:s').':'.PHP_EOL.$msg.PHP_EOL;
+        switch ($method) {
+            case 'slack':
+                \Log::channel('slack')->info($msg);
+                break;
+            
+            default:
+                $pathLog = storage_path('logs/handle/'.date('Y-m-d').'.txt');
+                file_put_contents($pathLog, $msg);
+                break;
+        }
     }
 }
 
