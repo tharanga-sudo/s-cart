@@ -192,7 +192,7 @@ class CmsContentController extends Controller
             'url_action' => route('admin_cms_content.create'),
 
         ];
-        return view('Modules/Cms/Content::admin.cms_content')
+        return view('Modules/Cms/Content::Admin.cms_content')
             ->with($data);
     }
 
@@ -263,7 +263,7 @@ class CmsContentController extends Controller
             'categories' => (new CmsCategory)->getTreeCategories(),
             'url_action' => route('admin_cms_content.edit', ['id' => $content['id']]),
         ];
-        return view('Modules/Cms/Content::admin.cms_content')
+        return view('Modules/Cms/Content::Admin.cms_content')
             ->with($data);
     }
 

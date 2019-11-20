@@ -186,7 +186,7 @@ class CmsCategoryController extends Controller
             'url_action' => route('admin_cms_category.create'),
 
         ];
-        return view('Modules/Cms/Content::admin.cms_category')
+        return view('Modules/Cms/Content::Admin.cms_category')
             ->with($data);
     }
 
@@ -253,7 +253,7 @@ class CmsCategoryController extends Controller
             'categories' => (new CmsCategory)->getTreeCategories(),
             'url_action' => route('admin_cms_category.edit', ['id' => $category['id']]),
         ];
-        return view('Modules/Cms/Content::admin.cms_category')
+        return view('Modules/Cms/Content::Admin.cms_category')
             ->with($data);
     }
 
