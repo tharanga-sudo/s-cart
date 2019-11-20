@@ -266,19 +266,16 @@ if (!function_exists('sc_token')) {
 Handle report
  */
 if (!function_exists('sc_report')) {
-    function sc_report($msg, $method = null)
+    function sc_report($msg)
     {
         $msg = date('Y-m-d H:i:s').':'.PHP_EOL.$msg.PHP_EOL;
-        switch ($method) {
-            case 'slack':
-                \Log::channel('slack')->info($msg);
-                break;
-            
-            default:
-                $pathLog = storage_path('logs/handle/'.date('Y-m-d').'.txt');
-                file_put_contents($pathLog, $msg);
-                break;
+        if (sc_config('LOG_SLACK_WEBHOOK_URL')) {
+            \Log::channel('slack')->info($msg);
         }
+        $pathLog = storage_path('logs/handle/'.date('Y-m-d').'.txt');
+        $logFile = fopen($pathLog, "a+") or die("Unable to open file!");
+        fwrite($logFile, $msg);
+        fclose($logFile);
     }
 }
 

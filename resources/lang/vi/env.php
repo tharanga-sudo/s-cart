@@ -17,4 +17,5 @@ return [
     'field' => 'Biến môi trường',
     'value' => 'Giá trị',
     'title' => 'Cấu hình môi trường',
+    'LOG_SLACK_WEBHOOK_URL' => 'Thông báo lỗi tới Slack webhook',
 ];

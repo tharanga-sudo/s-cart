@@ -17,4 +17,5 @@ return [
     'field' => 'Field',
     'value' => 'Value',
     'title' => 'Config environment',
+    'LOG_SLACK_WEBHOOK_URL' => 'Report error to Slack webhook',
 ];
