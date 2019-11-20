@@ -18,4 +18,5 @@ return [
     'value' => 'Giá trị',
     'title' => 'Cấu hình môi trường',
     'LOG_SLACK_WEBHOOK_URL' => 'Thông báo lỗi tới Slack webhook',
+    'LOG_SLACK_WEBHOOK_URL_help' => 'Link https://hooks.slack.com/services/...',
 ];

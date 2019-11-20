@@ -270,7 +270,11 @@ if (!function_exists('sc_report')) {
     {
         $msg = date('Y-m-d H:i:s').':'.PHP_EOL.$msg.PHP_EOL;
         if (sc_config('LOG_SLACK_WEBHOOK_URL')) {
-            \Log::channel('slack')->info($msg);
+            try{
+                \Log::channel('slack')->info($msg);
+            }catch(\Exception $e){
+                //
+            }
         }
         $pathLog = storage_path('logs/handle/'.date('Y-m-d').'.txt');
         $logFile = fopen($pathLog, "a+") or die("Unable to open file!");

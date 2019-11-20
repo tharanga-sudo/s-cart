@@ -23,7 +23,7 @@ class ShopFront extends GeneralController
     {
         return view('templates.' . sc_store('template') . '.shop_home',
             array(
-                'products_new' => (new ShopProduct1)->getProducts($type = null, $limit = sc_config('product_new'), $opt = null),
+                'products_new' => (new ShopProduct)->getProducts($type = null, $limit = sc_config('product_new'), $opt = null),
                 'products_hot' => (new ShopProduct)->getProducts($type = SC_PRODUCT_HOT, $limit = sc_config('product_hot'), $opt = 'random'),
                 'categories' => (new ShopCategory)->getCategoriesAll(),
                 'products_build' => (new ShopProduct)->getTopBuild($limit = 4),

@@ -76,7 +76,7 @@
           </tr>
           <tr>
             <td>{{ trans('env.LOG_SLACK_WEBHOOK_URL') }}</td>
-            <td><a href="#" class="updateInfo editable editable-click" data-name="LOG_SLACK_WEBHOOK_URL" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.LOG_SLACK_WEBHOOK_URL') }}" data-value="{{ sc_config('LOG_SLACK_WEBHOOK_URL') }}" data-original-title="" title=""></a></td>
+            <td><a href="#" class="updateInfo editable editable-click" data-name="LOG_SLACK_WEBHOOK_URL" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.LOG_SLACK_WEBHOOK_URL_help') }}" data-value="{{ sc_config('LOG_SLACK_WEBHOOK_URL') }}" data-original-title="" title=""></a></td>
           </tr>
           
 
