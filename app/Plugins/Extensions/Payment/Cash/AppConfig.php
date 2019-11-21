@@ -2,27 +2,15 @@
 #App\Plugins\Extensions\Payment\Cash\AppConfig.php
 namespace App\Plugins\Extensions\Payment\Cash;
 
-use App\Plugins\Extensions\ExtensionDefault;
 use App\Models\AdminConfig;
-use App\Http\Controllers\Controller;
-class AppConfig extends Controller
+use App\Plugins\Extensions\ConfigDefault;
+class AppConfig extends ConfigDefault
 {
-    use ExtensionDefault;
 
     protected $configGroup = 'Extensions';
     protected $configCode = 'Payment';
     protected $configKey = 'Cash';
 
-    public $title;
-    public $image;
-    public $version;
-    public $auth;
-    public $link;
-    public $pathExtension = '';
-    const ALLOW = 1;
-    const DENIED = 0;
-    const ON = 1;
-    const OFF = 0;
     public function __construct()
     {
         $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
@@ -33,19 +21,6 @@ class AppConfig extends Controller
         $this->link = 'https://s-cart.org';
     }
 
-    public function processData()
-    {
-        $arrData = [
-            'title' => $this->title,
-            'code' => $this->configKey,
-            'image' => $this->image,
-            'permission' => self::ALLOW,
-            'version' => $this->version,
-            'auth' => $this->auth,
-            'link' => $this->link,
-        ];
-        return $arrData;
-    }
 
     public function install()
     {
@@ -99,5 +74,18 @@ class AppConfig extends Controller
         return $return;
     }
 
+    public function getData()
+    {
+        $arrData = [
+            'title' => $this->title,
+            'code' => $this->configKey,
+            'image' => $this->image,
+            'permission' => self::ALLOW,
+            'version' => $this->version,
+            'auth' => $this->auth,
+            'link' => $this->link,
+        ];
+        return $arrData;
+    }
 
 }

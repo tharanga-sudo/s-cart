@@ -7,7 +7,7 @@ use App\Models\ShopBlockContent;
 use App\Models\ShopLayoutPage;
 use App\Models\ShopLayoutPosition;
 use App\Models\ShopLayoutType;
-use Illuminate\Http\Request;
+use App\Models\AdminConfig;
 use Validator;
 
 class ShopBlockContentController extends Controller
@@ -280,6 +280,14 @@ class ShopBlockContentController extends Controller
     public function getListModuleBlock()
     {
         $arrModule = array_keys(sc_get_array_namespace_plugin('Modules', 'Block'));
+        $modulesInstalled = AdminConfig::where('group', 'Modules')
+            ->where('code', 'Block')
+            ->pluck('key')->toArray();
+            foreach ($arrModule as $key => $module) {
+                if(!in_array($module, $modulesInstalled)){
+                    unset($arrModule[$key]);
+                }
+            }
         return $arrModule;
     }
 }

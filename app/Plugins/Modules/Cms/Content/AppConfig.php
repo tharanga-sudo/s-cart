@@ -9,24 +9,14 @@ use App\Plugins\Modules\Cms\Content\Models\CmsCategoryDescription;
 use App\Plugins\Modules\Cms\Content\Models\CmsContent;
 use App\Plugins\Modules\Cms\Content\Models\CmsContentDescription;
 use App\Plugins\Modules\Cms\Content\Models\CmsImage;
-use App\Plugins\Modules\ModuleDefault;
-use App\Http\Controllers\Controller;
-class AppConfig extends Controller
+use App\Plugins\Modules\ConfigDefault;
+class AppConfig extends ConfigDefault
 {
-    use ModuleDefault;
 
     protected $configGroup = 'Modules';
     protected $configCode = 'Cms';
     protected $configKey = 'Content';
 
-    public $title;
-    public $pathExtension = '';
-    public $version;
-    public $auth;
-    public $link;
-    public $image;
-    const ON = 1;
-    const OFF = 0;
     public function __construct()
     {
         $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
@@ -113,6 +103,7 @@ class AppConfig extends Controller
 
         return $return;
     }
+
     public function enable()
     {
         $return = ['error' => 0, 'msg' => ''];
@@ -122,6 +113,7 @@ class AppConfig extends Controller
         }
         return $return;
     }
+
     public function disable()
     {
         $return = ['error' => 0, 'msg' => ''];
@@ -132,7 +124,7 @@ class AppConfig extends Controller
         return $return;
     }
 
-    public function processData()
+    public function getData()
     {
         $arrData = [
             'title' => $this->title,

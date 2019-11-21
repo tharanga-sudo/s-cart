@@ -6,22 +6,14 @@ use App\Models\AdminConfig;
 use App\Models\ShopBlockContent;
 use App\Plugins\Modules\ModuleDefault;
 use App\Http\Controllers\Controller;
-class AppConfig extends Controller
+use App\Plugins\Modules\ConfigDefault;
+class AppConfig extends ConfigDefault
 {
-    use ModuleDefault;
 
     protected $configGroup = 'Modules';
     protected $configCode = 'Block';
     protected $configKey = 'LastViewProduct';
-    protected $namespace = '';
-    public $pathExtension = '';
-    public $title;
-    public $version;
-    public $auth;
-    public $link;
-    public $image;
-    const ON = 1;
-    const OFF = 0;
+
     public function __construct()
     {
         $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
@@ -48,7 +40,6 @@ class AppConfig extends Controller
                     'detail' => $this->pathExtension.'::'.$this->configKey . '.title',
                 ]
             );
-            $this->processDefault();
             if (!$process) {
                 $return = ['error' => 1, 'msg' => 'Error when install'];
             }
@@ -66,7 +57,8 @@ class AppConfig extends Controller
             $return = ['error' => 1, 'msg' => 'Error when uninstall'];
         }
         (new ShopBlockContent)
-            ->where('text', $this->namespace)
+            ->where('type', 'module')
+            ->where('text', $this->configKey)
             ->delete();
         return $return;
     }
@@ -93,9 +85,7 @@ class AppConfig extends Controller
         return $return;
     }
 
-//=======================
-
-    public function processData()
+    public function getData()
     {
         $arrData = [
             'title' => $this->title,
@@ -106,21 +96,4 @@ class AppConfig extends Controller
         ];
         return $arrData;
     }
-
-    public function processDefault()
-    {
-        return $process = ShopBlockContent::insert(
-            [
-                'name' => $this->title,
-                'position' => 'left',
-                'page' => '',
-                'group' => 'module',
-                'text' => $this->namespace,
-                'status' => self::ON, //1- Enable extension; 0 - Disable
-                'sort' => 0,
-            ]
-        );
-
-    }
-
 }

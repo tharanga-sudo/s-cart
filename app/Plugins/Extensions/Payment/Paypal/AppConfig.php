@@ -2,27 +2,15 @@
 #App\Plugins\Extensions\Payment\Paypal\AppConfig.php
 namespace App\Plugins\Extensions\Payment\Paypal;
 
-use App\Plugins\Extensions\ExtensionDefault;
 use App\Models\AdminConfig;
 use App\Models\ShopOrderStatus;
-use App\Http\Controllers\Controller;
-class AppConfig extends Controller
+use App\Plugins\Extensions\ConfigDefault;
+class AppConfig extends ConfigDefault
 {
-    use ExtensionDefault;
 
     protected $configGroup = 'Extensions';
     protected $configCode = 'Payment';
     protected $configKey = 'Paypal';
-    public $title;
-    public $version;
-    public $auth;
-    public $link;
-    public $image;
-    public $pathExtension = '';
-    const ALLOW = 1;
-    const DENIED = 0;
-    const ON = 1;
-    const OFF = 0;
     const ORDER_STATUS_PROCESSING = 2;
     const ORDER_STATUS_FAILD = 6;
 
@@ -34,20 +22,6 @@ class AppConfig extends Controller
         $this->version = '2.0';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
-    }
-
-    public function processData()
-    {
-        $arrData = [
-            'title' => $this->title,
-            'code' => $this->configKey,
-            'image' => $this->image,
-            'permission' => self::ALLOW,
-            'version' => $this->version,
-            'auth' => $this->auth,
-            'link' => $this->link,
-        ];
-        return $arrData;
     }
 
     public function install()
@@ -201,5 +175,20 @@ class AppConfig extends Controller
         }
         return $return;
     }
+
+    public function getData()
+    {
+        $arrData = [
+            'title' => $this->title,
+            'code' => $this->configKey,
+            'image' => $this->image,
+            'permission' => self::ALLOW,
+            'version' => $this->version,
+            'auth' => $this->auth,
+            'link' => $this->link,
+        ];
+        return $arrData;
+    }
+
 
 }

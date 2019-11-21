@@ -2,28 +2,17 @@
 #App\Plugins\Extensions\Total\Discount\AppConfig.php
 namespace App\Plugins\Extensions\Total\Discount;
 
-use App\Plugins\Extensions\ExtensionDefault;
 use App\Plugins\Extensions\Total\Discount\Models\DiscountModel;
 use App\Plugins\Extensions\Total\Discount\Controllers\DiscountController;
 use App\Models\AdminConfig;
-use App\Http\Controllers\Controller;
-class AppConfig extends Controller
+use App\Plugins\Extensions\ConfigDefault;
+class AppConfig extends ConfigDefault
 {
-    use ExtensionDefault;
 
     protected $configKey = 'Discount';
     protected $configCode = 'Total';
     protected $configGroup = 'Extensions';
-    public $title;
-    public $version;
-    public $auth;
-    public $link;
-    public $image;
-    public $pathExtension = '';
-    const ALLOW = 1;
-    const DENIED = 0;
-    const ON = 1;
-    const OFF = 0;
+
     protected $discountService;
     public function __construct()
     {
@@ -40,44 +29,6 @@ class AppConfig extends Controller
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
 
-    }
-
-    public function processData()
-    {
-        $uID = auth()->user()->id ?? 0;
-        $arrData = [
-            'title' => $this->title,
-            'code' => $this->configKey,
-            'image' => $this->image,
-            'permission' => self::ALLOW,
-            'value' => 0,
-            'version' => $this->version,
-            'auth' => $this->auth,
-            'link' => $this->link,
-        ];
-
-        $Discount = session('Discount');
-        $check = json_decode($this->discountService->check($Discount, $uID), true);
-        if (!empty($Discount) && !$check['error']) {
-            $arrType = [
-                '0' => 'Cash',
-                '1' => 'Point',
-                '2' => '%',
-            ];
-            $subtotal = \Cart::subtotal();
-            $value = ($check['content']['group'] == '2') ? floor($subtotal * $check['content']['reward'] / 100) : $check['content']['reward'];
-            $arrData = array(
-                'title' => '<b>' . $this->title . ':</b> ' . $Discount . '',
-                'code' => $this->configKey,
-                'image' => $this->image,
-                'permission' => self::ALLOW,
-                'value' => ($value > $subtotal) ? -$subtotal : -$value,
-                'version' => $this->version,
-                'auth' => $this->auth,
-                'link' => $this->link,
-            );
-        }
-        return $arrData;
     }
 
     public function install()
@@ -139,4 +90,43 @@ class AppConfig extends Controller
     {
         return redirect()->route('admin_discount.index');
     }
+
+    public function getData()
+    {
+        $uID = auth()->user()->id ?? 0;
+        $arrData = [
+            'title' => $this->title,
+            'code' => $this->configKey,
+            'image' => $this->image,
+            'permission' => self::ALLOW,
+            'value' => 0,
+            'version' => $this->version,
+            'auth' => $this->auth,
+            'link' => $this->link,
+        ];
+
+        $Discount = session('Discount');
+        $check = json_decode($this->discountService->check($Discount, $uID), true);
+        if (!empty($Discount) && !$check['error']) {
+            $arrType = [
+                '0' => 'Cash',
+                '1' => 'Point',
+                '2' => '%',
+            ];
+            $subtotal = \Cart::subtotal();
+            $value = ($check['content']['group'] == '2') ? floor($subtotal * $check['content']['reward'] / 100) : $check['content']['reward'];
+            $arrData = array(
+                'title' => '<b>' . $this->title . ':</b> ' . $Discount . '',
+                'code' => $this->configKey,
+                'image' => $this->image,
+                'permission' => self::ALLOW,
+                'value' => ($value > $subtotal) ? -$subtotal : -$value,
+                'version' => $this->version,
+                'auth' => $this->auth,
+                'link' => $this->link,
+            );
+        }
+        return $arrData;
+    }
+
 }

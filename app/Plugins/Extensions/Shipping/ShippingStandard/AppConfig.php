@@ -2,28 +2,15 @@
 #App\Plugins\Extensions\Shipping\ShippingStandard\AppConfig.php
 namespace App\Plugins\Extensions\Shipping\ShippingStandard;
 
-use App\Plugins\Extensions\ExtensionDefault;
 use App\Plugins\Extensions\Shipping\ShippingStandard\Models\ShippingStandardModel;
 use App\Models\AdminConfig;
-use App\Http\Controllers\Controller;
-class AppConfig extends Controller
+use App\Plugins\Extensions\ConfigDefault;
+class AppConfig extends ConfigDefault
 {
-    use ExtensionDefault;
-
     protected $configGroup = 'Extensions';
     protected $configCode = 'Shipping';
     protected $configKey = 'ShippingStandard';
 
-    public $title;
-    public $version;
-    public $auth;
-    public $link;
-    public $image;
-    public $pathExtension = '';
-    const ALLOW = 1;
-    const DENIED = 0;
-    const ON = 1;
-    const OFF = 0;
     public function __construct()
     {
         $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
@@ -32,37 +19,6 @@ class AppConfig extends Controller
         $this->version = '2.0';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
-    }
-
-    public function processData()
-    {
-        $subtotal = \Cart::subtotal();
-        $shipping = ShippingStandardModel::first();
-        if ($subtotal >= $shipping->shipping_free) {
-            $arrData = [
-                'title' => $this->title,
-                'code' => $this->configKey,
-                'image' => $this->image,
-                'permission' => self::ALLOW,
-                'value' => 0,
-                'version' => $this->version,
-                'auth' => $this->auth,
-                'link' => $this->link,
-            ];
-        } else {
-            $arrData = [
-                'title' => $this->title,
-                'code' => $this->configKey,
-                'image' => $this->image,
-                'permission' => self::ALLOW,
-                'value' => $shipping->fee,
-                'version' => $this->version,
-                'auth' => $this->auth,
-                'link' => $this->link,
-            ];
-
-        }
-        return $arrData;
     }
 
     public function install()
@@ -141,6 +97,38 @@ class AppConfig extends Controller
             $return = ['error' => 1, 'msg' => 'Error update'];
         }
         return $return;
+    }
+
+
+    public function getData()
+    {
+        $subtotal = \Cart::subtotal();
+        $shipping = ShippingStandardModel::first();
+        if ($subtotal >= $shipping->shipping_free) {
+            $arrData = [
+                'title' => $this->title,
+                'code' => $this->configKey,
+                'image' => $this->image,
+                'permission' => self::ALLOW,
+                'value' => 0,
+                'version' => $this->version,
+                'auth' => $this->auth,
+                'link' => $this->link,
+            ];
+        } else {
+            $arrData = [
+                'title' => $this->title,
+                'code' => $this->configKey,
+                'image' => $this->image,
+                'permission' => self::ALLOW,
+                'value' => $shipping->fee,
+                'version' => $this->version,
+                'auth' => $this->auth,
+                'link' => $this->link,
+            ];
+
+        }
+        return $arrData;
     }
 
 }
