@@ -35,15 +35,15 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
-
-        $arrMsg = [
-            'message' => $exception->getMessage()??'',
-            'file' => $exception->getFile()??'',
-            'line' => $exception->getLine()??'',
-            'code' => $exception->getCode()??'',
-        ];
-        sc_report(json_encode($arrMsg));
-
+        if ($this->shouldReport($exception)) {
+            $arrMsg = [
+                'message' => $exception->getMessage()??'',
+                'file' => $exception->getFile()??'',
+                'line' => $exception->getLine()??'',
+                'code' => $exception->getCode()??'',
+            ];
+            sc_report(json_encode($arrMsg));
+        }
         parent::report($exception);
     }
 
