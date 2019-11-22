@@ -6,9 +6,9 @@ Route::post('/subscribe', 'ContentFront@emailSubscribe')
 Route::get('/contact.html', 'ContentFront@getContact')
 ->name('contact');
 Route::post('/contact.html', 'ContentFront@postContact')
-->name('postContact');
+->name('contact.post');
 Route::get('/news.html', 'ContentFront@news')
 ->name('news');
 Route::get('/news/{name}_{id}.html', 'ContentFront@newsDetail')
 ->where(['id' => '[0-9]+'])
-->name('newsDetail');
+->name('news.detail');
