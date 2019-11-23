@@ -34,7 +34,7 @@ class UsersController extends Controller
         $listTh = [
             'check_row' => '',
             'id' => trans('user.id'),
-            'user_name' => trans('user.user_name'),
+            'username' => trans('user.user_name'),
             'name' => trans('user.name'),
             'roles' => trans('user.roles'),
             'permission' => trans('user.permission'),
@@ -54,7 +54,7 @@ class UsersController extends Controller
         $obj = new AdminUser;
 
         if ($keyword) {
-            $obj = $obj->whereRaw('(id = ' . (int) $keyword . '  OR name like "%' . $keyword . '%" OR user_name like "%' . $keyword . '%"  )');
+            $obj = $obj->whereRaw('(id = ' . (int) $keyword . '  OR name like "%' . $keyword . '%" OR username like "%' . $keyword . '%"  )');
         }
         if ($sort_order && array_key_exists($sort_order, $arrSort)) {
             $field = explode('__', $sort_order)[0];
