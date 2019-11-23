@@ -1,5 +1,5 @@
 <?php
-#app\Modules\ConfigDefault.php
+#app\Plugins\Modules\ConfigDefault.php
 namespace App\Plugins\Modules;
 
 abstract class  ConfigDefault
