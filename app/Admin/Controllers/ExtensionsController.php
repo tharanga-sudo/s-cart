@@ -8,25 +8,13 @@ use Illuminate\Http\Request;
 class ExtensionsController extends Controller
 {
 
-    public $namespaceGroup;
-
-    public function __construct()
-    {
-        $this->namespaceGroup = [
-            'Shipping' => '\App\Plugins\Extensions\Shipping',
-            'Payment' => '\App\Plugins\Extensions\Payment',
-            'Total' => '\App\Plugins\Extensions\Total',
-            'Other' => '\App\Plugins\Extensions\Other',
-        ];
-
-    }
     public function index($group)
     {
         $group = sc_word_format_class($group);
         $action = request('action');
         $extensionKey = request('extensionKey');
         if ($action == 'config' && $extensionKey != '') {
-            $namespace = $this->namespaceGroup[$group] . '\\' . $extensionKey.'\\AppConfig';
+            $namespace = sc_get_class_extension_config($group, $extensionKey);
             $body = (new $namespace)->config();
         } else {
             $body = $this->extensionsGroup($group);
@@ -62,51 +50,40 @@ class ExtensionsController extends Controller
         $key = request('key');
         $group = request('group');
         $group = sc_word_format_class($group);
-        $key = sc_word_format_class($key);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->install();
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->install();
         return json_encode($response);
     }
     public function uninstall()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->uninstall();
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->uninstall();
         return json_encode($response);
     }
     public function enable()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->enable();
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->enable();
         return json_encode($response);
     }
     public function disable()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->disable();
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->disable();
         return json_encode($response);
     }
 
     public function process($group, $key)
     {
-        $group = sc_word_format_class($group);
-        $key = sc_word_format_class($key);
         $data = request()->all();
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->process($data);
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->process($data);
         return json_encode($response);
     }
 }

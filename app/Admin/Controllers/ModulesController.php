@@ -7,21 +7,7 @@ use Illuminate\Http\Request;
 
 class ModulesController extends Controller
 {
-    public $namespaceGroup;
-    /**
-     * Index interface.
-     *
-     * @return Content
-     */
-    public function __construct()
-    {
-        $this->namespaceGroup = [
-            'Cms' => '\App\Plugins\Modules\Cms',
-            'Other' => '\App\Plugins\Modules\Other',
-            'Block' => '\App\Plugins\Modules\Block',
-        ];
 
-    }
     public function index($group)
     {
         $body = $this->modulesGroup($group);
@@ -52,49 +38,39 @@ class ModulesController extends Controller
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->install();
+        $namespace = sc_get_class_module_config($group, $key);
+        $response = (new $namespace)->install();
         return json_encode($response);
     }
     public function uninstall()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->uninstall();
+        $namespace = sc_get_class_module_config($group, $key);
+        $response = (new $namespace)->uninstall();
         return json_encode($response);
     }
     public function enable()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->enable();
+        $namespace = sc_get_class_module_config($group, $key);
+        $response = (new $namespace)->enable();
         return json_encode($response);
     }
     public function disable()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->disable();
+        $namespace = sc_get_class_module_config($group, $key);
+        $response = (new $namespace)->disable();
         return json_encode($response);
     }
     public function process($group, $key)
     {
         $data = request()->all();
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key.'\\AppConfig';
-        $response = (new $class)->processConfig($data);
+        $namespace = sc_get_class_module_config($group, $key);
+        $response = (new $namespace)->processConfig($data);
         return json_encode($response);
     }
 }

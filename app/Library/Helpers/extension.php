@@ -46,85 +46,94 @@ if (!function_exists('sc_get_array_namespace_plugin')) {
     }
 }
 
-/*
-    Get class payment config
-    */
-if (!function_exists('sc_get_class_payment_config')) {
-    function sc_get_class_payment_config($paymentMethod)
-    {
-        $paymentMethod = sc_word_format_class($paymentMethod);
-        $nameSpace = sc_get_extension_namespace('Payment', $paymentMethod);
-        $class = $nameSpace . '\AppConfig';
-        return $class;
+    /**
+     * Get namespace extension controller
+     *
+     * @param   [string]  $code  Shipping, Payment,..
+     * @param   [string]  $key  Paypal,..
+     *
+     * @return  [array] 
+     */
+
+    if (!function_exists('sc_get_class_extension_controller')) {
+        function sc_get_class_extension_controller($code, $key){
+
+            $code = sc_word_format_class($code);
+            $key = sc_word_format_class($key);
+
+            $nameSpace = sc_get_extension_namespace($code, $key);
+            $nameSpace = $nameSpace . '\Controllers\\' . $key . 'Controller';
+
+            return $nameSpace;
+        }
     }
-}
 
-/*
-    Get class payment controller
-    */
-if (!function_exists('sc_get_class_payment_controller')) {
-    function sc_get_class_payment_controller($paymentMethod)
-    {
-        $paymentMethod = sc_word_format_class($paymentMethod);
-        $nameSpace = sc_get_extension_namespace('Payment', $paymentMethod);
-        $class = $nameSpace . '\Controllers\\' . $paymentMethod . 'Controller';
-        return $class;
+
+    /**
+     * Get namespace extension config
+     *
+     * @param   [string]  $code  Shipping, Payment,..
+     * @param   [string]  $key  Paypal,..
+     *
+     * @return  [array] 
+     */
+    if (!function_exists('sc_get_class_extension_config')) {
+        function sc_get_class_extension_config($code, $key){
+
+            $code = sc_word_format_class($code);
+            $key = sc_word_format_class($key);
+
+            $nameSpace = sc_get_extension_namespace($code, $key);
+            $nameSpace = $nameSpace . '\AppConfig';
+
+            return $nameSpace;
+        }
     }
-}
 
-/*
-    Get class shipping config
-    */
-if (!function_exists('sc_get_class_shipping_config')) {
-    function sc_get_class_shipping_config($shippingMethod)
-    {
-        $shippingMethod = sc_word_format_class($shippingMethod);
-        $nameSpace = sc_get_extension_namespace('Shipping', $shippingMethod);
-        $class = $nameSpace . '\AppConfig';
-        return $class;
+
+    /**
+     * Get namespace module config
+     *
+     * @param   [string]  $code  Cms, Block,..
+     * @param   [string]  $key  Content,..
+     *
+     * @return  [array] 
+     */
+    if (!function_exists('sc_get_class_module_config')) {
+        function sc_get_class_module_config($code, $key){
+
+            $code = sc_word_format_class($code);
+            $key = sc_word_format_class($key);
+
+            $nameSpace = sc_get_module_namespace($code, $key);
+            $nameSpace = $nameSpace . '\AppConfig';
+
+            return $nameSpace;
+        }
     }
-}
 
-/*
-    Get class shipping controller
-    */
-if (!function_exists('sc_get_class_shipping_controller')) {
-    function sc_get_class_shipping_controller($shippingMethod)
-    {
-        $shippingMethod = sc_word_format_class($shippingMethod);
-        $nameSpace = sc_get_extension_namespace('Shipping', $shippingMethod);
-        $class = $nameSpace . '\Controllers\\' . $shippingMethod . 'Controller';
-        return $class;
+
+    /**
+     * Get namespace module controller
+     *
+     * @param   [string]  $code  Cms, Block,..
+     * @param   [string]  $key  Content,..
+     *
+     * @return  [array] 
+     */
+
+    if (!function_exists('sc_get_class_module_controller')) {
+        function sc_get_class_module_controller($code, $key){
+
+            $code = sc_word_format_class($code);
+            $key = sc_word_format_class($key);
+
+            $nameSpace = sc_get_module_namespace($code, $key);
+            $nameSpace = $nameSpace . '\Controllers\\' . $key . 'Controller';
+
+            return $nameSpace;
+        }
     }
-}
-
-
-
-/*
-    Get class total config
-    */
-if (!function_exists('sc_get_class_total_config')) {
-    function sc_get_class_total_config($totalMethod)
-    {
-        $totalMethod = sc_word_format_class($totalMethod);
-        $nameSpace = sc_get_extension_namespace('Total', $totalMethod);
-        $class = $nameSpace . '\AppConfig';
-        return $class;
-    }
-}
-
-/*
-    Get class total controller
-    */
-if (!function_exists('sc_get_class_total_controller')) {
-    function sc_get_class_total_controller($totalMethod)
-    {
-        $totalMethod = sc_word_format_class($totalMethod);
-        $nameSpace = sc_get_extension_namespace('Total', $totalMethod);
-        $class = $nameSpace . '\Controllers\\' . $totalMethod . 'Controller';
-        return $class;
-    }
-}
 
 
     /**

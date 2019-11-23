@@ -95,7 +95,7 @@ class ShopOrderTotal extends Model
         $arrShipping = [];
         $shippingMethod = session('shippingMethod') ?? '';
         if ($shippingMethod) {
-            $moduleClass = sc_get_class_shipping_config($shippingMethod);
+            $moduleClass = sc_get_class_extension_config('Shiping', $shippingMethod);
             $returnModuleShipping = (new $moduleClass)->getData();
             $arrShipping = [
                 'title' => $returnModuleShipping['title'],
@@ -113,7 +113,7 @@ class ShopOrderTotal extends Model
         $arrPayment = [];
         $paymentMethod = session('paymentMethod') ?? '';
         if ($paymentMethod) {
-            $moduleClass = sc_get_class_payment_config($paymentMethod);
+            $moduleClass = sc_get_class_extension_config('Paypal', $paymentMethod);
             $returnModulePayment = (new $moduleClass)->getData();
             $arrPayment = [
                 'title' => $returnModulePayment['title'],
@@ -134,7 +134,7 @@ class ShopOrderTotal extends Model
             'sort' => self::POSITION_DISCOUNT,
         );
         if (!empty(sc_config('Discount'))) {
-            $moduleClass = sc_get_class_total_config('Discount');
+            $moduleClass = sc_get_class_extension_config('Total', 'Discount');
             $returnModuleDiscount = (new $moduleClass)->getData();
             $arrDiscount = [
                 'title' => $returnModuleDiscount['title'],

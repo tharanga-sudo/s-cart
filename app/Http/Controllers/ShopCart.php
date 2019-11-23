@@ -204,11 +204,11 @@ class ShopCart extends GeneralController
         $shippingAddress = session('shippingAddress');
 
         //Shipping
-        $classShippingMethod = sc_get_class_shipping_config($shippingMethod);
+        $classShippingMethod = sc_get_class_extension_config('Shipping', $shippingMethod);
         $shippingMethodData = (new $classShippingMethod)->getData();
 
         //Payment
-        $classPaymentMethod = sc_get_class_payment_config($paymentMethod);
+        $classPaymentMethod = sc_get_class_extension_config('Payment', $paymentMethod);
         $paymentMethodData = (new $classPaymentMethod)->getData();
 
         $objects = array();
