@@ -19,7 +19,7 @@ class ShopFront extends GeneralController
      * [index description]
      * @return [type] [description]
      */
-    public function index(Request $request)
+    public function index1(Request $request)
     {
         return view('templates.' . sc_store('template') . '.shop_home',
             array(
