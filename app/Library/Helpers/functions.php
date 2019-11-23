@@ -6,7 +6,6 @@ use App\Models\AdminStore;
 use App\Models\ShopBlockContent;
 use App\Models\ShopLanguage;
 use App\Models\ShopLink;
-
 /*
 Get extension in group
  */
@@ -194,12 +193,8 @@ Format class name
 if (!function_exists('sc_word_format_class')) {
     function sc_word_format_class($word)
     {
-        $word = strtolower($word);
-        $arr = explode('_', $word);
-        $arr = array_map(function ($v) {
-            return ucfirst($v);
-        }, $arr);
-        $word = implode('', $arr);
+        $word = \Illuminate\Support\Str::camel($word);
+        $word = ucfirst($word);
         return $word;
     }
 }

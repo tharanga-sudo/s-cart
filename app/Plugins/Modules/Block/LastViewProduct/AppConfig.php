@@ -4,8 +4,6 @@ namespace App\Plugins\Modules\Block\LastViewProduct;
 
 use App\Models\AdminConfig;
 use App\Models\ShopBlockContent;
-use App\Plugins\Modules\ModuleDefault;
-use App\Http\Controllers\Controller;
 use App\Plugins\Modules\ConfigDefault;
 class AppConfig extends ConfigDefault
 {

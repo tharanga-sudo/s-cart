@@ -279,7 +279,7 @@ class ShopBlockContentController extends Controller
 
     public function getListModuleBlock()
     {
-        $arrModule = array_keys(sc_get_array_namespace_plugin('Modules', 'Block'));
+        $arrModule = array_keys(sc_get_all_plugin('Modules', 'Block'));
         $modulesInstalled = AdminConfig::where('group', 'Modules')
             ->where('code', 'Block')
             ->pluck('key')->toArray();

@@ -18,7 +18,7 @@ class ModulesController extends Controller
     {
         $group = sc_word_format_class($group);
         $modulesInstalled = sc_get_extension($group, $onlyActive = false);
-        $modules = sc_get_array_namespace_plugin('Modules', $group);
+        $modules = sc_get_all_plugin('Modules', $group);
         $title = trans('admin.module_manager.' . $group);
         return $this->render($modulesInstalled, $modules,  $title, $group);
     }

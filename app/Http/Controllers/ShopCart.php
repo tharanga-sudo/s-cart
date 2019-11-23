@@ -34,18 +34,18 @@ class ShopCart extends GeneralController
 
         //Shipping
         $moduleShipping = sc_get_extension('shipping');
-        $sourcesShipping = sc_get_array_namespace_plugin('Extensions', 'shipping');
+        $sourcesShipping = sc_get_all_plugin('Extensions', 'shipping');
         $shippingMethod = array();
         foreach ($moduleShipping as $module) {
             if (array_key_exists($module['key'], $sourcesShipping)) {
-                $moduleClass = $sourcesShipping[$module['key']].'\AppConfig';
+                $moduleClass = sc_get_class_extension_config('shipping', $module['key']);
                 $shippingMethod[$module['key']] = (new $moduleClass)->getData();
             }
         }
 
         //Payment
         $modulePayment = sc_get_extension('payment');
-        $sourcesPayment = sc_get_array_namespace_plugin('Extensions', 'payment');
+        $sourcesPayment = sc_get_all_plugin('Extensions', 'payment');
         $paymentMethod = array();
         foreach ($modulePayment as $module) {
             if (array_key_exists($module['key'], $sourcesPayment)) {
@@ -56,7 +56,7 @@ class ShopCart extends GeneralController
 
         //Total
         $moduleTotal = sc_get_extension('total');
-        $sourcesTotal = sc_get_array_namespace_plugin('Extensions', 'total');
+        $sourcesTotal = sc_get_all_plugin('Extensions', 'total');
         $totalMethod = array();
         foreach ($moduleTotal as $module) {
             if (array_key_exists($module['key'], $sourcesTotal)) {
@@ -355,7 +355,7 @@ class ShopCart extends GeneralController
         session(['orderID' => $createOrder['orderID']]);
 
 
-        $paymentMethod = sc_get_class_payment_controller(session('paymentMethod'));
+        $paymentMethod = sc_get_class_extension_controller('Payment', session('paymentMethod'));
 
         return (new $paymentMethod)->processOrder();
 

@@ -17,16 +17,16 @@ if (!function_exists('sc_block_render')) {
     }
 }
 
-if (!function_exists('sc_get_array_namespace_plugin')) {
+if (!function_exists('sc_get_all_plugin')) {
     /**
-     * Get class plugin
+     * Get all class plugin
      *
      * @param   [string]  $group  Extentions,Modules
      * @param   [string]  $code  Payment, Shipping
      *
      * @return  [array] 
      */
-    function sc_get_array_namespace_plugin($group, $code)
+    function sc_get_all_plugin($group, $code)
     {
         $group = sc_word_format_class($group);
         $code = sc_word_format_class($code);
@@ -45,6 +45,34 @@ if (!function_exists('sc_get_array_namespace_plugin')) {
         return $arrClass;
     }
 }
+
+if (!function_exists('sc_get_all_plugin_actived')) {
+    /**
+     * Get all class plugin actived
+     *
+     * @param   [string]  $group  Extentions,Modules
+     * @param   [string]  $code  Payment, Shipping
+     *
+     * @return  [array] 
+     */
+    function sc_get_all_plugin_actived($group, $code)
+    {
+        $group = sc_word_format_class($group);
+        $code = sc_word_format_class($code);
+        
+        $pluginsActived = [];
+        $allPlugins = sc_get_all_plugin($group, $code);
+        if(count($allPlugins)){
+            foreach ($allPlugins as $keyPlugin => $plugin) {
+                if(sc_config($keyPlugin) && sc_config($keyPlugin)['value'] == 1){
+                    $pluginsActived[$keyPlugin] = $plugin;
+                }
+            }
+        }
+        return $pluginsActived;
+    }
+}
+
 
     /**
      * Get namespace extension controller

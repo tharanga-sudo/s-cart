@@ -95,7 +95,7 @@ class ShopOrderTotal extends Model
         $arrShipping = [];
         $shippingMethod = session('shippingMethod') ?? '';
         if ($shippingMethod) {
-            $moduleClass = sc_get_class_extension_config('Shiping', $shippingMethod);
+            $moduleClass = sc_get_class_extension_config('Shipping', $shippingMethod);
             $returnModuleShipping = (new $moduleClass)->getData();
             $arrShipping = [
                 'title' => $returnModuleShipping['title'],
