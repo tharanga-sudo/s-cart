@@ -224,7 +224,8 @@ class CmsContentController extends Controller
             'status' => !empty($data['status']) ? 1 : 0,
             'sort' => (int) $data['sort'],
         ];
-        $id = CmsContent::insertGetId($dataInsert);
+        $content = CmsContent::create($dataInsert);
+        $id = $content->id;
         $dataDes = [];
         $languages = $this->languages;
         foreach ($languages as $code => $value) {

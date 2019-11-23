@@ -381,8 +381,7 @@ class ShopProductController extends Controller
         ];
 
         //insert product
-        $id = ShopProduct::insertGetId($dataInsert);
-        $product = ShopProduct::find($id);
+        $product = ShopProduct::create($dataInsert);
 
         //Promoton price
         if (isset($data['price_promotion']) && in_array($data['kind'], [SC_PRODUCT_SINGLE, SC_PRODUCT_BUILD])) {

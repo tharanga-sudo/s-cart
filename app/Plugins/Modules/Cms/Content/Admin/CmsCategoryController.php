@@ -216,7 +216,8 @@ class CmsCategoryController extends Controller
             'status' => !empty($data['status']) ? 1 : 0,
             'sort' => (int) $data['sort'],
         ];
-        $id = CmsCategory::insertGetId($dataInsert);
+        $category = CmsCategory::create($dataInsert);
+        $id = $category->id;
         $dataDes = [];
         $languages = $this->languages;
         foreach ($languages as $code => $value) {
