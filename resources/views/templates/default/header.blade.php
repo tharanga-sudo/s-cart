@@ -108,7 +108,8 @@
                 <li class="dropdown"><a href="#">{{ trans('front.cms_category') }}<i class="fa fa-angle-down"></i></a>
                     <ul role="menu" class="sub-menu">
                       @php
-                        $cmsCategories = (new \App\Modules\Cms\Models\CmsCategory)->where('status',1)->get();
+                        $nameSpace = sc_get_module_namespace('Cms','Content').'\Models\CmsCategory';
+                        $cmsCategories = (new $nameSpace)->where('status', 1)->get();
                       @endphp
                       @foreach ($cmsCategories as $cmsCategory)
                         <li><a href="{{ $cmsCategory->getUrl() }}">{{ sc_language_render($cmsCategory->title) }}</a></li>

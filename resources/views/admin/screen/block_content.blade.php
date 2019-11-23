@@ -111,7 +111,7 @@
                                         <span class="help-block"><i class="fa fa-info-circle"></i> {{ trans('block_content.admin.helper_view') }}</span>
                                     @elseif ($dataType =='module')
                                         <select name="text" class="form-control text">
-                                            @foreach ($listModuleBlock as $module)
+                                            @foreach ($listModuleBlock as $key => $module)
                                                 <option value="{!! $module !!}" {{ (old('text',$layout['text']??'') == $module)?'selected':'' }} >{{ $module }}</option>
                                             @endforeach
                                         </select>

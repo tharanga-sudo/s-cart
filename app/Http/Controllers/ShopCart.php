@@ -34,36 +34,37 @@ class ShopCart extends GeneralController
 
         //Shipping
         $moduleShipping = sc_get_extension('shipping');
-        $sourcesShipping = \FindClass::classNames('Extensions', 'shipping');
+        $sourcesShipping = sc_get_all_plugin('Extensions', 'shipping');
         $shippingMethod = array();
-        foreach ($moduleShipping as $key => $module) {
-            if (in_array($module['key'], $sourcesShipping)) {
-                $moduleClass = '\App\Extensions\Shipping\Controllers\\' . $module['key'];
+        foreach ($moduleShipping as $module) {
+            if (array_key_exists($module['key'], $sourcesShipping)) {
+                $moduleClass = sc_get_class_extension_config('shipping', $module['key']);
                 $shippingMethod[$module['key']] = (new $moduleClass)->getData();
             }
         }
 
         //Payment
         $modulePayment = sc_get_extension('payment');
-        $sourcesPayment = \FindClass::classNames('Extensions', 'payment');
+        $sourcesPayment = sc_get_all_plugin('Extensions', 'payment');
         $paymentMethod = array();
-        foreach ($modulePayment as $key => $module) {
-            if (in_array($module['key'], $sourcesPayment)) {
-                $moduleClass = 'App\Extensions\Payment\Controllers\\' . $module['key'];
+        foreach ($modulePayment as $module) {
+            if (array_key_exists($module['key'], $sourcesPayment)) {
+                $moduleClass = $sourcesPayment[$module['key']].'\AppConfig';
                 $paymentMethod[$module['key']] = (new $moduleClass)->getData();
             }
-        }
+        }        
 
         //Total
         $moduleTotal = sc_get_extension('total');
-        $sourcesTotal = \FindClass::classNames('Extensions', 'total');
+        $sourcesTotal = sc_get_all_plugin('Extensions', 'total');
         $totalMethod = array();
-        foreach ($moduleTotal as $key => $module) {
-            if (in_array($module['key'], $sourcesTotal)) {
-                $moduleClass = '\App\Extensions\Total\Controllers\\' . $module['key'];
+        foreach ($moduleTotal as $module) {
+            if (array_key_exists($module['key'], $sourcesTotal)) {
+                $moduleClass = $sourcesTotal[$module['key']].'\AppConfig';
                 $totalMethod[$module['key']] = (new $moduleClass)->getData();
             }
-        }
+        } 
+
 
         //====================================================
         $objects = array();
@@ -202,9 +203,12 @@ class ShopCart extends GeneralController
         $shippingMethod = session('shippingMethod');
         $shippingAddress = session('shippingAddress');
 
-        $classShippingMethod = '\App\Extensions\Shipping\Controllers\\' . $shippingMethod;
+        //Shipping
+        $classShippingMethod = sc_get_class_extension_config('Shipping', $shippingMethod);
         $shippingMethodData = (new $classShippingMethod)->getData();
-        $classPaymentMethod = '\App\Extensions\Payment\Controllers\\' . $paymentMethod;
+
+        //Payment
+        $classPaymentMethod = sc_get_class_extension_config('Payment', $paymentMethod);
         $paymentMethodData = (new $classPaymentMethod)->getData();
 
         $objects = array();
@@ -351,7 +355,7 @@ class ShopCart extends GeneralController
         session(['orderID' => $createOrder['orderID']]);
 
 
-        $paymentMethod = 'App\Extensions\Payment\Controllers\\' . session('paymentMethod');
+        $paymentMethod = sc_get_class_extension_controller('Payment', session('paymentMethod'));
 
         return (new $paymentMethod)->processOrder();
 
@@ -712,6 +716,26 @@ class ShopCart extends GeneralController
 
         }
 
-        return redirect()->route('cart')->with('success', trans('order.success'));
+        return redirect()->route('order.success')->with('orderID', $orderID);
     }
+
+    /**
+     * Page order success
+     *
+     * @return  [type]  [return description]
+     */
+    public function orderSuccess(){
+
+        if(!session('orderID')) {
+            return redirect()->route('home');
+        }
+        return view(
+            'templates.' . sc_store('template') . '.shop_order_success',
+            [
+                'title' => trans('order.success.title'),
+                'layout_page' =>'shop_order_success',
+            ]
+        );
+    }
+
 }

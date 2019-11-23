@@ -169,6 +169,7 @@ return [
          * S-Cart
          */
         App\Providers\ScartServiceProvider::class,
+        App\Providers\ExtensionServiceProvider::class,
         App\Providers\ShoppingCartServiceProvider::class,
         App\Admin\Providers\AdminServiceProvider::class,
 
@@ -225,7 +226,6 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         //scart
         'Cart' => App\Library\ShoppingCart\Facades\Cart::class,
-        'FindClass' => App\Library\FindClass::class,
         'ProcessData' => App\Library\ProcessData\Boot::class,
         'Admin' => App\Admin\Admin::class,
         'Export' => App\Library\ProcessData\Export::class,

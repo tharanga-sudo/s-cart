@@ -9,7 +9,7 @@
     <meta name="description" content="{{ $description??sc_store('description') }}">
     <meta name="keyword" content="{{ $keyword??sc_store('keyword') }}">
     <title>{{$title??sc_store('title')}}</title>
-    <meta property="og:image" content="{{ !empty($og_image)?$og_image:asset('images/org.jpg') }}" />
+    <meta property="og:image" content="{{ !empty($og_image)?asset($og_image):asset('images/org.jpg') }}" />
     <meta property="og:url" content="{{ \Request::fullUrl() }}" />
     <meta property="og:type" content="Website" />
     <meta property="og:title" content="{{ $title??sc_store('title') }}" />

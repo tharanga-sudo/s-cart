@@ -185,6 +185,7 @@ class ContentFront extends GeneralController
                     'title' => trans('front.not_found'),
                     'description' => '',
                     'keyword' => sc_store('keyword'),
+                    'msg' => trans('front.item_not_found'),
                 )
             );
         }

@@ -1,17 +1,19 @@
 <?php
+
 use App\Library\Helper;
 use App\Models\AdminConfig;
 use App\Models\AdminStore;
 use App\Models\ShopBlockContent;
 use App\Models\ShopLanguage;
 use App\Models\ShopLink;
-
 /*
 Get extension in group
  */
+
 if (!function_exists('sc_get_extension')) {
     function sc_get_extension($group, $onlyActive = true)
     {
+        $group = sc_word_format_class($group);
         return AdminConfig::getExtensionsGroup($group, $onlyActive);
     }
 }
@@ -73,7 +75,8 @@ if (!function_exists('sc_word_format_url')) {
         return strtolower(preg_replace(
             array('/[\'\/~`\!@#\$%\^&\*\(\)\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', '/[\s-]+|[-\s]+|[--]+/', '/^[-\s_]|[-_\s]$/'),
             array('', '-', ''),
-            strtolower($str)));
+            strtolower($str)
+        ));
     }
 }
 
@@ -190,12 +193,8 @@ Format class name
 if (!function_exists('sc_word_format_class')) {
     function sc_word_format_class($word)
     {
-        $word = strtolower($word);
-        $arr = explode('_', $word);
-        $arr = array_map(function ($v) {
-            return ucfirst($v);
-        }, $arr);
-        $word = implode('', $arr);
+        $word = \Illuminate\Support\Str::camel($word);
+        $word = ucfirst($word);
         return $word;
     }
 }
@@ -259,24 +258,27 @@ if (!function_exists('sc_token')) {
 }
 
 /*
-Create write log
+Handle report
  */
-if (!function_exists('sc_log')) {
-    function sc_log($msg, $action = null)
+if (!function_exists('sc_report')) {
+    function sc_report($msg)
     {
-        \Illuminate\Support\Facades\Log::error($msg);
+        $msg = date('Y-m-d H:i:s').':'.PHP_EOL.$msg.PHP_EOL;
+        try{
+            if (sc_config('LOG_SLACK_WEBHOOK_URL') || env('LOG_SLACK_WEBHOOK_URL')) {
+                \Log::channel('slack')->error($msg);
+            }
+        }catch(\Exception $e){
+            //
+        }
+
+        $pathLog = storage_path('logs/handle/'.date('Y-m-d').'.txt');
+        $logFile = fopen($pathLog, "a+") or die("Unable to open file!");
+        fwrite($logFile, $msg);
+        fclose($logFile);
     }
 }
 
-/*
-Render block
- */
-if (!function_exists('sc_block_render')) {
-    function sc_block_render($nameSpace)
-    {
-        return \App\Library\FindClass::renderClass($nameSpace);
-    }
-}
 
 /*
 Zip file or folder
@@ -297,9 +299,9 @@ if (!function_exists('sc_zip')) {
                         foreach ($files as $file) {
                             $file = str_replace('\\', '/', realpath($file));
                             if (is_dir($file)) {
-                                $zip->addEmptyDir(str_replace($source.'/', '', $file . '/'));
+                                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
                             } else if (is_file($file)) {
-                                $zip->addFromString(str_replace($source.'/', '', $file), file_get_contents($file));
+                                $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
                             }
                         }
                     } else if (is_file($source)) {
@@ -311,15 +313,13 @@ if (!function_exists('sc_zip')) {
         }
         return false;
     }
-
-    /*
+}
+/*
     Get locale
     */
-    if (!function_exists('sc_get_locale')) {
-        function sc_get_locale()
-        {
-            return app()->getLocale();
-        }
+if (!function_exists('sc_get_locale')) {
+    function sc_get_locale()
+    {
+        return app()->getLocale();
     }
-
 }

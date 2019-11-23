@@ -29,14 +29,17 @@
 
 @php
   $menus = Admin::getMenuVisible();
-  // print_r($menus);
 @endphp
 {{-- Level 0 --}}
         @foreach ($menus[0] as $level0)
           @if ($level0->type ==1)
             <li class="header">{{ sc_language_render($level0->title) }}</li>
           @elseif($level0->uri)
-              <li class=""><a href="{{ $level0->uri?sc_url_render($level0->uri):'#' }}"><i class="fa {{ $level0->icon }}"></i>{{ sc_language_render($level0->title) }}</a></li>
+              <li class="">
+                <a href="{{ $level0->uri?sc_url_render($level0->uri):'#' }}">
+                  <i class="fa {{ $level0->icon }}"></i>{{ sc_language_render($level0->title) }}
+                </a>
+              </li>
           @else
             <li class="treeview">
               <a href="#">

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\AdminConfig;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -75,23 +74,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware(['web', 'localization', 'currency'])
             ->group(function () {
-                if (!is_file(base_path() . '/public/install.php')) {
-                    try {
-                        $arrExts = AdminConfig::where('value', 1)
-                            ->whereIn('type', ['Modules', 'Extensions'])
-                            ->get()
-                            ->toArray();
-                        foreach ($arrExts as $arrExt) {
-                            $filename = base_path() . '/app/' . $arrExt['type'] . '/' . $arrExt['code'] . '/Route/' . $arrExt['key'] . '.php';
-                            if (file_exists($filename)) {
-                                require_once $filename;
-                            }
-                        }
-                    } catch (\Exception $e) {
-
-                    }
+                foreach (glob(app_path() . '/Plugins/Extensions/*/*/Route.php') as $filename) {
+                    require_once $filename;
                 }
-
+                foreach (glob(app_path() . '/Plugins/Modules/*/*/Route.php') as $filename) {
+                    require_once $filename;
+                }          
             });
     }
 }

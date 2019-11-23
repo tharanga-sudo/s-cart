@@ -8,25 +8,13 @@ use Illuminate\Http\Request;
 class ExtensionsController extends Controller
 {
 
-    public $namespaceGroup;
-
-    public function __construct()
-    {
-        $this->namespaceGroup = [
-            'Shipping' => '\App\Extensions\Shipping\Controllers',
-            'Payment' => '\App\Extensions\Payment\Controllers',
-            'Total' => '\App\Extensions\Total\Controllers',
-            'Other' => '\App\Extensions\Other\Controllers',
-        ];
-
-    }
     public function index($group)
     {
         $group = sc_word_format_class($group);
         $action = request('action');
         $extensionKey = request('extensionKey');
         if ($action == 'config' && $extensionKey != '') {
-            $namespace = $this->namespaceGroup[$group] . '\\' . $extensionKey;
+            $namespace = sc_get_class_extension_config($group, $extensionKey);
             $body = (new $namespace)->config();
         } else {
             $body = $this->extensionsGroup($group);
@@ -38,22 +26,23 @@ class ExtensionsController extends Controller
     {
         $group = sc_word_format_class($group);
         $extensionsInstalled = sc_get_extension($group, $onlyActive = false);
-        $extensions = \FindClass::classNames('Extensions', $group);
-        $namespace = $this->namespaceGroup[$group];
-        $title = trans('Extensions/language.' . $group);
-        return $this->render($extensionsInstalled, $extensions, $namespace, $title, $group);
+        $extensions = sc_get_all_plugin('Extensions', $group);
+        $title = trans('admin.extension_manager.' . $group);
+        return $this->render($extensionsInstalled, $extensions, $title, $group);
     }
 
-    public function render($extensionsInstalled, $extensions, $namespace, $title, $group)
+    public function render($extensionsInstalled, $extensions, $title, $group)
     {
-        return view('admin.screen.extension')->with(
-            [
-                "title" => $title,
-                "namespace" => $namespace,
-                "extensionsInstalled" => $extensionsInstalled,
-                "extensions" => $extensions,
-                "group" => $group,
-            ])->render();
+        return view('admin.screen.extension')
+            ->with(
+                [
+                    "title" => $title,
+                    "extensionsInstalled" => $extensionsInstalled,
+                    "extensions" => $extensions,
+                    "group" => $group,
+                ]
+            )
+            ->render();
     }
 
     public function install()
@@ -61,48 +50,40 @@ class ExtensionsController extends Controller
         $key = request('key');
         $group = request('group');
         $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
-        $response = (new $class)->install();
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->install();
         return json_encode($response);
     }
     public function uninstall()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
-        $response = (new $class)->uninstall();
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->uninstall();
         return json_encode($response);
     }
     public function enable()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
-        $response = (new $class)->enable();
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->enable();
         return json_encode($response);
     }
     public function disable()
     {
         $key = request('key');
         $group = request('group');
-        $group = sc_word_format_class($group);
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
-        $response = (new $class)->disable();
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->disable();
         return json_encode($response);
     }
+
     public function process($group, $key)
     {
-        $group = sc_word_format_class($group);
         $data = request()->all();
-        $namespace = $this->namespaceGroup[$group];
-        $class = $namespace . '\\' . $key;
-        $response = (new $class)->process($data);
+        $namespace = sc_get_class_extension_config($group, $key);
+        $response = (new $namespace)->process($data);
         return json_encode($response);
     }
 }

@@ -7,6 +7,7 @@
             <div class="box-header with-border">
                 <h2 class="box-title"></h2>
                 <div class="box-tools">
+                    {!! trans('admin.extensions_more') !!}
                 </div>
             </div>
             <!-- /.box-header -->
@@ -14,57 +15,59 @@
              <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>{{ trans('Modules/language.image') }}</th>
-                  <th>{{ trans('Modules/language.code') }}</th>
-                  <th>{{ trans('Modules/language.name') }}</th>
-                  <th>{{ trans('Modules/language.version') }}</th>
-                  <th>{{ trans('Modules/language.auth') }}</th>
-                  <th>{{ trans('Modules/language.link') }}</th>
-                  <th>{{ trans('Modules/language.sort') }}</th>
-                  <th>{{ trans('Modules/language.status') }}</th>
-                  <th>{{ trans('Modules/language.action') }}</th>
+                  <th>{{ trans('admin.module_manager.image') }}</th>
+                  <th>{{ trans('admin.module_manager.code') }}</th>
+                  <th>{{ trans('admin.module_manager.name') }}</th>
+                  <th>{{ trans('admin.module_manager.version') }}</th>
+                  <th>{{ trans('admin.module_manager.auth') }}</th>
+                  <th>{{ trans('admin.module_manager.link') }}</th>
+                  <th>{{ trans('admin.module_manager.sort') }}</th>
+                  <th>{{ trans('admin.module_manager.status') }}</th>
+                  <th>{{ trans('admin.module_manager.action') }}</th>
                 </tr>
                 </thead>
                 <tbody>
                   @if (!$modules)
                     <tr>
-                      <td colspan="5" style="text-align: center;color: red;">{{ trans('Modules/language.empty') }}</td>
+                      <td colspan="5" style="text-align: center;color: red;">
+                        {{ trans('admin.module_manager.empty') }}
+                      </td>
                     </tr>
                   @else
-                  @foreach ($modules as $key => $module)
+                  @foreach ($modules as $codeModule => $moduleClassName)
                   @php
-                    $moduleClassName = $namespace.'\\'.$module;
-                    $moduleClass = new $moduleClassName;
-                    if(!array_key_exists($module, $modulesInstalled->toArray())){
-                      $moduleStatusTitle = trans('Modules/language.not_install');
-                      $moduleAction = '<span onClick="installModule($(this),\''.$module.'\');" title="'.trans('Modules/language.install').'" type="button" class="btn btn-flat btn-success"><i class="fa fa-plus-circle"></i></span>';
+                    $classConfig = $moduleClassName.'\\AppConfig';
+                    $moduleClass = new $classConfig;
+                    if(!array_key_exists($codeModule, $modulesInstalled->toArray())){
+                      $moduleStatusTitle = trans('admin.module_manager.not_install');
+                      $moduleAction = '<span onClick="installModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.install').'" type="button" class="btn btn-flat btn-success"><i class="fa fa-plus-circle"></i></span>';
                     }else{
-                      if($modulesInstalled[$module]['value']){
-                        $moduleStatusTitle = trans('Modules/language.actived');
-                        $moduleAction ='<span onClick="disableModule($(this),\''.$module.'\');" title="'.trans('Modules/language.disable').'" type="button" class="btn btn-flat btn-warning btn-flat"><i class="fa fa-power-off"></i></span>&nbsp;';
+                      if($modulesInstalled[$codeModule]['value']){
+                        $moduleStatusTitle = trans('admin.module_manager.actived');
+                        $moduleAction ='<span onClick="disableModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.disable').'" type="button" class="btn btn-flat btn-warning btn-flat"><i class="fa fa-power-off"></i></span>&nbsp;';
                           if($moduleClass->config()){
-                            $moduleAction .='<a href="'.url()->current().'?action=config&moduleKey='.$module.'"><span title="'.trans('Modules/language.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
+                            $moduleAction .='<a href="'.url()->current().'?action=config&moduleKey='.$codeModule.'"><span title="'.trans('admin.module_manager.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
-                              $moduleAction .='<span onClick="uninstallModule($(this),\''.$module.'\');" title="'.trans('Modules/language.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                              $moduleAction .='<span onClick="uninstallModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
                       }else{
-                        $moduleStatusTitle = trans('Modules/language.disabled');
-                        $moduleAction = '<span onClick="enableModule($(this),\''.$module.'\');" title="'.trans('Modules/language.enable').'" type="button" class="btn btn-flat btn-primary"><i class="fa fa-paper-plane"></i></span>&nbsp;';
+                        $moduleStatusTitle = trans('admin.module_manager.disabled');
+                        $moduleAction = '<span onClick="enableModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.enable').'" type="button" class="btn btn-flat btn-primary"><i class="fa fa-paper-plane"></i></span>&nbsp;';
                           if($moduleClass->config()){
-                            $moduleAction .='<a href="'.url()->current().'?action=config&moduleKey='.$module.'"><span title="'.trans('Modules/language.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
+                            $moduleAction .='<a href="'.url()->current().'?action=config&moduleKey='.$codeModule.'"><span title="'.trans('admin.module_manager.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
                               $moduleAction .='
-                              <span onClick="uninstallModule($(this),\''.$module.'\');" title="'.trans('Modules/language.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                              <span onClick="uninstallModule($(this),\''.$codeModule.'\');" title="'.trans('admin.module_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
                       }
                     }
                   @endphp
                     <tr>
                       <td>{!! sc_image_render($moduleClass->image,'50px') !!}</td>
-                      <td>{{ $module }}</td>
+                      <td>{{ $codeModule }}</td>
                       <td>{{ $moduleClass->title }}</td>
                       <td>{{ $moduleClass->version??'' }}</td>
                       <td>{{ $moduleClass->auth??'' }}</td>
                       <td>{{ $moduleClass->link??'' }}</td>
-                      <td>{{ $modulesInstalled[$module]['sort']??'' }}</td>
+                      <td>{{ $modulesInstalled[$codeModule]['sort']??'' }}</td>
                       <td>{{ $moduleStatusTitle }}</td>
                       <td>{!! $moduleAction !!}</td>
                     </tr>

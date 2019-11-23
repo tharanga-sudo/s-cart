@@ -7,6 +7,7 @@
             <div class="box-header with-border">
                 <h2 class="box-title"></h2>
                 <div class="box-tools">
+                  {!! trans('admin.extensions_more') !!}
                 </div>
             </div>
             <!-- /.box-header -->
@@ -14,57 +15,57 @@
              <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>{{ trans('Extensions/language.image') }}</th>
-                  <th>{{ trans('Extensions/language.code') }}</th>
-                  <th>{{ trans('Extensions/language.name') }}</th>
-                  <th>{{ trans('Extensions/language.version') }}</th>
-                  <th>{{ trans('Extensions/language.auth') }}</th>
-                  <th>{{ trans('Extensions/language.link') }}</th>
-                  <th>{{ trans('Extensions/language.sort') }}</th>
-                  <th>{{ trans('Extensions/language.status') }}</th>
-                  <th>{{ trans('Extensions/language.action') }}</th>
+                  <th>{{ trans('admin.extension_manager.image') }}</th>
+                  <th>{{ trans('admin.extension_manager.code') }}</th>
+                  <th>{{ trans('admin.extension_manager.name') }}</th>
+                  <th>{{ trans('admin.extension_manager.version') }}</th>
+                  <th>{{ trans('admin.extension_manager.auth') }}</th>
+                  <th>{{ trans('admin.extension_manager.link') }}</th>
+                  <th>{{ trans('admin.extension_manager.sort') }}</th>
+                  <th>{{ trans('admin.extension_manager.status') }}</th>
+                  <th>{{ trans('admin.extension_manager.action') }}</th>
                 </tr>
                 </thead>
                 <tbody>
                   @if (!$extensions)
                     <tr>
-                      <td colspan="5" style="text-align: center;color: red;">{{ trans('Extensions/language.empty') }}</td>
+                      <td colspan="5" style="text-align: center;color: red;">{{ trans('admin.extension_manager.empty') }}</td>
                     </tr>
                   @else
-                  @foreach ($extensions as $key => $extension)
+                  @foreach ($extensions as $codeExtension => $extensionClassName)
                   @php
-                    $extensionClassName = $namespace.'\\'.$extension;
-                    $extensionClass = new $extensionClassName;
-                    if(!array_key_exists($extension, $extensionsInstalled->toArray())){
-                      $extensionStatusTitle = trans('Extensions/language.not_install');
-                      $extensionAction = '<span onClick="installExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.install').'" type="button" class="btn btn-flat btn-success"><i class="fa fa-plus-circle"></i></span>';
+                    $classConfig = $extensionClassName.'\\AppConfig';
+                    $extensionClass = new $classConfig;
+                    if(!array_key_exists($codeExtension, $extensionsInstalled->toArray())){
+                      $extensionStatusTitle = trans('admin.extension_manager.not_install');
+                      $extensionAction = '<span onClick="installExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.install').'" type="button" class="btn btn-flat btn-success"><i class="fa fa-plus-circle"></i></span>';
                     }else{
-                      if($extensionsInstalled[$extension]['value']){
-                        $extensionStatusTitle = trans('Extensions/language.actived');
-                        $extensionAction ='<span onClick="disableExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.disable').'" type="button" class="btn btn-flat btn-warning btn-flat"><i class="fa fa-power-off"></i></span>&nbsp;';
+                      if($extensionsInstalled[$codeExtension]['value']){
+                        $extensionStatusTitle = trans('admin.extension_manager.actived');
+                        $extensionAction ='<span onClick="disableExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.disable').'" type="button" class="btn btn-flat btn-warning btn-flat"><i class="fa fa-power-off"></i></span>&nbsp;';
                           if($extensionClass->config()){
-                            $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$extension.'"><span title="'.trans('Extensions/language.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
+                            $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$codeExtension.'"><span title="'.trans('admin.extension_manager.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
-                              $extensionAction .='<span onClick="uninstallExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                              $extensionAction .='<span onClick="uninstallExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
                       }else{
-                        $extensionStatusTitle = trans('Extensions/language.disabled');
-                        $extensionAction = '<span onClick="enableExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.enable').'" type="button" class="btn btn-flat btn-primary"><i class="fa fa-paper-plane"></i></span>&nbsp;';
+                        $extensionStatusTitle = trans('admin.extension_manager.disabled');
+                        $extensionAction = '<span onClick="enableExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.enable').'" type="button" class="btn btn-flat btn-primary"><i class="fa fa-paper-plane"></i></span>&nbsp;';
                           if($extensionClass->config()){
-                            $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$extension.'"><span title="'.trans('Extensions/language.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
+                            $extensionAction .='<a href="'.url()->current().'?action=config&extensionKey='.$codeExtension.'"><span title="'.trans('admin.extension_manager.config').'" class="btn btn-flat btn-primary"><i class="fa fa-gears"></i></span>&nbsp;</a>';
                           }
                               $extensionAction .='
-                              <span onClick="uninstallExtension($(this),\''.$extension.'\');" title="'.trans('Extensions/language.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
+                              <span onClick="uninstallExtension($(this),\''.$codeExtension.'\');" title="'.trans('admin.extension_manager.remove').'" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>';
                       }
                     }
                   @endphp
                     <tr>
                       <td>{!! sc_image_render($extensionClass->image,'50px') !!}</td>
-                      <td>{{ $extension }}</td>
+                      <td>{{ $codeExtension }}</td>
                       <td>{{ $extensionClass->title }}</td>
                       <td>{{ $extensionClass->version??'' }}</td>
                       <td>{{ $extensionClass->auth??'' }}</td>
                       <td>{{ $extensionClass->link??'' }}</td>
-                      <td>{{ $extensionsInstalled[$extension]['sort']??'' }}</td>
+                      <td>{{ $extensionsInstalled[$codeExtension]['sort']??'' }}</td>
                       <td>{{ $extensionStatusTitle }}</td>
                       <td>{!! $extensionAction !!}</td>
                     </tr>

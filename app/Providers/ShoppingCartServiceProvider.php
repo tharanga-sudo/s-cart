@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Logout;
-use Illuminate\Session\SessionManager;
 use Illuminate\Support\ServiceProvider;
 
 class ShoppingCartServiceProvider extends ServiceProvider

@@ -210,7 +210,8 @@ class ShopNewsController extends Controller
             'sort' => $data['sort'],
             'status' => !empty($data['status']) ? 1 : 0,
         ];
-        $id = ShopNews::insertGetId($dataInsert);
+        $news = ShopNews::create($dataInsert);
+        $id = $news->id;
         $dataDes = [];
         $languages = $this->languages;
         foreach ($languages as $code => $value) {

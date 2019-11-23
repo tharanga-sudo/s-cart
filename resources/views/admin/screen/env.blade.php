@@ -51,7 +51,7 @@
 
           <tr>
             <td>{{ trans('env.ADMIN_LOG_EXP') }}</td>
-            <td><a href="#" class="fied-required editable editable-click" data-name="ADMIN_LOG_EXP" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.ADMIN_LOG_EXP') }}" data-value="{{ sc_config('ADMIN_LOG_EXP') }}" data-original-title="" title=""></a></td>
+            <td><a href="#" class="updateInfo editable editable-click" data-name="ADMIN_LOG_EXP" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.ADMIN_LOG_EXP') }}" data-value="{{ sc_config('ADMIN_LOG_EXP') }}" data-original-title="" title=""></a></td>
           </tr>
 
           <tr>
@@ -72,10 +72,13 @@
           </tr>
           <tr>
             <td>{{ trans('env.ADMIN_LOGO_MINI') }}</td>
-            <td><a href="#" class="fied-required editable editable-click" data-name="ADMIN_LOGO_MINI" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.ADMIN_LOGO_MINI') }}" data-value="{{ sc_config('ADMIN_LOGO_MINI') }}" data-original-title="" title=""></a></td>
+            <td><a href="#" class="updateInfo editable editable-click" data-name="ADMIN_LOGO_MINI" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.ADMIN_LOGO_MINI') }}" data-value="{{ sc_config('ADMIN_LOGO_MINI') }}" data-original-title="" title=""></a></td>
           </tr>
-
-
+          <tr>
+            <td>{{ trans('env.LOG_SLACK_WEBHOOK_URL') }}</td>
+            <td><a href="#" class="updateInfo editable editable-click" data-name="LOG_SLACK_WEBHOOK_URL" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.LOG_SLACK_WEBHOOK_URL_help') }}" data-value="{{ sc_config('LOG_SLACK_WEBHOOK_URL') }}" data-original-title="" title=""></a></td>
+          </tr>
+          
 
          </tbody>
        </table>
@@ -105,6 +108,7 @@ $(document).ready(function() {
         params._token = "{{ csrf_token() }}";
         return params;
       };
+       $('.updateInfo').editable({});
         $('.fied-required').editable({
         validate: function(value) {
             if (value == '') {

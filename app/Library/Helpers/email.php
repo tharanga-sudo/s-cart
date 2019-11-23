@@ -8,7 +8,7 @@ function sc_send_mail($view, $data = array(), $config = array(), $fileAttach = a
         try {
             Mail::send(new SendMail($view, $data, $config, $fileAttach, $fileAttachData));
         } catch (\Exception $e) {
-            sc_log("Sendmail view:" . $view . PHP_EOL . $e->getMessage());
+            sc_report("Sendmail view:" . $view . PHP_EOL . $e->getMessage());
         }
 
     } else {

@@ -7,7 +7,7 @@ use App\Models\ShopBlockContent;
 use App\Models\ShopLayoutPage;
 use App\Models\ShopLayoutPosition;
 use App\Models\ShopLayoutType;
-use Illuminate\Http\Request;
+use App\Models\AdminConfig;
 use Validator;
 
 class ShopBlockContentController extends Controller
@@ -103,19 +103,19 @@ class ShopBlockContentController extends Controller
         $data['pagination'] = $dataTmp->appends(request()->except(['_token', '_pjax']))->links('admin.component.pagination');
         $data['result_items'] = trans('block_content.admin.result_item', ['item_from' => $dataTmp->firstItem(), 'item_to' => $dataTmp->lastItem(), 'item_total' => $dataTmp->total()]);
 
-//menu_left
+        //menu_left
         $data['menu_left'] = '<div class="pull-left">
                       <a class="btn   btn-flat btn-primary grid-refresh" title="Refresh"><i class="fa fa-refresh"></i><span class="hidden-xs"> ' . trans('block_content.admin.refresh') . '</span></a> &nbsp;
                       </div>';
-//=menu_left
+        //=menu_left
 
-//menu_right
+        //menu_right
         $data['menu_right'] = '<div class="btn-group pull-right" style="margin-right: 10px">
                            <a href="' . route('admin_block_content.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('block_content.admin.add_new') . '</span>
                            </a>
                         </div>';
-//=menu_right
+        //=menu_right
 
         $data['url_delete_item'] = route('admin_block_content.delete');
 
@@ -123,10 +123,10 @@ class ShopBlockContentController extends Controller
             ->with($data);
     }
 
-/**
- * Form create new order in admin
- * @return [type] [description]
- */
+    /**
+     * Form create new order in admin
+     * @return [type] [description]
+     */
     public function create()
     {
         $listViewBlock = $this->getListViewBlock();
@@ -148,10 +148,10 @@ class ShopBlockContentController extends Controller
             ->with($data);
     }
 
-/**
- * Post create new order in admin
- * @return [type] [description]
- */
+    /**
+     * Post create new order in admin
+     * @return [type] [description]
+     */
     public function postCreate()
     {
         $data = request()->all();
@@ -181,14 +181,13 @@ class ShopBlockContentController extends Controller
             'status' => (empty($data['status']) ? 0 : 1),
         ];
         ShopBlockContent::create($dataInsert);
-//
+        //
         return redirect()->route('admin_block_content.index')->with('success', trans('block_content.admin.create_success'));
-
     }
 
-/**
- * Form edit
- */
+    /**
+     * Form edit
+     */
     public function edit($id)
     {
         $layout = ShopBlockContent::find($id);
@@ -215,9 +214,9 @@ class ShopBlockContentController extends Controller
             ->with($data);
     }
 
-/**
- * update status
- */
+    /**
+     * update status
+     */
     public function postEdit($id)
     {
         $data = request()->all();
@@ -234,7 +233,7 @@ class ShopBlockContentController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-//Edit
+        //Edit
         $dataUpdate = [
             'name' => $data['name'],
             'position' => $data['position'],
@@ -246,15 +245,14 @@ class ShopBlockContentController extends Controller
         ];
         $layout = ShopBlockContent::find($id);
         $layout->update($dataUpdate);
-//
+        //
         return redirect()->route('admin_block_content.index')->with('success', trans('block_content.admin.edit_success'));
-
     }
 
-/*
-Delete list item
-Need mothod destroy to boot deleting in model
- */
+    /*
+    Delete list item
+    Need mothod destroy to boot deleting in model
+    */
     public function deleteList()
     {
         if (!request()->ajax()) {
@@ -281,15 +279,15 @@ Need mothod destroy to boot deleting in model
 
     public function getListModuleBlock()
     {
-        $arrModule = [];
-        foreach (glob(base_path() . "/app/Modules/Block/Controllers/*.php") as $file) {
-            if (file_exists($file)) {
-                $arr = explode('/', $file);
-                $tmp = substr(end($arr), 0, -4);
-                $arrModule[$tmp] = $tmp;
+        $arrModule = array_keys(sc_get_all_plugin('Modules', 'Block'));
+        $modulesInstalled = AdminConfig::where('group', 'Modules')
+            ->where('code', 'Block')
+            ->pluck('key')->toArray();
+            foreach ($arrModule as $key => $module) {
+                if(!in_array($module, $modulesInstalled)){
+                    unset($arrModule[$key]);
+                }
             }
-        }
         return $arrModule;
     }
-
 }
