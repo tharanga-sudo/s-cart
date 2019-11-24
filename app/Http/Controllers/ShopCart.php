@@ -67,10 +67,8 @@ class ShopCart extends GeneralController
 
 
         //====================================================
-        $objects = array();
-        $objects[] = (new ShopOrderTotal)->getShipping();
-        $objects[] = (new ShopOrderTotal)->getDiscount();
-        $objects[] = (new ShopOrderTotal)->getReceived();
+ 
+
         $extensionDiscount = $totalMethod['Discount'] ?? '';
         if (!empty(session('Discount'))) {
             $hasCoupon = true;
@@ -102,6 +100,7 @@ class ShopCart extends GeneralController
             ];
         }
         $shippingAddress = session('shippingAddress') ? session('shippingAddress') : $addressDefaul;
+        $objects = ShopOrderTotal::getObjectOrderTotal();
         return view(
             'templates.' . sc_store('template') . '.shop_cart',
             [
@@ -145,15 +144,15 @@ class ShopCart extends GeneralController
         $v = Validator::make(
             request()->all(), 
             [
-            'first_name' => 'required|max:100',
-            'last_name' => 'required|max:100',
-            'address1' => 'required|max:100',
-            'address2' => 'required|max:100',
-            'phone' => 'required|regex:/^0[^0][0-9\-]{7,13}$/',
-            'email' => 'required|string|email|max:255',
-            'shippingMethod' => 'required',
-            'paymentMethod' => 'required',
-            'country' => 'required|min:2',
+                'first_name' => 'required|max:100',
+                'last_name' => 'required|max:100',
+                'address1' => 'required|max:100',
+                'address2' => 'required|max:100',
+                'phone' => 'required|regex:/^0[^0][0-9\-]{7,13}$/',
+                'email' => 'required|string|email|max:255',
+                'shippingMethod' => 'required',
+                'paymentMethod' => 'required',
+                'country' => 'required|min:2',
             ], 
             $messages
         );
@@ -171,14 +170,14 @@ class ShopCart extends GeneralController
         session(
             [
                 'shippingAddress' => [
-                'first_name' => request('first_name'),
-                'last_name' => request('last_name'),
-                'email' => request('email'),
-                'country' => request('country'),
-                'address1' => request('address1'),
-                'address2' => request('address2'),
-                'phone' => request('phone'),
-                'comment' => request('comment'),
+                    'first_name' => request('first_name'),
+                    'last_name' => request('last_name'),
+                    'email' => request('email'),
+                    'country' => request('country'),
+                    'address1' => request('address1'),
+                    'address2' => request('address2'),
+                    'phone' => request('phone'),
+                    'comment' => request('comment'),
                 ],
             ]
         );
@@ -211,10 +210,7 @@ class ShopCart extends GeneralController
         $classPaymentMethod = sc_get_class_extension_config('Payment', $paymentMethod);
         $paymentMethodData = (new $classPaymentMethod)->getData();
 
-        $objects = array();
-        $objects[] = (new ShopOrderTotal)->getShipping();
-        $objects[] = (new ShopOrderTotal)->getDiscount();
-        $objects[] = (new ShopOrderTotal)->getReceived();
+        $objects = ShopOrderTotal::getObjectOrderTotal();
         $dataTotal = ShopOrderTotal::processDataTotal($objects);
 
         //Set session dataTotal
@@ -252,7 +248,7 @@ class ShopCart extends GeneralController
             $options = $form_attr;
             $dataCart = array(
                 'id' => $product_id,
-                'name' => $product->name,
+                'name' => $product->sku,
                 'qty' => $qty,
                 'price' => $product->getFinalPrice(),
             );

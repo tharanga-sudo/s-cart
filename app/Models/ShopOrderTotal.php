@@ -90,7 +90,7 @@ class ShopOrderTotal extends Model
         return $value;
     }
 
-    public function getShipping()
+    public static function getShipping()
     {
         $arrShipping = [];
         $shippingMethod = session('shippingMethod') ?? '';
@@ -108,7 +108,7 @@ class ShopOrderTotal extends Model
         return $arrShipping;
     }
 
-    public function getPayment()
+    public static function getPayment()
     {
         $arrPayment = [];
         $paymentMethod = session('paymentMethod') ?? '';
@@ -123,7 +123,7 @@ class ShopOrderTotal extends Model
         return $arrPayment;
     }
 
-    public function getDiscount()
+    public static function getDiscount()
     {
         $arrDiscount = [];
         $arrDiscount = array(
@@ -148,7 +148,7 @@ class ShopOrderTotal extends Model
         return $arrDiscount;
     }
 
-    public function getReceived()
+    public static function getReceived()
     {
         return array(
             'title' => trans('order.totals.received'),
@@ -274,4 +274,13 @@ class ShopOrderTotal extends Model
 
         return $order_id;
     }
+
+    public static function getObjectOrderTotal(){
+        $objects = array();
+        $objects[] = self::getShipping();
+        $objects[] = self::getDiscount();
+        $objects[] = self::getReceived();
+        return $objects;
+    }
+
 }
