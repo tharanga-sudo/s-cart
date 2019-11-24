@@ -129,7 +129,8 @@ class DiscountController extends GeneralController
     public function apply($code, $uID = null, $msg = null)
     {
         //check code valid
-        $check = json_decode($this->check($code, $uID), true);
+        $checkCode = $this->check($code, $uID);
+        $check = json_decode($checkCode, true);
 
         if ($check['error'] === 0) {
             $promocode = DiscountModel::byCode($code)->first();
@@ -146,7 +147,7 @@ class DiscountController extends GeneralController
                 return json_encode(['error' => 1, 'msg' => $e->getMessage()]);
             }
         } else {
-            return $this->check($code, $uID);
+            return $checkCode;
         }
 
     }

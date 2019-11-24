@@ -12,8 +12,7 @@ class AppConfig extends ConfigDefault
     protected $configKey = 'Discount';
     protected $configCode = 'Total';
     protected $configGroup = 'Extensions';
-
-    protected $discountService;
+    
     public function __construct()
     {
         $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
@@ -24,7 +23,6 @@ class AppConfig extends ConfigDefault
         $this->prefix = false;
         $this->length = 8;
         $this->mask = '****-****';
-        $this->discountService = new DiscountController;
         $this->version = '2.0';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
@@ -105,9 +103,9 @@ class AppConfig extends ConfigDefault
             'link' => $this->link,
         ];
 
-        $Discount = session('Discount');
-        $check = json_decode($this->discountService->check($Discount, $uID), true);
-        if (!empty($Discount) && !$check['error']) {
+        $discount = session('Discount');
+        $check = json_decode((new DiscountController)->check($discount, $uID), true);
+        if (!empty($discount) && !$check['error']) {
             $arrType = [
                 '0' => 'Cash',
                 '1' => 'Point',
@@ -116,7 +114,7 @@ class AppConfig extends ConfigDefault
             $subtotal = \Cart::subtotal();
             $value = ($check['content']['group'] == '2') ? floor($subtotal * $check['content']['reward'] / 100) : $check['content']['reward'];
             $arrData = array(
-                'title' => '<b>' . $this->title . ':</b> ' . $Discount . '',
+                'title' => '<b>' . $this->title . ':</b> ' . $discount . '',
                 'code' => $this->configKey,
                 'image' => $this->image,
                 'permission' => self::ALLOW,
