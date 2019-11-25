@@ -13,7 +13,7 @@
                 <div class="col-sm-8">
                     <div class="contact-form">
                         <h2 class="title text-center">{{ trans('front.contact_form.title') }}</h2>
-                        <form method="post" action="{{ route('postContact') }}" class="contact-form">
+                        <form method="post" action="{{ route('contact.post') }}" class="contact-form">
                         {{ csrf_field() }}
                         <div id="contactFormWrapper" style="margin: 30px;">
                         <div class="row">
