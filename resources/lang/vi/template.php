@@ -13,7 +13,7 @@ return [
     'status'     => 'Trạng thái',
     'version'    => 'Phiên bản',
     'installing' => 'Đang cài đặt',
-    'guide'      => 'Xem hướng dẫn <a target=_new href="https://s-cart.org/download/template.html?lang=vi">Ở ĐÂY</a>',
+    'guide'      => 'Xem hướng dẫn <a target=_new href="https://s-cart.org/guide/template.html?lang=vi">Ở ĐÂY</a>',
     'admin'      => [
         'list'  => 'Danh sách giao diện',
         'title' => 'Quan lý giao diện',
