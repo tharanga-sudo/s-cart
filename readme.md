@@ -4,7 +4,7 @@
 <p align="center">Free Laravel e-commerce for business<br>
     <code><b>composer create-project lanhktc/s-cart</b></code></p>
 <p align="center">
- <a href="https://s-cart.org">Home page</a> | <a href="https://demo.s-cart.org">Demo</a> | <a href="https://demo.s-cart.org/sc_admin">Demo admin</a> | <a href="https://s-cart.org/installation.html">Installation</a>  | <a href="https://s-cart.org/video-guide.html">Video Guide</a>
+ <a href="https://s-cart.org">Home page</a> | <a href="https://demo.s-cart.org">Demo</a> | <a href="https://demo.s-cart.org/sc_admin">Demo admin</a> | <a href="https://s-cart.org/installation.html">Installation</a>  | <a href="https://s-cart.org/video-guide.html">Video Guide</a> | <a href="https://s-cart.org/download.html">Download full source</a>
 </p>
 <p align="center">
 <a href="https://packagist.org/packages/lanhktc/s-cart"><img src="https://poser.pugx.org/lanhktc/s-cart/d/total.svg" alt="Total Downloads"></a>
@@ -21,49 +21,33 @@ Support this project :stuck_out_tongue_winking_eye: :pray:
     <a href="https://www.paypal.me/LeLanh" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" data-origin="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="PayPal Me"></a>
 </p>
 
-## S-cart functions:
+## S-Cart functions:
 
 <pre>
 ======= FRONT-END =======
 
 - Multi-language
-- Currencies
-- Customer sign up
-- Purchase history
-- Process cart
-- Manage product: price sale, cost price, promotion price, quantity, multi images, attributes ..
-- Categories product
-- Brand, vendor product
-- Payment method (default: COD, Paypal), shipping method
-- CMS: blog/news, banner, content,
-- Upload manager
+- Multi-currency
+- Shopping cart
+- Customer login
+- Product attributes: cost price, promotion price, stock..
+- CMS content: category, news, content, web page
+- Module/Extension: Shipping, payment, discount, ...
+- Upload manager: banner, images,..
 ...
 
 ======= ADMIN =======
 
 - Admin roles, permission
+- Product manager
+- Order management
 - Customer management
-- Upload management
-- Order management: edit orders, update payment status, shipping status ...
-- Order history
-- Report: chart, statistics, export csv, pdf...
-- Configure email SMTP
-- System configuration: turn off website, hide / show products
+- Template manager
+- Module/Extension manager
+- System config: email setting, info shop, maintain status,...
 - Backup, restore data
+- Report: chart, statistics, export csv, pdf...
 ...
-
-======= EXTENSIONS =======
-
-- Shipping
-- Discount
-- Payment
-...support for integrated extension from 3rd party
-
-======= MODULES =======
-
-- Blog/News
-- Cms content: content categories, entries
-...support for integrated modules from 3rd party
 
 </pre>
 
@@ -72,7 +56,7 @@ Support this project :stuck_out_tongue_winking_eye: :pray:
 
 ## Requirements:
 
-Version 3.2:
+Version 3.2, 3.3:
 
 > Core laravel framework 6.x Requirements::
 
