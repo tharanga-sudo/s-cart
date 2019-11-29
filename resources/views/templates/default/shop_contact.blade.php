@@ -18,8 +18,10 @@
                         <div id="contactFormWrapper" style="margin: 30px;">
                         <div class="row">
                                 <div class="col-md-12 collapsed-block">
-                                    {!!  sc_word_format_class($page->content) !!}
+                                    {!!  sc_html_render($page->content) !!}
                                 </div>
+
+
                                 <div class="col-md-12 col-xs-12">
                                     <div class="row">
                                         <div class="col-sm-4 form-group {{ $errors->has('name') ? ' has-error' : '' }}">
