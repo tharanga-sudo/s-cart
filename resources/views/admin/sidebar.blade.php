@@ -37,7 +37,7 @@
           @elseif($level0->uri)
               <li class="">
                 <a href="{{ $level0->uri?sc_url_render($level0->uri):'#' }}">
-                  <i class="fa {{ $level0->icon }}"></i>{{ sc_language_render($level0->title) }}
+                  <i class="fa {{ $level0->icon }}"></i> <span>{{ sc_language_render($level0->title) }}</span>
                 </a>
               </li>
           @else
