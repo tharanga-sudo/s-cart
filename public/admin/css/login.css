@@ -100,7 +100,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-image: url('/images/bg-system.jpg');
     position: relative;
     z-index: 1;
   }
