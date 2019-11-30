@@ -43,6 +43,14 @@
 .progress-bar-default {
     background-color: #000;
 }
+
+@media (min-width: 768px) {
+    .sidebar-collapse #summary {
+        display: none !important;
+        -webkit-transform: translateZ(0);
+    }
+}
+
 </style>
 @php
     $totalOrder = \App\Models\ShopOrder::count();
