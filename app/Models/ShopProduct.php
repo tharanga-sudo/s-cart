@@ -24,10 +24,6 @@ class ShopProduct extends Model
 
     protected static $listSingle = null;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
 /*
 List product single

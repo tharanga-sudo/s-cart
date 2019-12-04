@@ -286,8 +286,7 @@ class ShopProductController extends Controller
     public function postCreate()
     {
 
-        $data = request()->all();
-        $dataOrigin = request()->all();
+        $data = $dataOrigin = request()->all();
         switch ($data['kind']) {
             case SC_PRODUCT_SINGLE: // product single
                 $arrValidation = [
@@ -368,6 +367,7 @@ class ShopProductController extends Controller
             'brand_id' => $data['brand_id'],
             'vendor_id' => $data['vendor_id'],
             'price' => $data['price'],
+            'sku' => $data['sku'],
             'cost' => $data['cost'],
             'stock' => $data['stock'],
             'type' => $data['type'],
@@ -379,7 +379,6 @@ class ShopProductController extends Controller
             'status' => (!empty($data['status']) ? 1 : 0),
             'sort' => (int) $data['sort'],
         ];
-
         //insert product
         $product = ShopProduct::create($dataInsert);
 
