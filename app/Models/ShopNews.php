@@ -15,10 +15,7 @@ class ShopNews extends Model
         'description',
         'content',
     ];
-    public function __construct()
-    {
-        parent::__construct();
-    }
+
     public function descriptions()
     {
         return $this->hasMany(ShopNewsDescription::class, 'shop_news_id', 'id');

@@ -17,10 +17,7 @@ class ShopCategory extends Model
         'keyword',
         'description',
     ];
-    public function __construct()
-    {
-        parent::__construct();
-    }
+
     public function products()
     {
         return $this->belongsToMany(ShopProduct::class, 'shop_product_category', 'category_id', 'product_id');

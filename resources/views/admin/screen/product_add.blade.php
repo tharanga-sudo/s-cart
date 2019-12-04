@@ -224,7 +224,12 @@
                                     <i class="fa fa-info-circle"></i> {{ $errors->first('image') }}
                                 </span>
                                 @endif
-                                <div id="preview_image" class="img_holder"><img src="{{ asset(old('image')) }}"></div>
+                                <div id="preview_image" class="img_holder">
+                                    @if (old('image'))
+                                        <img src="{{ asset(old('image')) }}">
+                                    @endif
+                                    
+                                </div>
 
                                 @if (!empty(old('sub_image')))
                                 @foreach (old('sub_image') as $key => $sub_image)
