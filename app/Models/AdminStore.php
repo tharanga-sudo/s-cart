@@ -10,10 +10,7 @@ class AdminStore extends Model
     public $table = 'admin_store';
     protected $guarded = [];
     protected static $getAll = null;
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    
     public function descriptions()
     {
         return $this->hasMany(AdminStoreDescription::class, 'config_id', 'id');

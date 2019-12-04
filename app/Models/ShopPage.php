@@ -15,10 +15,7 @@ class ShopPage extends Model
         'description',
         'content',
     ];
-    public function __construct()
-    {
-        parent::__construct();
-    }
+
     public function descriptions()
     {
         return $this->hasMany(ShopPageDescription::class, 'page_id', 'id');

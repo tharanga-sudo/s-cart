@@ -199,8 +199,11 @@
                                     <i class="fa fa-info-circle"></i> {{ $errors->first('image') }}
                                 </span>
                                 @endif
-                                <div id="preview_image" class="img_holder"><img
-                                        src="{{ asset(old('image',$product->image)) }}"></div>
+                                <div id="preview_image" class="img_holder">
+                                    @if (old('image',$product->image))
+                                        <img src="{{ asset(old('image',$product->image)) }}">
+                                    @endif
+                                </div>
                                 @php
                                 $listsubImages = old('sub_image',$product->images->pluck('image')->all());
                                 @endphp

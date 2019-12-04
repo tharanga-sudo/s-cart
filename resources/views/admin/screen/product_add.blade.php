@@ -1,31 +1,32 @@
 @extends('admin.layout')
 
 @section('main')
+@php
+    $kindOpt = old('kind')
+@endphp
+
 <style>
     #start-add {
         margin: 20px;
     }
 
-    @if(old('kind')=='') #main-add,
-    #box-footer {
-        display: none;
-    }
-
-    @else .kind {
-        display: none;
-    }
-
-    .kind {
-            {
-            old('kind')
+    @if($kindOpt == '') 
+    
+        #main-add, #box-footer {
+            display: none;
         }
-    }
 
+    @else 
+        .kind {
+            display: none;
+        }
+        .kind{{ $kindOpt }}
         {
-        display: block;
-    }
+            display: block;
+        }
+    @endif 
 
-    @endif .select-product {
+    .select-product {
         margin: 10px 0;
     }
 </style>
@@ -223,7 +224,12 @@
                                     <i class="fa fa-info-circle"></i> {{ $errors->first('image') }}
                                 </span>
                                 @endif
-                                <div id="preview_image" class="img_holder"><img src="{{ asset(old('image')) }}"></div>
+                                <div id="preview_image" class="img_holder">
+                                    @if (old('image'))
+                                        <img src="{{ asset(old('image')) }}">
+                                    @endif
+                                    
+                                </div>
 
                                 @if (!empty(old('sub_image')))
                                 @foreach (old('sub_image') as $key => $sub_image)
