@@ -43,7 +43,7 @@
                                             </span>
                                         @endif
                                     <div id="preview_image" class="img_holder">
-                                        @if (old('image',$banner['image']??'')))
+                                        @if (old('image',$banner['image']??''))
                                         <img src="{{ asset(old('image',$banner['image']??'')) }}">
                                         @endif
                                     </div>
