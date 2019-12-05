@@ -70,6 +70,10 @@ Route::get('currency/{code}', function ($code) {
     return back();
 });
 
+//Process click banner
+Route::get('/banner/{id}', 'ShopFront@clickBanner')
+->name('banner.click');    
+
 
 //--Please keep 2 lines route (pages + pageNotFound) at the bottom
 Route::get('/{key}.html', 'ContentFront@pages')->name('pages');

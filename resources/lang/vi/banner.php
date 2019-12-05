@@ -4,6 +4,7 @@ return [
     'html'   => 'Html',
     'type'   => 'Loại',
     'click'  => 'Bấm chuột',
+    'target'  => 'Target',
     'image'  => 'Hình ảnh',
     'url'    => 'Liên kết',
     'sort'   => 'Sắp xếp',
@@ -26,7 +27,7 @@ return [
         'search'         => 'Tìm kiếm',
         'add_new_title'  => 'Tạo banner',
         'add_new_des'    => 'Tạo mới banner',
-
+        'select_target'    => 'Chọn Target',
         'search_place'   => 'Tìm tên',
 
         'sort_order'     => [
