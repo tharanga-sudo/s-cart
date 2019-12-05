@@ -136,8 +136,12 @@
                                     {{ $errors->first('image') }}
                                 </span>
                                 @endif
-                                <div id="preview_image" class="img_holder"><img
-                                        src="{{ asset(old('image',($page['image']??''))) }}"></div>
+                                <div id="preview_image" class="img_holder">
+                                    @if (old('image',($page['image']??'')))
+                                    <img src="{{ asset(old('image',($page['image']??''))) }}">
+                                    @endif
+
+                                </div>
                             </div>
                         </div>
 
