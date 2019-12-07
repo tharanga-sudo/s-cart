@@ -9,6 +9,12 @@ use Validator;
 
 class ShopBannerController extends Controller
 {
+    protected $arrTarget;
+
+    public function __construct()
+    {
+        $this->arrTarget = ['_blank' => '_blank', '_self' => '_self'];
+    }
 
     public function index()
     {
@@ -35,6 +41,8 @@ class ShopBannerController extends Controller
             'url' => trans('banner.url'),
             'sort' => trans('banner.sort'),
             'status' => trans('banner.status'),
+            'click' => trans('banner.click'),
+            'target' => trans('banner.target'),
             'action' => trans('banner.admin.action'),
         ];
 
@@ -66,6 +74,8 @@ class ShopBannerController extends Controller
                 'url' => $row['url'],
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
+                'click' => number_format($row['click']),
+                'target' => $row['target'],
                 'action' => '
                     <a href="' . route('admin_banner.edit', ['id' => $row['id']]) . '"><span title="' . trans('banner.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
@@ -145,6 +155,7 @@ class ShopBannerController extends Controller
             'title_description' => trans('banner.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'banner' => [],
+            'arrTarget' => $this->arrTarget,
             'url_action' => route('admin_banner.create'),
         ];
         return view('admin.screen.banner')
@@ -175,6 +186,7 @@ class ShopBannerController extends Controller
             'url' => $data['url'],
             'html' => $data['html'],
             'type' => $data['type'] ?? 0,
+            'target' => $data['target'],
             'status' => empty($data['status']) ? 0 : 1,
             'sort' => (int) $data['sort'],
         ];
@@ -198,6 +210,7 @@ class ShopBannerController extends Controller
             'sub_title' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
+            'arrTarget' => $this->arrTarget,
             'banner' => $banner,
             'url_action' => route('admin_banner.edit', ['id' => $banner['id']]),
         ];
@@ -229,6 +242,7 @@ class ShopBannerController extends Controller
             'url' => $data['url'],
             'html' => $data['html'],
             'type' => $data['type'] ?? 0,
+            'target' => $data['target'],
             'status' => empty($data['status']) ? 0 : 1,
             'sort' => (int) $data['sort'],
 

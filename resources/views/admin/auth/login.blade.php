@@ -75,9 +75,9 @@
 
 
     @push('styles')
-    <style>
+    <style type="text/css">
       .container-login100 {
-        background-image: url(asset('images/bg-system.jpg'));
+        background-image: url({!! asset('images/bg-system.jpg') !!});
       }
     </style>
     @endpush

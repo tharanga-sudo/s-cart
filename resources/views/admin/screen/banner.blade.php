@@ -42,7 +42,11 @@
                                                 {{ $errors->first('image') }}
                                             </span>
                                         @endif
-                                    <div id="preview_image" class="img_holder"><img src="{{ asset(old('image',$banner['image']??'')) }}"></div>
+                                    <div id="preview_image" class="img_holder">
+                                        @if (old('image',$banner['image']??''))
+                                        <img src="{{ asset(old('image',$banner['image']??'')) }}">
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
@@ -61,6 +65,23 @@
                                 </div>
                             </div>
 
+
+                            <div class="form-group  {{ $errors->has('target') ? ' has-error' : '' }}">
+                                    <label for="target" class="col-sm-2 control-label">{{ trans('banner.admin.select_target') }}</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control target select2" style="width: 100%;" name="target" >
+                                            <option value=""></option>
+                                            @foreach ($arrTarget as $k => $v)
+                                                <option value="{{ $k }}" {{ (old('target',$banner['target']??'') ==$k) ? 'selected':'' }}>{{ $v }}</option>
+                                            @endforeach
+                                        </select>
+                                            @if ($errors->has('target'))
+                                                <span class="help-block">
+                                                    <i class="fa fa-info-circle"></i> {{ $errors->first('target') }}
+                                                </span>
+                                            @endif
+                                    </div>
+                                </div>
 
                             <div class="form-group  {{ $errors->has('html') ? ' has-error' : '' }}">
                                 <label for="html" class="col-sm-2  control-label">{{ trans('email_template.html') }}</label>

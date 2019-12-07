@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ShopAttributeGroup;
 use App\Models\ShopBrand;
+use App\Models\ShopBanner;
 use App\Models\ShopCategory;
 use App\Models\ShopProduct;
 use App\Models\ShopVendor;
@@ -418,6 +419,22 @@ class ShopFront extends GeneralController
                 'layout_page' => 'product_list',
                 'filter_sort' => $filter_sort,
             ));
+    }
+
+    /**
+     * Process click banner
+     *
+     * @param   [int]  $id  
+     *
+     */
+    public function clickBanner($id){
+        $banner = ShopBanner::find($id);
+        if($banner) {
+            $banner->click +=1;
+            $banner->save();
+            return redirect(url($banner->url??'/'));
+        }
+        return redirect(url('/'));
     }
 
 }

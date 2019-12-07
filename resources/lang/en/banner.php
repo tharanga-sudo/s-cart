@@ -4,6 +4,7 @@ return [
     'html'   => 'Html',
     'type'   => 'Type',
     'click'  => 'Click',
+    'target'  => 'Target',
     'image'  => 'Image',
     'url'    => 'Url',
     'sort'   => 'Sort',
@@ -26,6 +27,7 @@ return [
         'add_new'        => 'Add new',
         'add_new_title'  => 'Add banner',
         'add_new_des'    => 'Create a new banner',
+        'select_target'    => 'Select target',
 
         'search_place'   => 'Search name',
         'sort_order'     => [

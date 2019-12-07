@@ -18,6 +18,7 @@ class CreateShopTables extends Migration
             $table->increments('id');
             $table->string('image', 255)->nullable();
             $table->string('url', 100)->nullable();
+            $table->string('target', 50)->nullable();
             $table->text('html')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('sort')->default(0);
@@ -527,8 +528,8 @@ class CreateShopTables extends Migration
     public function importData()
     {
         DB::table('shop_banner')->insert([
-            ['image' => '/data/banner/Main-banner-1-1903x600.jpg', 'html' => '', 'status' => 1, 'type' => 1],
-            ['image' => '/data/banner/Main-banner-3-1903x600.jpg', 'html' => '', 'status' => 1, 'type' => 1],
+            ['image' => '/data/banner/Main-banner-1-1903x600.jpg', 'html' => '', 'target' => '_self',  'status' => 1, 'type' => 1],
+            ['image' => '/data/banner/Main-banner-3-1903x600.jpg', 'html' => '', 'target' => '_self',  'status' => 1, 'type' => 1],
         ]
         );
 
