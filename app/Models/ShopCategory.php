@@ -120,10 +120,7 @@ class ShopCategory extends Model
  */
     public function getCategoriesTop()
     {
-        $lang = sc_get_locale();
-        return $this->with(['descriptions' => function ($q) use ($lang) {
-            $q->where('lang', $lang);
-        }])->where('status', 1)->where('top', 1)->get();
+        return $this->where('status', 1)->where('top', 1)->get();
     }
 
 /*
