@@ -26,6 +26,7 @@
         @endif
       @endforeach
   @endisset
+      <link href="{{ asset('css/scart.css')}}" rel="stylesheet">
 <!--//Module meta -->
     <link href="{{ asset('templates/'.sc_store('template').'/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset('templates/'.sc_store('template').'/css/font-awesome.min.css')}}" rel="stylesheet">

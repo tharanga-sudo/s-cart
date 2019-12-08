@@ -22,6 +22,7 @@ class ShopCurrency extends Model
     protected static $decimal           = '.';
     protected static $list              = null;
     protected static $getArray          = null;
+    protected static $getCodeActive     = null;
     protected static $checkListCurrency = [];
     protected $guarded                  = [];
     public static function getList()
@@ -31,6 +32,15 @@ class ShopCurrency extends Model
         }
         return self::$list;
     }
+
+    public static function getCodeActive()
+    {
+        if (self::$getCodeActive == null) {
+            self::$getCodeActive = self::where('status', 1)->pluck('name', 'code')->all();
+        }
+        return self::$getCodeActive;
+    }
+
 
     public static function getArray()
     {
