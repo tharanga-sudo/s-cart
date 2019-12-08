@@ -82,3 +82,11 @@ if (!function_exists('sc_currency_all')) {
         return Helper::$currencies;
     }
 }
+
+//Get all currencies active
+if (!function_exists('sc_currency_all_active')) {
+    function sc_currency_all_active()
+    {
+        return ShopCurrency::getCodeActive();
+    }
+}
