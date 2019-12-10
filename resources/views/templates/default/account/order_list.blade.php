@@ -82,16 +82,7 @@
       </div>
     </div>
 
-
     @endforeach
-    <style>
-    .shipping_address td{
-        padding: 3px;
-    }
-    .shipping_address textarea,.shipping_address input{
-        width: 100%;
-    }
-</style>
     </tbody>
   </table>
 
