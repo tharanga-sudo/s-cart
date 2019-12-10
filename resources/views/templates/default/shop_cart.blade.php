@@ -10,22 +10,7 @@
         Cart empty!
     </div>
 @else
-    <style>
-    .shipping_address td{
-        padding: 3px !important;
-    }
-    .shipping_address textarea,.shipping_address input[type="text"],.shipping_address option{
-        width: 100%;
-        padding: 7px !important;
-    }
-    .row_cart>td{
-        vertical-align: middle !important;
-    }
-    input[type="number"]{
-        text-align: center;
-        padding:2px;
-    }
-</style>
+ 
 <div class="table-responsive">
 <table class="table box table-bordered">
     <thead>
@@ -86,7 +71,7 @@
     </tfoot>
   </table>
   </div>
-<form class="shipping_address" id="form-order" role="form" method="POST" action="{{ route('checkout') }}">
+<form class="sc-shipping-address" id="form-order" role="form" method="POST" action="{{ route('checkout') }}">
 <div class="row">
     <div class="col-md-6">
             @csrf

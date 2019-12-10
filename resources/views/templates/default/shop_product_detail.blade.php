@@ -87,7 +87,7 @@
                 @endphp
                 <b>{{ trans('product.groups') }}</b>:<br>
                 @foreach ($groups as $group)
-                  <span class="product-group" data-id="{{ $group->product_id }}">{!! sc_image_render($group->product->image) !!}</span>
+                  <span class="sc-product-group" data-id="{{ $group->product_id }}">{!! sc_image_render($group->product->image) !!}</span>
                 @endforeach
               </div>
               @endif
@@ -98,9 +98,9 @@
                   $builds = $product->builds
                 @endphp
                 <b>{{ trans('product.builds') }}</b>:<br>
-                <span class="product-build">{!! sc_image_render($product->image) !!} = </span>
+                <span class="sc-product-build">{!! sc_image_render($product->image) !!} = </span>
                 @foreach ($builds as $k => $build)
-                  {!! ($k)?'<i class="fa fa-plus" aria-hidden="true"></i>':'' !!} <span class="product-build">{{ $build->quantity }} x <a target="_new" href="{{ $build->product->getUrl() }}">{!! sc_image_render($build->product->image) !!}</a></span>
+                  {!! ($k)?'<i class="fa fa-plus" aria-hidden="true"></i>':'' !!} <span class="sc-product-build">{{ $build->quantity }} x <a target="_new" href="{{ $build->product->getUrl() }}">{!! sc_image_render($build->product->image) !!}</a></span>
                 @endforeach
               </div>
               @endif
@@ -170,11 +170,11 @@
 
 @push('scripts')
 <script type="text/javascript">
-  $('.product-group').click(function(event) {
+  $('.sc-product-group').click(function(event) {
     if($(this).hasClass('active')){
       return;
     }
-    $('.product-group').removeClass('active');
+    $('.sc-product-group').removeClass('active');
     $(this).addClass('active');
     var id = $(this).data("id");
       $.ajax({

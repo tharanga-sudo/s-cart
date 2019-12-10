@@ -24,6 +24,8 @@ return [
  'shipping_address1'     => 'Tỉnh/Thành',
  'address1'              => 'Tỉnh/Thành',
  'shipping_address2'     => 'Quận/Huyện',
+ 'postcode'              => 'Mã bưu chính',
+ 'company'               => 'Công ty',
  'address2'              => 'Quận/Huyện',
  'shipping_name'         => 'Tên người nhận',
  'shipping_phone'        => 'Số điện thoại',
