@@ -518,4 +518,18 @@ Check promotion price
         }
 
     }
+
+    /**
+     * Get product ative detail
+     *
+     * @param   int  $id  [$id description]
+     *
+     * @return  [collect]   product
+     */
+    public function getProduct(int $id) {
+        return $this->where('id', $id)
+            ->where('status', 1)
+            ->first();
+    }
+
 }
