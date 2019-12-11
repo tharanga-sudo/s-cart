@@ -1,6 +1,6 @@
   @php
     $modelCategory = (new \App\Models\ShopCategory);
-    $categories = $modelCategory->getCategoriesAll();
+    $categories = $modelCategory->getCategoriesAll($onlyActive = true);
     $categoriesTop = $modelCategory->getCategoriesTop();
   @endphp
   @if ($categoriesTop->count())
