@@ -26,7 +26,7 @@ class ShopFront extends GeneralController
             array(
                 'products_new' => (new ShopProduct)->getProducts($type = null, $limit = sc_config('product_new'), $opt = null),
                 'products_hot' => (new ShopProduct)->getProducts($type = SC_PRODUCT_HOT, $limit = sc_config('product_hot'), $opt = 'random'),
-                'categories' => (new ShopCategory)->getCategoriesAll(),
+                'categories' => (new ShopCategory)->getCategoriesAll($onlyActive = true),
                 'products_build' => (new ShopProduct)->getTopBuild($limit = 4),
                 'products_group' => (new ShopProduct)->getTopGroup($limit = 4),
                 'layout_page' => 'home',
@@ -91,7 +91,7 @@ class ShopFront extends GeneralController
             $sortOrder = $filterArr[$filter_sort][1];
         }
 
-        $category = (new ShopCategory)->find($id);
+        $category = (new ShopCategory)->getCategory($id);
         if ($category) {
             $products = (new ShopProduct)->getProductsToCategory($category->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder);
             $itemsList = (new ShopCategory)->getCategories($parent = $id);

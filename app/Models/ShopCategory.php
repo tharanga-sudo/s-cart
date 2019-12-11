@@ -214,14 +214,33 @@ Get image
     public function getCategoriesActive($sortBy = null, $sortOrder = 'asc')
     {
         $lang = sc_get_locale();
-        $listFullCategory = $this->where('status', 1)->sort($sortBy, $sortOrder)->get()->groupBy('parent');
+        $listFullCategory = $this->where('status', 1)
+            ->sort($sortBy, $sortOrder)
+            ->get()
+            ->groupBy('parent');
         return $listFullCategory;
     }
 
     public function getCategoriesFull($sortBy = null, $sortOrder = 'asc')
     {
         $lang = sc_get_locale();
-        $listFullCategory = $this->sort($sortBy, $sortOrder)->get()->groupBy('parent');
+        $listFullCategory = $this->sort($sortBy, $sortOrder)
+            ->get()
+            ->groupBy('parent');
         return $listFullCategory;
     }
+
+    /**
+     * Get category ative detail
+     *
+     * @param   int  $id  [$id description]
+     *
+     * @return  [collect]   catgegory
+     */
+    public function getCategory(int $id) {
+        return $this->where('id', $id)
+            ->where('status', 1)
+            ->first();
+    }
+
 }
