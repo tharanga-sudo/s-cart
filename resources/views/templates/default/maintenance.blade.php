@@ -1,3 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ $description??sc_store('description') }}">
+    <meta name="keyword" content="{{ $keyword??sc_store('keyword') }}">
+    <title>{{$title??sc_store('title')}}</title>
+    <meta property="og:image" content="{{ !empty($og_image)?asset($og_image):asset('images/org.jpg') }}" />
+    <meta property="og:url" content="{{ \Request::fullUrl() }}" />
+    <meta property="og:type" content="Website" />
+    <meta property="og:title" content="{{ $title??sc_store('title') }}" />
+    <meta property="og:description" content="{{ $description??sc_store('description') }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
+<body>
   <section>
     <div class="container">
       <div class="row">
@@ -7,3 +23,4 @@
       </div>
     </div>
   </section>
+</body>

@@ -169,6 +169,7 @@ Get final price
     public function getProduct($id)
     {
         $product = $this->where('id', $id)
+            ->where('status', 1)
             ->with('images')
             ->with('promotionPrice');
         $product = $product->first();
@@ -518,18 +519,4 @@ Check promotion price
         }
 
     }
-
-    /**
-     * Get product ative detail
-     *
-     * @param   int  $id  [$id description]
-     *
-     * @return  [collect]   product
-     */
-    public function getProduct(int $id) {
-        return $this->where('id', $id)
-            ->where('status', 1)
-            ->first();
-    }
-
 }
