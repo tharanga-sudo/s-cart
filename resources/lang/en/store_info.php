@@ -18,7 +18,7 @@ return [
     'attribute_name' => 'Attribute name',
     'attribute_value' => 'Attribute value',
     'admin' => [
-        'title' => 'Store info',
+        'title' => 'Store infomation',
         'create_success' => 'Create new item success!',
         'edit_success' => 'Edit item success!',
         'list' => 'Store list',

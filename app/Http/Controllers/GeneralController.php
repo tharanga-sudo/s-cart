@@ -21,18 +21,16 @@ class GeneralController extends Controller
         view()->share('layoutsUrl', $layoutsUrl);
 
         if (sc_config('SITE_STATUS') != 'on') {
-            $maintain_content = sc_store('maintain_content') ?? '';
-            echo <<<HTML
- <section>
-    <div class="container">
-      <div class="row">
-        <div id="columns" class="container">
-          $maintain_content
-        </div>
-      </div>
-    </div>
-  </section>
-HTML;
+            echo view(
+                'templates.' . sc_store('template') . '.maintenance',
+                [
+                'title' => trans('front.maintenance'),
+                'msg' => '',
+                'description' => '',
+                'keyword' => ''
+                ]
+            );
+           
             exit;
         }
     }

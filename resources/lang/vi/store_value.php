@@ -4,7 +4,7 @@ return [
     'sort' => 'Sắp xếp',
     'status' => 'Status',
     'admin' => [
-        'title' => 'Thông số',
+        'title' => 'Cấu hình thông số',
         'create_success' => 'Tạo mới thành công!',
         'edit_success' => 'Cập nhật thành công!',
         'list' => 'Danh sách cấu hình',

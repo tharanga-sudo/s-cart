@@ -36,7 +36,7 @@ return [
     'categories'         => 'Danh mục',
     'brands'             => 'Nhãn hiệu',
     'vendors'            => 'Nhà cung cấp',
-    'maintenance'        => 'Xin lỗi, website đang bảo trì',
+    'maintenance'        => 'Website đang bảo trì',
     'features_items'     => 'Sản phẩm nổi bật',
     'recommended_items'  => 'Sản phẩm đề xuất',
     'thank_contact'      => 'Cảm ơn bạn. Chúng tôi sẽ liên hệ sớm nhất có thể!',

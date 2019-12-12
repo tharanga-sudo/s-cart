@@ -36,7 +36,7 @@ return [
     'categories'         => 'Categories',
     'brands'             => 'Brands',
     'vendors'            => 'Vendors',
-    'maintenance'        => 'Sorry! We are currently doing site maintenance!',
+    'maintenance'        => 'Maintenance',
     'features_items'     => 'Features Items',
     'recommended_items'  => 'Recommended items',
     'thank_contact'      => 'Thanks!. We will contact as soon as possible!',

@@ -4,7 +4,7 @@ return [
     'sort' => 'Sort',
     'status' => 'Status',
     'admin' => [
-        'title' => 'Store value',
+        'title' => 'Config parameters',
         'create_success' => 'Create new item success!',
         'edit_success' => 'Edit item success!',
         'list' => 'Config info list',
