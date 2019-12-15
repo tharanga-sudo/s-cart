@@ -287,6 +287,7 @@ return [
       'delete'                            => 'Delete',
       'edit'                              => 'Edit',
       'add_new'                           => 'Add new',
+      'add_new_multi'                     => 'Add new multiple product',
       'sort'                              => 'Sort',
       'export'                            => 'Export',
       'refresh'                           => 'Refresh',

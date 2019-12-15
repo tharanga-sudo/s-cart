@@ -10,7 +10,7 @@ return [
     'sort'    => 'Sắp xếp',
     'status'  => 'Status',
     'admin'   => [
-        'title'          => 'Nhà cung cấp',
+        'title'          => 'Nhãn hiệu',
         'create_success' => 'Tạo mới thành công!',
         'edit_success'   => 'Cập nhật thành công!',
         'list'           => 'Danh sách nhãn hiệu',

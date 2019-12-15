@@ -292,6 +292,7 @@ return [
     'delete' => 'Xóa',
     'edit' => 'Chỉnh sửa',
     'add_new' => 'Thêm mới',
+    'add_new_multi' => 'Thêm mới nhiều sản phẩm',
     'sort' => 'Sắp xếp',
     'export' => 'Xuất',
     'refresh' => 'Làm mới',

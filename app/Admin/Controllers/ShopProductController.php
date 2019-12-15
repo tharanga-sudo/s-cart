@@ -132,9 +132,15 @@ class ShopProductController extends Controller
                 'virtual' => $this->virtuals[$row['virtual']] ?? $row['virtual'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'action' => '
-                    <a href="' . route('admin_product.edit', ['id' => $row['id']]) . '"><span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
+                    <a href="' . route('admin_product.edit', ['id' => $row['id']]) . '">
+                    <span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary">
+                    <i class="fa fa-edit"></i>
+                    </span>
+                    </a>&nbsp;
 
-                    <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>'
+                    <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger">
+                    <i class="fa fa-trash"></i>
+                    </span>'
                 ,
             ];
         }
@@ -154,14 +160,25 @@ class ShopProductController extends Controller
 //=menu_left
 
 //menu_right
+
         $data['menu_right'] = '
                         <div class="btn-group pull-right" style="margin-right: 10px">
                            <a href="' . route('admin_product.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('admin.add_new') . '</span>
                            </a>
                         </div>
-
                         ';
+        if(sc_config('ImportProduct')) {
+            $data['menu_right'] .= '
+            <div class="btn-group pull-right" style="margin-right: 10px">
+            <a href="' . route('admin_import_product.index') . '" class="btn  btn-success  btn-flat" title="New">
+            <i class="fa fa fa-floppy-o"></i> <span class="hidden-xs">' . trans('admin.add_new_multi') . '</span>
+            </a>
+            </div>
+            ';
+            
+        }
+
 //=menu_right
 
 //menu_sort
