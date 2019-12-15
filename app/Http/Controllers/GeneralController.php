@@ -19,20 +19,6 @@ class GeneralController extends Controller
         view()->share('currencies', $currencies);
         view()->share('blocksContent', $blocksContent);
         view()->share('layoutsUrl', $layoutsUrl);
-
-        if (sc_config('SITE_STATUS') != 'on') {
-            echo view(
-                'templates.' . sc_store('template') . '.maintenance',
-                [
-                'title' => trans('front.maintenance'),
-                'msg' => '',
-                'description' => '',
-                'keyword' => ''
-                ]
-            );
-           
-            exit;
-        }
     }
 
     /**

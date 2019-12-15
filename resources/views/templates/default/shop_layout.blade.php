@@ -1,3 +1,9 @@
+@if (sc_config('SITE_STATUS') != 'on')
+  @include('templates.' . sc_store('template') . '.maintenance')
+  @php
+    exit();
+  @endphp
+@endif
 
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
