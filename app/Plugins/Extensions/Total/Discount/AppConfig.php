@@ -9,21 +9,22 @@ use App\Plugins\Extensions\ConfigDefault;
 class AppConfig extends ConfigDefault
 {
 
-    protected $configKey = 'Discount';
-    protected $configCode = 'Total';
-    protected $configGroup = 'Extensions';
+    public $configKey = 'Discount';
+    public $configCode = 'Total';
+    public $configGroup = 'Extensions';
+    public $pathPlugin;
     
     public function __construct()
     {
-        $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
-        $this->title = trans($this->pathExtension.'::'.$this->configKey . '.title');
-        $this->image = 'images/' . $this->pathExtension . '.png';
+        $this->pathPlugin = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
+        $this->title = trans($this->pathPlugin.'::'.$this->configKey . '.title');
+        $this->image = 'images/' . $this->pathPlugin . '.png';
         $this->separator = false;
         $this->suffix = false;
         $this->prefix = false;
         $this->length = 8;
         $this->mask = '****-****';
-        $this->version = '2.0';
+        $this->version = '2.1';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
 
@@ -43,7 +44,7 @@ class AppConfig extends ConfigDefault
                     'group' => $this->configGroup,
                     'sort' => 0,
                     'value' => self::ON, //Enable extension
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.title',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.title',
                 ]
             );
             if (!$process) {

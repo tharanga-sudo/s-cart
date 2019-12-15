@@ -131,7 +131,7 @@ class CreateAdminTables extends Migration
     {
         DB::table('admin_menu')->insert([
             ['id' => 1, 'parent_id' => 0, 'sort' => 11, 'title' => 'lang::admin.menu_titles.order_manager', 'icon' => 'fa-cart-arrow-down', 'uri' => '', 'type' => 0],
-            ['id' => 2, 'parent_id' => 0, 'sort' => 12, 'title' => 'lang::admin.menu_titles.product_mamager', 'icon' => 'fa-folder-open', 'uri' => '', 'type' => 0],
+            ['id' => 2, 'parent_id' => 0, 'sort' => 12, 'title' => 'lang::admin.menu_titles.catalog_mamager', 'icon' => 'fa-folder-open', 'uri' => '', 'type' => 0],
             ['id' => 3, 'parent_id' => 0, 'sort' => 13, 'title' => 'lang::admin.menu_titles.customer_manager', 'icon' => 'fa-group', 'uri' => '', 'type' => 0],
             ['id' => 4, 'parent_id' => 0, 'sort' => 201, 'title' => 'lang::admin.menu_titles.template_layout', 'icon' => 'fa-object-ungroup', 'uri' => '', 'type' => 0],
             ['id' => 5, 'parent_id' => 0, 'sort' => 301, 'title' => 'lang::admin.menu_titles.config_manager', 'icon' => 'fa-cogs', 'uri' => '', 'type' => 0],

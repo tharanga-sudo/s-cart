@@ -135,9 +135,19 @@ if (!function_exists('sc_url_render')) {
         if (count($arrCheckRoute) == 2) {
             $arrRoute = explode('::', $string);
             if (isset($arrRoute[2])) {
-                return route($arrRoute[1], $arrRoute[2]);
+                try {
+                    return route($arrRoute[1], $arrRoute[2]);
+                } catch(\Exception $e) {
+                    sc_report($e->getMessage());
+                    return false;
+                }  
             } else {
-                return route($arrRoute[1]);
+                try {
+                    return route($arrRoute[1]);
+                } catch(\Exception $e) {
+                    sc_report($e->getMessage());
+                    return false;
+                }                
             }
         }
 

@@ -7,16 +7,17 @@ use App\Models\AdminConfig;
 use App\Plugins\Extensions\ConfigDefault;
 class AppConfig extends ConfigDefault
 {
-    protected $configGroup = 'Extensions';
-    protected $configCode = 'Shipping';
-    protected $configKey = 'ShippingStandard';
+    public $configGroup = 'Extensions';
+    public $configCode = 'Shipping';
+    public $configKey = 'ShippingStandard';
+    public $pathPlugin;
 
     public function __construct()
     {
-        $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
-        $this->title = trans($this->pathExtension.'::'.$this->configKey . '.title');
-        $this->image = 'images/' . $this->pathExtension . '.png';
-        $this->version = '2.0';
+        $this->pathPlugin = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
+        $this->title = trans($this->pathPlugin.'::'.$this->configKey . '.title');
+        $this->image = 'images/' . $this->pathPlugin . '.png';
+        $this->version = '2.1';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
     }
@@ -35,7 +36,7 @@ class AppConfig extends ConfigDefault
                     'group' => $this->configGroup,
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ON, //1- Enable extension; 0 - Disable
-                    'detail' => $this->pathExtension.'::' . $this->configKey . '.title',
+                    'detail' => $this->pathPlugin.'::' . $this->configKey . '.title',
                 ]
             );
             if (!$process) {
@@ -78,12 +79,12 @@ class AppConfig extends ConfigDefault
 
     public function config()
     {
-        return view($this->pathExtension.'::ShippingStandard')->with(
+        return view($this->pathPlugin.'::ShippingStandard')->with(
             [
                 'group' => $this->configCode,
                 'key' => $this->configKey,
                 'title' => $this->title,
-                'pathExtension' => $this->pathExtension,
+                'pathPlugin' => $this->pathPlugin,
                 'data' => ShippingStandardModel::first(),
             ]);
     }

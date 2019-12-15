@@ -7,16 +7,17 @@ use App\Plugins\Extensions\ConfigDefault;
 class AppConfig extends ConfigDefault
 {
 
-    protected $configGroup = 'Extensions';
-    protected $configCode = 'Payment';
-    protected $configKey = 'Cash';
+    public $configGroup = 'Extensions';
+    public $configCode = 'Payment';
+    public $configKey = 'Cash';
+    public $pathPlugin;
 
     public function __construct()
     {
-        $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
-        $this->title = trans($this->pathExtension.'::'.$this->configKey . '.title');
-        $this->image = 'images/' . $this->pathExtension . '.png';
-        $this->version = '2.0';
+        $this->pathPlugin = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
+        $this->title = trans($this->pathPlugin.'::'.$this->configKey . '.title');
+        $this->image = 'images/' . $this->pathPlugin . '.png';
+        $this->version = '2.1';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
     }
@@ -36,7 +37,7 @@ class AppConfig extends ConfigDefault
                     'group' => $this->configGroup,
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ON, //1- Enable extension; 0 - Disable
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.title',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.title',
                 ]
             );
             if (!$process) {

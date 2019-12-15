@@ -13,16 +13,17 @@ use App\Plugins\Modules\ConfigDefault;
 class AppConfig extends ConfigDefault
 {
 
-    protected $configGroup = 'Modules';
-    protected $configCode = 'Cms';
-    protected $configKey = 'Content';
+    public $configGroup = 'Modules';
+    public $configCode = 'Cms';
+    public $configKey = 'Content';
+    public $pathPlugin;
 
     public function __construct()
     {
-        $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
-        $this->title = trans($this->pathExtension.'::'. $this->configKey . '.title_module');
-        $this->image = 'images/' . $this->pathExtension . '.png';
-        $this->version = '2.0';
+        $this->pathPlugin = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
+        $this->title = trans($this->pathPlugin.'::'. $this->configKey . '.title_module');
+        $this->image = 'images/' . $this->pathPlugin . '.png';
+        $this->version = '2.1';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
     }
@@ -41,7 +42,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey,
                     'group' => $this->configGroup,
                     'value' => self::ON, //1- Enable extension; 0 - Disable
-                    'detail' => $this->pathExtension.'::'. $this->configKey . '.title',
+                    'detail' => $this->pathPlugin.'::'. $this->configKey . '.title',
                 ]
             );
             if (!$process) {
