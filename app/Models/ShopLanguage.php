@@ -11,10 +11,13 @@ class ShopLanguage extends Model
     protected $guarded                = [];
     private static $getLanguages      = null;
     private static $getArrayLanguages = null;
+
     public static function getList()
     {
         if (self::$getLanguages == null) {
-            self::$getLanguages = self::where('status', 1)->get()->keyBy('code');
+            self::$getLanguages = self::where('status', 1)
+                ->get()
+                ->keyBy('code');
         }
         return self::$getLanguages;
     }

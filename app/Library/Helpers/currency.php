@@ -4,7 +4,6 @@
  * @author Naruto <lanhktc@gmail.com>
  * From version: S-cart 3.0
  */
-use App\Library\Helper;
 use App\Models\ShopCurrency;
 
 //Render currency
@@ -75,11 +74,7 @@ if (!function_exists('sc_currency_info')) {
 if (!function_exists('sc_currency_all')) {
     function sc_currency_all()
     {
-        if (Helper::$currencies !== null) {
-            return Helper::$currencies;
-        }
-        Helper::$currencies = ShopCurrency::getAll();
-        return Helper::$currencies;
+        return ShopCurrency::getAll();
     }
 }
 

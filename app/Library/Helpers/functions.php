@@ -1,6 +1,5 @@
 <?php
 
-use App\Library\Helper;
 use App\Models\AdminConfig;
 use App\Models\AdminStore;
 use App\Models\ShopBlockContent;
@@ -24,11 +23,7 @@ Get all block content
 if (!function_exists('sc_link')) {
     function sc_link()
     {
-        if (Helper::$layoutsUrl !== null) {
-            return Helper::$layoutsUrl;
-        }
-        Helper::$layoutsUrl = ShopLink::getGroup();
-        return Helper::$layoutsUrl;
+        return ShopLink::getGroup();
     }
 }
 
@@ -38,11 +33,7 @@ Get all layouts
 if (!function_exists('sc_block_content')) {
     function sc_block_content()
     {
-        if (Helper::$layouts !== null) {
-            return Helper::$layouts;
-        }
-        Helper::$layouts = ShopBlockContent::getLayout();
-        return Helper::$layouts;
+        return ShopBlockContent::getLayout();
     }
 }
 
@@ -164,11 +155,7 @@ if (!function_exists('sc_url_render')) {
 if (!function_exists('sc_language_all')) {
     function sc_language_all()
     {
-        if (Helper::$languages !== null) {
-            return Helper::$languages;
-        }
-        Helper::$languages = ShopLanguage::getList();
-        return Helper::$languages;
+        return ShopLanguage::getList();
     }
 }
 

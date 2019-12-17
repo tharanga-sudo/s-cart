@@ -3,7 +3,9 @@
 return [
     'id'                    => 'ID',
     'sku'                   => 'Mã hàng',
+    'alias'                 => 'URL tùy chỉnh',
     'sku_validate'          => 'Chỉ sử dụng kí tự trong nhóm: "A-Z", "a-z", "0-9" and ".-_" ',
+    'alias_validate'        => 'Tối đa 100 kí tự trong nhóm: "A-Z", "a-z", "0-9" and ".-_" ',
     'price'                 => 'Giá bán',
     'price_promotion'       => 'Giá khuyến mãi',
     'price_promotion_start' => 'Ngày bắt đầu',
