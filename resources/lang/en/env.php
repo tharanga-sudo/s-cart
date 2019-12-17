@@ -19,4 +19,5 @@ return [
     'title' => 'Config environment',
     'LOG_SLACK_WEBHOOK_URL' => 'Report error to Slack webhook',
     'LOG_SLACK_WEBHOOK_URL_help' => 'Link https://hooks.slack.com/services/...',
+    'SUFFIX_URL' => 'Suffix URL',
 ];

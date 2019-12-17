@@ -261,6 +261,30 @@
                         </div>
                         {{-- //Sku --}}
 
+
+                        {{-- Alias --}}
+                        <div class="form-group {{ $errors->has('alias') ? ' has-error' : '' }}">
+                            <label for="alias" class="col-sm-2 control-label">{{ trans('product.alias') }}</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="alias" name="alias"
+                                        value="{!! old('alias', $product->alias) !!}" class="form-control input-sm alias"
+                                        placeholder="" />
+                                </div>
+                                @if ($errors->has('alias'))
+                                <span class="help-block">
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('alias') }}
+                                </span>
+                                @else
+                                <span class="help-block">
+                                    <i class="fa fa-info-circle"></i> {{ trans('product.alias_validate') }}
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        {{-- //Alias --}}
+
                         {{-- Brand --}}
                         <div class="form-group  {{ $errors->has('brand_id') ? ' has-error' : '' }}">
                             <label for="brand_id" class="col-sm-2 control-label">{{ trans('product.brand') }}</label>

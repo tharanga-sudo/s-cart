@@ -340,6 +340,7 @@ class CreateShopTables extends Migration
             $table->tinyInteger('status')->default(0)->index();
             $table->tinyInteger('sort')->default(0);
             $table->integer('view')->default(0);
+            $table->string('alias', 100)->unique()->nullable();
             $table->dateTime('date_lastview')->nullable();
             $table->date('date_available')->nullable();
             $table->timestamps();
@@ -583,6 +584,7 @@ class CreateShopTables extends Migration
             ['group' => '', 'code' => 'env', 'key' => 'ADMIN_LOGO', 'value' => 'S-Cart Admin', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOGO', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'ADMIN_LOGO_MINI', 'value' => '<i class="fa fa-map-o" aria-hidden="true"></i>', 'sort' => '0', 'detail' => 'lang::env.ADMIN_LOGO_MINI', 'store_id' => '1'],
             ['group' => '', 'code' => 'env', 'key' => 'LOG_SLACK_WEBHOOK_URL', 'value' => '', 'sort' => '0', 'detail' => 'lang::env.LOG_SLACK_WEBHOOK_URL', 'store_id' => '1'],
+            ['group' => '', 'code' => 'env', 'key' => 'SUFFIX_URL', 'value' => 'html', 'sort' => '0', 'detail' => 'lang::env.SUFFIX_URL', 'store_id' => '1'],
 
         ]);
         DB::table('admin_store')->insert(

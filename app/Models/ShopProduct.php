@@ -164,11 +164,17 @@ Get final price
 /**
  * Get product detail
  * @param  [int] $id [description]
+ * @param  [string] $alias [description]
  * @return [type]     [description]
  */
-    public function getProduct($id)
+    public function getProduct($id = null, $alias = null)
     {
-        $product = $this->where('id', $id)
+        if($id) {
+            $product = $this->where('id', $id);  
+        } else {
+            $product = $this->where('alias', $alias);
+        }
+        $product = $product
             ->where('status', 1)
             ->with('images')
             ->with('promotionPrice');
@@ -353,7 +359,7 @@ Get image
  */
     public function getUrl()
     {
-        return route('product.detail', ['name' => sc_word_format_url(empty($this->name) ? $this->sku : $this->name), 'id' => $this->id]);
+        return route('product.detail', ['alias' => $this->alias, 'suffix' => sc_config('SUFFFIX_URL')??'html']);
     }
 
 //Fields language
