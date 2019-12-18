@@ -587,6 +587,7 @@ class CreateShopTables extends Migration
 
             ['group' => '', 'code' => 'url', 'key' => 'SUFFIX_URL', 'value' => '.html', 'sort' => '0', 'detail' => 'lang::url.SUFFIX_URL', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_BRAND', 'value' => 'brand', 'sort' => '0', 'detail' => 'lang::url.PREFIX_BRAND', 'store_id' => '1'],
+            ['group' => '', 'code' => 'url', 'key' => 'PREFIX_VENDOR', 'value' => 'vendor', 'sort' => '0', 'detail' => 'lang::url.PREFIX_VENDOR', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_CATEGORY', 'value' => 'category', 'sort' => '0', 'detail' => 'lang::url.PREFIX_CATEGORY', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_PRODUCT', 'value' => 'product', 'sort' => '0', 'detail' => 'lang::url.PREFIX_PRODUCT', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_SEARCH', 'value' => 'search', 'sort' => '0', 'detail' => 'lang::url.PREFIX_SEARCH', 'store_id' => '1'],

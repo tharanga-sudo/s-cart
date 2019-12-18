@@ -32,4 +32,7 @@ return [
         'sort_order' => [
         ],
     ],
+    'config_manager' => [
+        'title' => 'Config URL',
+    ],
 ];

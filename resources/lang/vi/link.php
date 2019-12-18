@@ -33,4 +33,8 @@ return [
         ],
 
     ],
+
+    'config_manager' => [
+        'title' => 'Cấu hình URL',
+    ],
 ];
