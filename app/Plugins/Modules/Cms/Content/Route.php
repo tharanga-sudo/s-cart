@@ -10,7 +10,7 @@ $prefixCmsEntry = sc_config('PREFIX_CMS_ENTRY')??'entry';
 Route::group(
     [
         'namespace' => 'App\Plugins\Modules\Cms\Content\Controllers',
-    ], function () use($suffix) {
+    ], function () use($suffix, $prefixCmsCategory, $prefixCmsEntry) {
         Route::get('/'.$prefixCmsCategory.'/{name}_{id}'.$suffix, 'ContentController@category')
             ->where(['id' => '[0-9]+'])
             ->name('cms.category');

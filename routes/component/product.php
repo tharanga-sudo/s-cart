@@ -1,5 +1,5 @@
 <?php
-$prefixProduct = sc_config('PREFIX_PRODUCT_URL')??'product';
+$prefixProduct = sc_config('PREFIX_PRODUCT')??'product';
 
 Route::group(['prefix' => $prefixProduct], function ($router) use($suffix) {
     $router->get('/', 'ShopFront@allProducts')->name('product.all');

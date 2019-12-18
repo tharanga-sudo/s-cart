@@ -10,13 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-$suffix = sc_config('SUFFIX_URL')??'';
 
 /*
  Home
 */
 Route::get('/', 'ShopFront@index')->name('home');
 Route::get('index.html', 'ShopFront@index');
+
+$suffix = sc_config('SUFFIX_URL')??'';
 
 /*
  Auth
