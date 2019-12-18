@@ -359,7 +359,7 @@ Get image
  */
     public function getUrl()
     {
-        return route('product.detail', ['alias' => $this->alias, 'suffix' => sc_config('SUFFFIX_URL')??'html']);
+        return route('product.detail', ['alias' => $this->alias]);
     }
 
 //Fields language

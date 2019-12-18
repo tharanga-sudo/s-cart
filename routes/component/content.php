@@ -1,14 +1,18 @@
 <?php
-Route::get('/search.html', 'ShopFront@search')
+$prefixSearch = sc_config('PREFIX_SEARCH')??'search';
+$prefixContact = sc_config('PREFIX_CONTACT')??'contact';
+$prefixNews = sc_config('PREFIX_NEWS')??'news';
+
+Route::get('/'.$prefixSearch.$suffix, 'ShopFront@search')
 ->name('search');
 Route::post('/subscribe', 'ContentFront@emailSubscribe')
 ->name('subscribe');
-Route::get('/contact.html', 'ContentFront@getContact')
+Route::get('/'.$prefixContact.$suffix, 'ContentFront@getContact')
 ->name('contact');
-Route::post('/contact.html', 'ContentFront@postContact')
+Route::post('/contact', 'ContentFront@postContact')
 ->name('contact.post');
-Route::get('/news.html', 'ContentFront@news')
+Route::get('/'.$prefixNews.$suffix, 'ContentFront@news')
 ->name('news');
-Route::get('/news/{name}_{id}.html', 'ContentFront@newsDetail')
+Route::get('/'.$prefixNews.'/{name}_{id}.html', 'ContentFront@newsDetail')
 ->where(['id' => '[0-9]+'])
 ->name('news.detail');

@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
+$suffix = sc_config('SUFFIX_URL')??'';
 
 /*
  Home
@@ -76,7 +77,7 @@ Route::get('/banner/{id}', 'ShopFront@clickBanner')
 
 
 //--Please keep 2 lines route (pages + pageNotFound) at the bottom
-Route::get('/{key}.html', 'ContentFront@pages')->name('pages');
+Route::get('/{key}'.$suffix, 'ContentFront@pages')->name('pages');
 // Route::fallback('ShopFront@pageNotFound')->name('pageNotFound'); //Make sure before using this route. There will be disadvantages when detecting 404 errors for static files like images, scripts ..
 //--end keep
 
