@@ -168,7 +168,7 @@ class ShopFront extends GeneralController
             //Product last view
             if (!empty(sc_config('LastViewProduct'))) {
                 $arrlastView = empty(\Cookie::get('productsLastView')) ? array() : json_decode(\Cookie::get('productsLastView'), true);
-                $arrlastView[$id] = date('Y-m-d H:i:s');
+                $arrlastView[$product->id] = date('Y-m-d H:i:s');
                 arsort($arrlastView);
                 \Cookie::queue('productsLastView', json_encode($arrlastView), (86400 * 30));
             }
