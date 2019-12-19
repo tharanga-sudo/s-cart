@@ -205,7 +205,7 @@ class CmsCategory extends Model
 
     public function getUrl()
     {
-        return route('cms.category', ['name' => sc_word_format_url(empty($this->title) ? 'no-title' : $this->title), 'id' => $this->id]);
+        return route('cms.category', ['alias' => $this->alias]);
     }
 
     //Fields language

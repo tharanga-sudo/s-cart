@@ -157,8 +157,29 @@
                                     {{ $errors->first('image') }}
                                 </span>
                                 @endif
-                                <div id="preview_image" class="img_holder"><img
-                                        src="{{ asset(old('image',$content['image']??'')) }}"></div>
+
+                                <div id="preview_image" class="img_holder">
+                                    @if (old('image',$content['image']??''))
+                                    <img src="{{ asset(old('image',$content['image']??'')) }}">
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
+                            <label for="{{ $code }}__keyword"
+                                class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Content.alias') }}</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="alias" name="alias" value="{!! old('alias',($content['alias']??'')) !!}"
+                                        class="form-control alias" placeholder="" />
+                                </div>
+                                @if ($errors->has('alias'))
+                                <span class="help-block">
+                                    {{ $errors->first('alias') }}
+                                </span>
+                                @endif
                             </div>
                         </div>
 

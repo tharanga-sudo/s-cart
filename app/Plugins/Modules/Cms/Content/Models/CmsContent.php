@@ -59,7 +59,7 @@ Get image
  */
     public function getUrl()
     {
-        return route('cms.content', ['name' => sc_word_format_url(empty($this->title) ? 'no-title' : $this->title), 'id' => $this->id]);
+        return route('cms.content', ['alias' => $this->alias]);
     }
 
     //Fields language

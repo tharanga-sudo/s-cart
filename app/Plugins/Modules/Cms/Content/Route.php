@@ -11,11 +11,9 @@ Route::group(
     [
         'namespace' => 'App\Plugins\Modules\Cms\Content\Controllers',
     ], function () use($suffix, $prefixCmsCategory, $prefixCmsEntry) {
-        Route::get('/'.$prefixCmsCategory.'/{name}_{id}'.$suffix, 'ContentController@category')
-            ->where(['id' => '[0-9]+'])
+        Route::get('/'.$prefixCmsCategory.'/{alias}', 'ContentController@category')
             ->name('cms.category');
-        Route::get('/'.$prefixCmsEntry.'/{name}_{id}'.$suffix, 'ContentController@content')
-            ->where(['id' => '[0-9]+'])
+        Route::get('/'.$prefixCmsEntry.'/{alias}'.$suffix, 'ContentController@content')
             ->name('cms.content');
     });
 
