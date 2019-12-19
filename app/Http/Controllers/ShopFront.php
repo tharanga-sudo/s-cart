@@ -70,10 +70,10 @@ class ShopFront extends GeneralController
 
 /**
  * [productToCategory description]
- * @param  [type] $key [description]
+ * @param  [string] $alias [description]
  * @return [type]      [description]
  */
-    public function productToCategory($name, $id)
+    public function productToCategory($alias)
     {
         $sortBy = null;
         $sortOrder = 'asc';
@@ -91,10 +91,10 @@ class ShopFront extends GeneralController
             $sortOrder = $filterArr[$filter_sort][1];
         }
 
-        $category = (new ShopCategory)->getCategory($id);
+        $category = (new ShopCategory)->getCategory($id = null, $alias);
         if ($category) {
             $products = (new ShopProduct)->getProductsToCategory($category->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder);
-            $itemsList = (new ShopCategory)->getCategories($parent = $id);
+            $itemsList = (new ShopCategory)->getCategories($parent = $category->id);
             return view('templates.' . sc_store('template') . '.shop_products_list',
                 array(
                     'title' => $category->name,

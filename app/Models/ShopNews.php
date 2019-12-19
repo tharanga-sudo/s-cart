@@ -55,7 +55,7 @@ Get image
  */
     public function getUrl()
     {
-        return route('news.detail', ['name' => sc_word_format_url(empty($this->title) ? 'no-title' : $this->title), 'id' => $this->id]);
+        return route('news.detail', ['alias' => $this->alias]);
     }
 
     //Fields language

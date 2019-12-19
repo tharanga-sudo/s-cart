@@ -156,14 +156,14 @@ class ContentFront extends GeneralController
     /**
      * News detail
      *
-     * @param   [type]  $name 
+     * @param   [string]  $alias 
      * @param   [type]  $id
      *
      * @return  view
      */
-    public function newsDetail($name, $id)
+    public function newsDetail($alias)
     {
-        $news_currently = ShopNews::find($id);
+        $news_currently = ShopNews::where('alias', $alias)->first();
         if ($news_currently) {
             $title = ($news_currently) ? $news_currently->title : trans('front.not_found');
             return view(

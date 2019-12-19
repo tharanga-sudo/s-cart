@@ -98,7 +98,7 @@
                         <div
                             class="form-group {{ $errors->has('descriptions.'.$code.'.content') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__content"
-                                class="col-sm-2 control-label">{{ trans('page.content') }}</label>
+                                class="col-sm-2 control-label">{{ trans('news.content') }}</label>
                             <div class="col-sm-8">
                                 <textarea id="{{ $code }}__content" class="editor"
                                     name="descriptions[{{ $code }}][content]">
@@ -115,6 +115,23 @@
                         @endforeach
 
                         <hr>
+
+                        <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
+                            <label for="{{ $code }}__keyword"
+                                class="col-sm-2  control-label">{{ trans('news.alias') }}</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="alias" name="alias" value="{!! old('alias',($shopNews['alias']??'')) !!}"
+                                        class="form-control alias" placeholder="" />
+                                </div>
+                                @if ($errors->has('alias'))
+                                <span class="help-block">
+                                    {{ $errors->first('alias') }}
+                                </span>
+                                @endif
+                            </div>
+                        </div>
 
 
                         <div class="form-group   {{ $errors->has('image') ? ' has-error' : '' }}">

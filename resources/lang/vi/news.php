@@ -6,6 +6,7 @@ return [
     'alias_validate'        => 'Tối đa 100 kí tự trong nhóm: "A-Z", "a-z", "0-9" and "-_" ',
     'keyword' => 'Từ khóa',
     'description' => 'Mô tả',
+    'content' => 'Nội dung',
     'image' => 'Hình ảnh',
     'parent' => 'Danh mục cha',
     'top' => 'Hiển thị ngoài web',

@@ -120,6 +120,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
+                            <label for="alias" class="col-sm-2  control-label">{{ trans('category.alias') }}</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                    <input type="text" id="alias" name="alias"
+                                        value="{!! old('alias',($category['alias']??'')) !!}" class="form-control"
+                                        placeholder="" />
+                                </div>
+                                @if ($errors->has('alias'))
+                                <span class="help-block">
+                                    {{ $errors->first('alias') }}
+                                </span>
+                                @endif
+                            </div>
+                        </div>                        
+
                         <div class="form-group   {{ $errors->has('image') ? ' has-error' : '' }}">
                             <label for="image" class="col-sm-2  control-label">{{ trans('category.image') }}</label>
                             <div class="col-sm-8">

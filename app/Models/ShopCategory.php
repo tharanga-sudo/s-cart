@@ -142,7 +142,7 @@ Get image
 
     public function getUrl()
     {
-        return route('category', ['name' => sc_word_format_url(empty($this->name) ? 'no-name' : $this->name), 'id' => $this->id]);
+        return route('category', ['alias' => $this->alias]);
     }
 
 //Fields language
@@ -230,15 +230,22 @@ Get image
         return $listFullCategory;
     }
 
-    /**
-     * Get category ative detail
-     *
-     * @param   int  $id  [$id description]
-     *
-     * @return  [collect]   catgegory
-     */
-    public function getCategory(int $id) {
-        return $this->where('id', $id)
+/**
+ * [getCategory description]
+ *
+ * @param   [int]  $id     [$id description]
+ * @param   [string]  $alias  [$alias description]
+ *
+ * @return  [type]          [return description]
+ */
+    public function getCategory($id = null, $alias = null) {
+        $category = null;
+        if($id) {
+            $category = $this->where('id', (int)$id);
+        } else {
+            $category = $this->where('alias', $alias);
+        }
+        return $category
             ->where('status', 1)
             ->first();
     }

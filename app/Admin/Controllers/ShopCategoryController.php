@@ -200,23 +200,31 @@ class ShopCategoryController extends Controller
     public function postCreate()
     {
         $data = request()->all();
-        $dataOrigin = request()->all();
-        $validator = Validator::make($dataOrigin, [
+
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
+        $validator = Validator::make($data, [
             'image' => 'required',
             'sort' => 'numeric|min:0',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_category,alias|string|max:100',
             'descriptions.*.name' => 'required|string|max:100',
         ], [
             'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('category.name')]),
+            'alias.regex' => trans('category.alias_validate'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 
         $dataInsert = [
             'image' => $data['image'],
+            'alias' => $data['alias'],
             'parent' => (int) $data['parent'],
             'top' => !empty($data['top']) ? 1 : 0,
             'status' => !empty($data['status']) ? 1 : 0,
@@ -268,34 +276,42 @@ class ShopCategoryController extends Controller
  */
     public function postEdit($id)
     {
+        $category = ShopCategory::find($id);
         $data = request()->all();
-        $dataOrigin = request()->all();
-        $validator = Validator::make($dataOrigin, [
+
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
+        $validator = Validator::make($data, [
             'image' => 'required',
             'sort' => 'numeric|min:0',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_category,alias,' . $category->id . ',id|string|max:100',
             'descriptions.*.name' => 'required|string|max:100',
         ], [
             'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('category.name')]),
+            'alias.regex' => trans('category.alias_validate'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 //Edit
 
         $dataUpdate = [
             'image' => $data['image'],
+            'alias' => $data['alias'],
             'parent' => $data['parent'],
             'sort' => $data['sort'],
             'top' => empty($data['top']) ? 0 : 1,
             'status' => empty($data['status']) ? 0 : 1,
         ];
 
-        $obj = ShopCategory::find($id);
-        $obj->update($dataUpdate);
-        $obj->descriptions()->delete();
+        $category->update($dataUpdate);
+        $category->descriptions()->delete();
         $dataDes = [];
         foreach ($data['descriptions'] as $code => $row) {
             $dataDes[] = [

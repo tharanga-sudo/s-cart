@@ -304,12 +304,11 @@ class ShopProductController extends Controller
     {
         
         $data = request()->all();
-        $dataOrigin = request()->all();
         $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
-        $dataOrigin['alias'] = !empty($dataOrigin['alias'])?$dataOrigin['alias']:$dataOrigin['descriptions'][$langFirst]['name'];
-        $dataOrigin['alias'] = sc_word_format_url($dataOrigin['alias']);
-        $dataOrigin['alias'] = sc_word_limit($dataOrigin['alias'], 100);
-        $data['alias'] = $dataOrigin['alias'];
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
         switch ($data['kind']) {
             case SC_PRODUCT_SINGLE: // product single
                 $arrValidation = [
@@ -378,12 +377,12 @@ class ShopProductController extends Controller
                 break;
         }
 
-        $validator = Validator::make($dataOrigin, $arrValidation, $arrMsg ?? []);
+        $validator = Validator::make($data, $arrValidation, $arrMsg ?? []);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput($dataOrigin);
+                ->withInput($data);
         }
 
         $category = $data['category'] ?? [];
@@ -563,12 +562,11 @@ class ShopProductController extends Controller
     {
         $product = ShopProduct::find($id);
         $data = request()->all();
-        $dataOrigin = request()->all();
         $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
-        $dataOrigin['alias'] = !empty($dataOrigin['alias'])?$dataOrigin['alias']:$dataOrigin['descriptions'][$langFirst]['name'];
-        $dataOrigin['alias'] = sc_word_format_url($dataOrigin['alias']);
-        $dataOrigin['alias'] = sc_word_limit($dataOrigin['alias'], 100);
-        $data['alias'] = $dataOrigin['alias'];
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
         switch ($product['kind']) {
             case SC_PRODUCT_SINGLE: // product single
                 $arrValidation = [
@@ -630,12 +628,12 @@ class ShopProductController extends Controller
                 break;
         }
 
-        $validator = Validator::make($dataOrigin, $arrValidation, $arrMsg ?? []);
+        $validator = Validator::make($data, $arrValidation, $arrMsg ?? []);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput($dataOrigin);
+                ->withInput($data);
         }
 //Edit
 

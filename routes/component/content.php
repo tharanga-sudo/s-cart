@@ -11,8 +11,7 @@ Route::get('/'.$prefixContact.$suffix, 'ContentFront@getContact')
 ->name('contact');
 Route::post('/contact', 'ContentFront@postContact')
 ->name('contact.post');
-Route::get('/'.$prefixNews.$suffix, 'ContentFront@news')
+Route::get('/'.$prefixNews, 'ContentFront@news')
 ->name('news');
-Route::get('/'.$prefixNews.'/{name}_{id}.html', 'ContentFront@newsDetail')
-->where(['id' => '[0-9]+'])
+Route::get('/'.$prefixNews.'/{alias}'.$suffix, 'ContentFront@newsDetail')
 ->name('news.detail');
