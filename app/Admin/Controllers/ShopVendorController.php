@@ -247,6 +247,7 @@ class ShopVendorController extends Controller
  */
     public function postEdit($id)
     {
+        $vendor = ShopVendor::find($id);
         $data = request()->all();
 
         $data['alias'] = !empty($data['alias'])?$data['alias']:$data['name'];
@@ -257,7 +258,7 @@ class ShopVendorController extends Controller
             'image' => 'required',
             'sort' => 'numeric|min:0',
             'name' => 'required|string|max:100',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_vendor,alias|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_vendor,alias,' . $vendor->id . ',id|string|max:100',
             'url' => 'url|nullable',
             'email' => 'email|nullable',
         ],[
@@ -283,8 +284,8 @@ class ShopVendorController extends Controller
             'sort' => (int) $data['sort'],
 
         ];
-        $obj = ShopVendor::find($id);
-        $obj->update($dataUpdate);
+        
+        $vendor->update($dataUpdate);
 
 //
         return redirect()->route('admin_vendor.index')->with('success', trans('vendor.admin.edit_success'));

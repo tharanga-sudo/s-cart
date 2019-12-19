@@ -84,7 +84,7 @@ class ShopBrand extends Model
      */
     public function getUrl()
     {
-        return route('brand', ['name' => sc_word_format_url($this->name), 'id' => $this->id]);
+        return route('brand', ['alias' => $this->alias]);
     }
 
 /*

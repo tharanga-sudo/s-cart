@@ -281,11 +281,10 @@ class ShopFront extends GeneralController
 
 /**
  * [productToBrand description]
- * @param  [type] $name [description]
- * @param  [type] $id   [description]
+ * @param  [string] $alias [description]
  * @return [type]       [description]
  */
-    public function productToBrand($name, $id)
+    public function productToBrand($alias)
     {
         $sortBy = null;
         $sortOrder = 'asc';
@@ -303,14 +302,14 @@ class ShopFront extends GeneralController
             $sortOrder = $filterArr[$filter_sort][1];
         }
 
-        $brand = ShopBrand::find($id);
+        $brand = ShopBrand::where('alias', $alias)->first();
         return view('templates.' . sc_store('template') . '.shop_products_list',
             array(
                 'title' => $brand->name,
                 'description' => '',
                 'keyword' => '',
                 'layout_page' => 'product_list',
-                'products' => $brand->getProductsToBrand($id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder),
+                'products' => $brand->getProductsToBrand($brand->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder),
                 'filter_sort' => $filter_sort,
             )
         );

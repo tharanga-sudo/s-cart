@@ -68,7 +68,7 @@ class ShopBrandController extends Controller
             $dataTr[] = [
                 'id' => $row['id'],
                 'name' => $row['name'],
-                'image' => sc_image_render($row->getThumb(), '50px', '50px'),
+                'image' => sc_image_render($row->getThumb(), '50px'),
                 'url' => $row['url'],
                 'sort' => $row['sort'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
@@ -237,6 +237,7 @@ class ShopBrandController extends Controller
  */
     public function postEdit($id)
     {
+        $brand = ShopBrand::find($id);
         $data = request()->all();
         $data['alias'] = !empty($data['alias'])?$data['alias']:$data['name'];
         $data['alias'] = sc_word_format_url($data['alias']);
@@ -244,7 +245,7 @@ class ShopBrandController extends Controller
 
         $validator = Validator::make($data, [
             'name' => 'required|string|max:100',
-            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_brand,alias|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_brand,alias,' . $brand->id . ',id|string|max:100',
             'image' => 'required',
             'sort' => 'numeric|min:0',
         ], [
@@ -268,8 +269,8 @@ class ShopBrandController extends Controller
             'status' => (!empty($data['status']) ? 1 : 0),
 
         ];
-        $obj = ShopBrand::find($id);
-        $obj->update($dataUpdate);
+
+        $brand->update($dataUpdate);
 
 //
         return redirect()->route('admin_brand.index')->with('success', trans('brand.admin.edit_success'));
