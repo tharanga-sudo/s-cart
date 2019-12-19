@@ -182,24 +182,33 @@ class ShopVendorController extends Controller
     public function postCreate()
     {
         $data = request()->all();
-        $dataOrigin = request()->all();
-        $validator = Validator::make($dataOrigin, [
+
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
+        $validator = Validator::make($data, [
             'image' => 'required',
             'sort' => 'numeric|min:0',
             'name' => 'required|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_vendor,alias|string|max:100',
             'url' => 'url|nullable',
             'email' => 'email|nullable',
+        ],[
+            'name.required' => trans('validation.required', ['attribute' => trans('vendor.name')]),
+            'alias.regex' => trans('vendor.alias_validate'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 
         $dataInsert = [
             'image' => $data['image'],
             'name' => $data['name'],
+            'alias' => $data['alias'],
             'url' => $data['url'],
             'email' => $data['email'],
             'address' => $data['address'],
@@ -239,25 +248,34 @@ class ShopVendorController extends Controller
     public function postEdit($id)
     {
         $data = request()->all();
-        $dataOrigin = request()->all();
-        $validator = Validator::make($dataOrigin, [
+
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
+        $validator = Validator::make($data, [
             'image' => 'required',
             'sort' => 'numeric|min:0',
             'name' => 'required|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_vendor,alias|string|max:100',
             'url' => 'url|nullable',
             'email' => 'email|nullable',
+        ],[
+            'name.required' => trans('validation.required', ['attribute' => trans('vendor.name')]),
+            'alias.regex' => trans('vendor.alias_validate'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 //Edit
 
         $dataUpdate = [
             'image' => $data['image'],
             'name' => $data['name'],
+            'alias' => $data['alias'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'url' => $data['url'],

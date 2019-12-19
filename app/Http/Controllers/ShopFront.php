@@ -318,10 +318,9 @@ class ShopFront extends GeneralController
 
 /**
  * [vendors description]
- * @param  Request $request [description]
  * @return [type]           [description]
  */
-    public function getVendors(Request $request)
+    public function getVendors()
     {
         $sortBy = null;
         $sortOrder = 'asc';
@@ -354,11 +353,11 @@ class ShopFront extends GeneralController
 
 /**
  * [productToVendor description]
- * @param  [type] $name [description]
+ * @param  [string] alias [description]
  * @param  [type] $id   [description]
  * @return [type]       [description]
  */
-    public function productToVendor($name, $id)
+    public function productToVendor($alias)
     {
         $sortBy = null;
         $sortOrder = 'asc';
@@ -376,14 +375,14 @@ class ShopFront extends GeneralController
             $sortOrder = $filterArr[$filter_sort][1];
         }
 
-        $vendor = ShopVendor::find($id);
+        $vendor = ShopVendor::where('alias', $alias)->first();
         return view('templates.' . sc_store('template') . '.shop_products_list',
             array(
                 'title' => $vendor->name,
                 'description' => '',
                 'keyword' => '',
                 'layout_page' => 'product_list',
-                'products' => $vendor->getProductsToVendor($id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder),
+                'products' => $vendor->getProductsToVendor($vendor->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder),
                 'filter_sort' => $filter_sort,
             )
         );

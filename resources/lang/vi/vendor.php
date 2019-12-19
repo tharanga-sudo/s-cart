@@ -2,6 +2,8 @@
 return [
     'id'      => 'ID',
     'name'    => 'Tên nhà cung cấp',
+    'alias'                 => 'URL tùy chỉnh',
+    'alias_validate'        => 'Tối đa 100 kí tự trong nhóm: "A-Z", "a-z", "0-9" and "-_" ',
     'email'   => 'Email',
     'phone'   => 'Số điện thoại',
     'address' => 'Địa chỉ',

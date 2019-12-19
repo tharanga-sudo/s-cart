@@ -176,23 +176,31 @@ class ShopBrandController extends Controller
     public function postCreate()
     {
         $data = request()->all();
-        $dataOrigin = request()->all();
-        $validator = Validator::make($dataOrigin, [
-            'name' => 'required',
+
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
+        $validator = Validator::make($data, [
+            'name' => 'required|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_brand,alias|string|max:100',
             'image' => 'required',
             'sort' => 'numeric|min:0',
-            'name' => 'required|string|max:100',
             'url' => 'url|nullable',
+        ],[
+            'name.required' => trans('validation.required', ['attribute' => trans('brand.name')]),
+            'alias.regex' => trans('brand.alias_validate'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
         $dataInsert = [
             'image' => $data['image'],
             'name' => $data['name'],
+            'alias' => $data['alias'],
             'url' => $data['url'],
             'sort' => (int) $data['sort'],
             'status' => (!empty($data['status']) ? 1 : 0),
@@ -230,26 +238,31 @@ class ShopBrandController extends Controller
     public function postEdit($id)
     {
         $data = request()->all();
-        $dataOrigin = request()->all();
-        $validator = Validator::make($dataOrigin, [
-            'name' => 'required',
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
+        $validator = Validator::make($data, [
+            'name' => 'required|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_brand,alias|string|max:100',
             'image' => 'required',
             'sort' => 'numeric|min:0',
-            'descriptions.*.name' => 'required|string|max:100',
         ], [
-            'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('brand.name')]),
+            'name.required' => trans('validation.required', ['attribute' => trans('brand.name')]),
+            'alias.regex' => trans('brand.alias_validate'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 //Edit
 
         $dataUpdate = [
             'image' => $data['image'],
             'name' => $data['name'],
+            'alias' => $data['alias'],
             'url' => $data['url'],
             'sort' => (int) $data['sort'],
             'status' => (!empty($data['status']) ? 1 : 0),

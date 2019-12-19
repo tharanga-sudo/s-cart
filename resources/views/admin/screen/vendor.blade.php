@@ -44,6 +44,23 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
+                                    <label for="alias" class="col-sm-2  control-label">{{ trans('vendor.alias') }}</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                            <input type="text" id="alias" name="alias"
+                                                value="{!! old()?old('alias'):$vendor['alias']??'' !!}"
+                                                class="form-control" placeholder="" />
+                                        </div>
+                                        @if ($errors->has('alias'))
+                                        <span class="help-block">
+                                            {{ $errors->first('alias') }}
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="form-group   {{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="email"
                                         class="col-sm-2  control-label">{{ trans('vendor.email') }}</label>

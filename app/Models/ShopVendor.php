@@ -82,7 +82,7 @@ class ShopVendor extends Model
      */
     public function getUrl()
     {
-        return route('vendor', ['name' => sc_word_format_url($this->name), 'id' => $this->id]);
+        return route('vendor', ['alias' => $this->alias]);
     }
 
 /*

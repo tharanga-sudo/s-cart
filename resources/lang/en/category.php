@@ -3,6 +3,8 @@ return [
     'id'          => 'ID',
     'name'        => 'Name',
     'keyword'     => 'Keyword',
+    'alias'                 => 'Url customize',
+    'alias_validate'        => 'Maximum 100 characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
     'description' => 'Description',
     'image'       => 'Image',
     'parent'      => 'Parent',
