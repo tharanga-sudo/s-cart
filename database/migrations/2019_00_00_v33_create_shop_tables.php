@@ -152,6 +152,7 @@ class CreateShopTables extends Migration
         Schema::create('shop_brand', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
+            $table->string('alias', 120)->unique();
             $table->string('image', 255)->nullable();
             $table->string('url', 100)->nullable();
             $table->tinyInteger('status')->default(0);
@@ -161,6 +162,7 @@ class CreateShopTables extends Migration
         Schema::create('shop_category', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image', 255)->nullable();
+            $table->string('alias', 120)->unique();
             $table->integer('parent')->default(0);
             $table->integer('top')->nullable()->default(0);
             $table->tinyInteger('status')->default(0);
@@ -285,7 +287,7 @@ class CreateShopTables extends Migration
         Schema::create('shop_page', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image', 255)->nullable();
-            $table->string('key', 100)->unique();
+            $table->string('alias', 120)->unique();
             $table->integer('status')->default(0);
         });
 
@@ -302,6 +304,7 @@ class CreateShopTables extends Migration
         Schema::create('shop_news', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image', 200)->nullable();
+            $table->string('alias', 120)->unique();
             $table->tinyInteger('sort')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamp('created_at')->nullable();
@@ -340,7 +343,7 @@ class CreateShopTables extends Migration
             $table->tinyInteger('status')->default(0)->index();
             $table->tinyInteger('sort')->default(0);
             $table->integer('view')->default(0);
-            $table->string('alias', 100)->unique()->nullable();
+            $table->string('alias', 120)->unique();
             $table->dateTime('date_lastview')->nullable();
             $table->date('date_available')->nullable();
             $table->timestamps();
@@ -448,6 +451,7 @@ class CreateShopTables extends Migration
         Schema::create('shop_vendor', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
+            $table->string('alias', 120)->unique();
             $table->string('email', 150)->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('image', 255)->nullable();
@@ -603,7 +607,7 @@ class CreateShopTables extends Migration
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_CART_COMPARE', 'value' => 'compare', 'sort' => '0', 'detail' => 'lang::url.PREFIX_CART_COMPARE', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_CART_DEFAULT', 'value' => 'cart', 'sort' => '0', 'detail' => 'lang::url.PREFIX_CART_DEFAULT', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_CART_CHECKOUT', 'value' => 'checkout', 'sort' => '0', 'detail' => 'lang::url.PREFIX_CART_CHECKOUT', 'store_id' => '1'],
-            ['group' => '', 'code' => 'url', 'key' => 'PREFIX_ORDER_SUCCESS', 'value' => 'order-scuess', 'sort' => '0', 'detail' => 'lang::url.PREFIX_ORDER_SUCCESS', 'store_id' => '1'],
+            ['group' => '', 'code' => 'url', 'key' => 'PREFIX_ORDER_SUCCESS', 'value' => 'order-success', 'sort' => '0', 'detail' => 'lang::url.PREFIX_ORDER_SUCCESS', 'store_id' => '1'],
 
         ]);
         DB::table('admin_store')->insert(
@@ -835,23 +839,23 @@ class CreateShopTables extends Migration
         ]);
 
         DB::table('shop_product')->insert([
-            ['id' => 1, 'sku' => 'ABCZZ', 'image' => '/data/product/img-1.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '99', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => '2020-02-03', 'sold' => '1'],
-            ['id' => 2, 'sku' => 'LEDFAN1', 'image' => '/data/product/img-4.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '1', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 3, 'sku' => 'CLOCKFAN1', 'image' => '/data/product/img-11.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 4, 'sku' => 'CLOCKFAN2', 'image' => '/data/product/img-14.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 5, 'sku' => 'CLOCKFAN3', 'image' => '/data/product/img-15.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 6, 'sku' => 'TMC2208', 'image' => '/data/product/img-16.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '1', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 7, 'sku' => 'FILAMENT', 'image' => '/data/product/img-17.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 8, 'sku' => 'A4988', 'image' => '/data/product/img-18.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 9, 'sku' => 'ANYCUBIC-P', 'image' => '/data/product/img-20.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 10, 'sku' => '3DHLFD-P', 'image' => '/data/product/img-21.jpg', 'brand_id' => '4', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 11, 'sku' => 'SS495A', 'image' => '/data/product/img-22.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 12, 'sku' => '3D-CARBON1.75', 'image' => '/data/product/img-23.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 13, 'sku' => '3D-GOLD1.75', 'image' => '/data/product/img-34.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '10000', 'cost' => '5000', 'stock' => '0', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 14, 'sku' => 'LCD12864-3D', 'image' => '/data/product/img-13.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
-            ['id' => 15, 'sku' => 'LCD2004-3D', 'image' => '/data/product/img-41.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 1, 'date_available' => null, 'sold' => '0'],
-            ['id' => 16, 'sku' => 'RAMPS1.5-3D', 'image' => '/data/product/img-42.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '0', 'cost' => '0', 'stock' => '0', 'type' => '0', 'status' => '1', 'kind' => 2, 'date_available' => null, 'sold' => '0'],
-            ['id' => 17, 'sku' => 'ALOKK1-AY', 'image' => '/data/product/img-26.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 1, 'sku' => 'ABCZZ','alias' => 'demo-alias-name-product-1', 'image' => '/data/product/img-1.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '99', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => '2020-02-03', 'sold' => '1'],
+            ['id' => 2, 'sku' => 'LEDFAN1','alias' => 'demo-alias-name-product-2', 'image' => '/data/product/img-4.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '1', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 3, 'sku' => 'CLOCKFAN1','alias' => 'demo-alias-name-product-3', 'image' => '/data/product/img-11.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 4, 'sku' => 'CLOCKFAN2','alias' => 'demo-alias-name-product-4', 'image' => '/data/product/img-14.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 5, 'sku' => 'CLOCKFAN3','alias' => 'demo-alias-name-product-5', 'image' => '/data/product/img-15.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 6, 'sku' => 'TMC2208','alias' => 'demo-alias-name-product-6', 'image' => '/data/product/img-16.jpg', 'brand_id' => '1', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '1', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 7, 'sku' => 'FILAMENT','alias' => 'demo-alias-name-product-7', 'image' => '/data/product/img-17.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 8, 'sku' => 'A4988','alias' => 'demo-alias-name-product-8', 'image' => '/data/product/img-18.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 9, 'sku' => 'ANYCUBIC-P','alias' => 'demo-alias-name-product-9', 'image' => '/data/product/img-20.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 10, 'sku' => '3DHLFD-P','alias' => 'demo-alias-name-product-10', 'image' => '/data/product/img-21.jpg', 'brand_id' => '4', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 11, 'sku' => 'SS495A','alias' => 'demo-alias-name-product-11', 'image' => '/data/product/img-22.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 12, 'sku' => '3D-CARBON1.75','alias' => 'demo-alias-name-product-12', 'image' => '/data/product/img-23.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '2', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 13, 'sku' => '3D-GOLD1.75','alias' => 'demo-alias-name-product-13', 'image' => '/data/product/img-34.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '10000', 'cost' => '5000', 'stock' => '0', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 14, 'sku' => 'LCD12864-3D','alias' => 'demo-alias-name-product-14', 'image' => '/data/product/img-13.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
+            ['id' => 15, 'sku' => 'LCD2004-3D','alias' => 'demo-alias-name-product-15', 'image' => '/data/product/img-41.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 1, 'date_available' => null, 'sold' => '0'],
+            ['id' => 16, 'sku' => 'RAMPS1.5-3D','alias' => 'demo-alias-name-product-16', 'image' => '/data/product/img-42.jpg', 'brand_id' => '2', 'vendor_id' => '1', 'price' => '0', 'cost' => '0', 'stock' => '0', 'type' => '0', 'status' => '1', 'kind' => 2, 'date_available' => null, 'sold' => '0'],
+            ['id' => 17, 'sku' => 'ALOKK1-AY','alias' => 'demo-alias-name-product-17', 'image' => '/data/product/img-26.jpg', 'brand_id' => '3', 'vendor_id' => '1', 'price' => '15000', 'cost' => '10000', 'stock' => '100', 'type' => '0', 'status' => '1', 'kind' => 0, 'date_available' => null, 'sold' => '0'],
         ]);
 
         DB::table('shop_product_description')->insert([
@@ -997,29 +1001,29 @@ class CreateShopTables extends Migration
             ['name' => 'Size', 'status' => '1', 'sort' => '2', 'type' => 'select'],
         ]);
         DB::table('shop_brand')->insert([
-            ['name' => 'Husq', 'image' => '/data/brand/01-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
-            ['name' => 'Ideal', 'image' => '/data/brand/02-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
-            ['name' => 'Apex', 'image' => '/data/brand/03-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
-            ['name' => 'CST', 'image' => '/data/brand/04-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
-            ['name' => 'Klein', 'image' => '/data/brand/05-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
-            ['name' => 'Metabo', 'image' => '/data/brand/06-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
-            ['name' => 'Avatar', 'image' => '/data/brand/07-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
-            ['name' => 'Brand KA', 'image' => '/data/brand/08-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
+            ['name' => 'Husq',  'alias'=> 'husq', 'image' => '/data/brand/01-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
+            ['name' => 'Ideal',  'alias'=> 'ideal', 'image' => '/data/brand/02-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
+            ['name' => 'Apex',  'alias'=> 'apex', 'image' => '/data/brand/03-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
+            ['name' => 'CST',  'alias'=> 'cst', 'image' => '/data/brand/04-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
+            ['name' => 'Klein',  'alias'=> 'klein', 'image' => '/data/brand/05-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
+            ['name' => 'Metabo',  'alias'=> 'metabo', 'image' => '/data/brand/06-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
+            ['name' => 'Avatar',  'alias'=> 'avatar', 'image' => '/data/brand/07-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
+            ['name' => 'Brand KA',  'alias'=> 'brand-ka', 'image' => '/data/brand/08-181x52.png', 'url' => '', 'status' => '1', 'sort' => '0'],
         ]);
         DB::table('shop_category')->insert([
-            ['id' => '1', 'image' => '/data/category/img-40.jpg', 'parent' => '0', 'top' => '1', 'sort' => '0', 'status' => '1'],
-            ['id' => '2', 'image' => '/data/category/img-44.jpg', 'parent' => '0', 'top' => '1', 'sort' => '0', 'status' => '1'],
-            ['id' => '3', 'image' => '/data/category/img-42.jpg', 'parent' => '1', 'top' => '1', 'sort' => '0', 'status' => '1'],
-            ['id' => '4', 'image' => '/data/category/img-18.jpg', 'parent' => '0', 'top' => '1', 'sort' => '0', 'status' => '1'],
-            ['id' => '5', 'image' => '/data/category/img-14.jpg', 'parent' => '1', 'top' => '1', 'sort' => '0', 'status' => '1'],
-            ['id' => '6', 'image' => '/data/category/img-14.jpg', 'parent' => '1', 'top' => '0', 'sort' => '0', 'status' => '1'],
-            ['id' => '7', 'image' => '/data/category/img-40.jpg', 'parent' => '1', 'top' => '0', 'sort' => '0', 'status' => '1'],
-            ['id' => '8', 'image' => '/data/category/img-14.jpg', 'parent' => '2', 'top' => '0', 'sort' => '0', 'status' => '1'],
-            ['id' => '9', 'image' => '/data/category/img-18.jpg', 'parent' => '2', 'top' => '1', 'sort' => '0', 'status' => '1'],
-            ['id' => '10', 'image' => '/data/category/img-14.jpg', 'parent' => '2', 'top' => '0', 'sort' => '0', 'status' => '1'],
-            ['id' => '11', 'image' => '/data/category/img-40.jpg', 'parent' => '4', 'top' => '0', 'sort' => '0', 'status' => '1'],
-            ['id' => '12', 'image' => '/data/category/img-42.jpg4', 'parent' => '4', 'top' => '0', 'sort' => '3', 'status' => '1'],
-            ['id' => '13', 'image' => '/data/category/img-40.jpg', 'parent' => '4', 'top' => '0', 'sort' => '3', 'status' => '1'],
+            ['id' => '1', 'alias'=> 'electronics', 'image' => '/data/category/img-40.jpg', 'parent' => '0', 'top' => '1', 'sort' => '0', 'status' => '1'],
+            ['id' => '2', 'alias'=> 'clothing-wears', 'image' => '/data/category/img-44.jpg', 'parent' => '0', 'top' => '1', 'sort' => '0', 'status' => '1'],
+            ['id' => '3', 'alias'=> 'mobile', 'image' => '/data/category/img-42.jpg', 'parent' => '1', 'top' => '1', 'sort' => '0', 'status' => '1'],
+            ['id' => '4', 'alias'=> 'accessaries-extras', 'image' => '/data/category/img-18.jpg', 'parent' => '0', 'top' => '1', 'sort' => '0', 'status' => '1'],
+            ['id' => '5', 'alias'=> 'computers', 'image' => '/data/category/img-14.jpg', 'parent' => '1', 'top' => '1', 'sort' => '0', 'status' => '1'],
+            ['id' => '6', 'alias'=> 'tablets', 'image' => '/data/category/img-14.jpg', 'parent' => '1', 'top' => '0', 'sort' => '0', 'status' => '1'],
+            ['id' => '7', 'alias'=> 'appliances', 'image' => '/data/category/img-40.jpg', 'parent' => '1', 'top' => '0', 'sort' => '0', 'status' => '1'],
+            ['id' => '8', 'alias'=> 'men-clothing', 'image' => '/data/category/img-14.jpg', 'parent' => '2', 'top' => '0', 'sort' => '0', 'status' => '1'],
+            ['id' => '9', 'alias'=> 'women-clothing', 'image' => '/data/category/img-18.jpg', 'parent' => '2', 'top' => '1', 'sort' => '0', 'status' => '1'],
+            ['id' => '10', 'alias'=> 'kid-wear', 'image' => '/data/category/img-14.jpg', 'parent' => '2', 'top' => '0', 'sort' => '0', 'status' => '1'],
+            ['id' => '11', 'alias'=> 'mobile-accessaries', 'image' => '/data/category/img-40.jpg', 'parent' => '4', 'top' => '0', 'sort' => '0', 'status' => '1'],
+            ['id' => '12', 'alias'=> 'women-accessaries', 'image' => '/data/category/img-42.jpg4', 'parent' => '4', 'top' => '0', 'sort' => '3', 'status' => '1'],
+            ['id' => '13', 'alias'=> 'men-accessaries', 'image' => '/data/category/img-40.jpg', 'parent' => '4', 'top' => '0', 'sort' => '3', 'status' => '1'],
         ]);
         DB::table('shop_category_description')->insert([
             ['category_id' => '1', 'lang' => 'en', 'name' => 'Electronics', 'keyword' => '', 'description' => ''],
@@ -1034,7 +1038,7 @@ class CreateShopTables extends Migration
             ['category_id' => '10', 'lang' => 'en', 'name' => 'Kid\'s Wear', 'keyword' => '', 'description' => ''],
             ['category_id' => '11', 'lang' => 'en', 'name' => 'Mobile Accessaries', 'keyword' => '', 'description' => ''],
             ['category_id' => '12', 'lang' => 'en', 'name' => 'Women\'s Accessaries', 'keyword' => '', 'description' => ''],
-            ['category_id' => '13', 'lang' => 'en', 'name' => 'Women\'s Accessaries', 'keyword' => '', 'description' => ''],
+            ['category_id' => '13', 'lang' => 'en', 'name' => 'Men\'s Accessaries', 'keyword' => '', 'description' => ''],
 
             ['category_id' => '1', 'lang' => 'vi', 'name' => 'Thiết bị điện tử', 'keyword' => '', 'description' => ''],
             ['category_id' => '2', 'lang' => 'vi', 'name' => 'Quần áo', 'keyword' => '', 'description' => ''],
@@ -1065,8 +1069,8 @@ class CreateShopTables extends Migration
             ['id' => '6', 'name' => 'Failed'],
         ]);
         DB::table('shop_page')->insert([
-            ['id' => '1', 'image' => '', 'key' => 'about', 'status' => '1'],
-            ['id' => '2', 'image' => '', 'key' => 'contact', 'status' => '1'],
+            ['id' => '1', 'image' => '', 'alias' => 'about', 'status' => '1'],
+            ['id' => '2', 'image' => '', 'alias' => 'contact', 'status' => '1'],
         ]);
         DB::table('shop_page_description')->insert([
             ['page_id' => '1', 'lang' => 'en', 'title' => 'About', 'keyword' => '', 'description' => '', 'content' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<img alt="" src="/data/product/img-21.jpg" style="width: 262px; height: 262px; float: right; margin: 10px;" /></p>
@@ -1101,7 +1105,7 @@ class CreateShopTables extends Migration
         ]);
 
         DB::table('shop_vendor')->insert([
-            ['id' => '1', 'name' => 'ABC distributor', 'email' => 'abc@abc.com', 'phone' => '012496657567', 'image' => '/data/vendor/vendor.png', 'address' => '', 'url' => '', 'sort' => '0'],
+            ['id' => '1', 'alias' => 'abc-distributor',  'name' => 'ABC distributor', 'email' => 'abc@abc.com', 'phone' => '012496657567', 'image' => '/data/vendor/vendor.png', 'address' => '', 'url' => '', 'sort' => '0'],
         ]);
 
         DB::table('shop_user')->insert([

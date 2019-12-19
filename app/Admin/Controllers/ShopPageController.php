@@ -41,7 +41,7 @@ class ShopPageController extends Controller
         $listTh = [
             'title' => trans('page.title'),
             'image' => trans('page.image'),
-            'key' => trans('page.key'),
+            'alias' => trans('page.alias'),
             'status' => trans('page.status'),
             'action' => trans('page.admin.action'),
         ];
@@ -76,7 +76,7 @@ class ShopPageController extends Controller
             $dataTr[] = [
                 'title' => $row['title'],
                 'image' => sc_image_render($row['image'], '50px'),
-                'key' => $row['key'],
+                'alias' => $row['alias'],
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'action' => '
                     <a href="' . route('admin_page.edit', ['id' => $row['id']]) . '"><span title="' . trans('page.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
@@ -190,23 +190,27 @@ class ShopPageController extends Controller
     {
 
         $data = request()->all();
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
         $validator = Validator::make($data, [
-            'key' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_page,key',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_page,alias|string|max:100',
             'descriptions.*.title' => 'required|string|max:100',
         ], [
-            'key.regex' => trans('page.key_validate'),
+            'alias.regex' => trans('page.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('page.title')]),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 
         $dataInsert = [
             'image' => $data['image'],
-            'key' => $data['key'],
+            'alias' => $data['alias'],
             'status' => !empty($data['status']) ? 1 : 0,
         ];
         $id = ShopPage::insertGetId($dataInsert);
@@ -257,18 +261,23 @@ class ShopPageController extends Controller
     {
         $page = ShopPage::find($id);
         $data = request()->all();
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
         $validator = Validator::make($data, [
             'descriptions.*.title' => 'required|string|max:100',
-            'key' => 'nullable|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_page,key,' . $page->id . ',id',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_page,alias,' . $page->id . ',id|string|max:100',
         ], [
-            'key.regex' => trans('page.key_validate'),
+            'alias.regex' => trans('page.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('page.title')]),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 //Edit
 
@@ -276,8 +285,8 @@ class ShopPageController extends Controller
             'image' => $data['image'],
             'status' => empty($data['status']) ? 0 : 1,
         ];
-        if (!empty($data['key'])) {
-            $dataUpdate['key'] = $data['key'];
+        if (!empty($data['alias'])) {
+            $dataUpdate['alias'] = $data['alias'];
         }
         $obj = ShopPage::find($id);
         $obj->update($dataUpdate);

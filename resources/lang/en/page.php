@@ -2,7 +2,8 @@
 return [
     'title' => 'Title',
     'image' => 'Image',
-    'key' => 'Key',
+    'alias'                 => 'Url customize',
+    'alias_validate'        => 'Maximum 100 characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
     'status' => 'Status',
     'keyword' => 'Keyword',
     'description' => 'Description',

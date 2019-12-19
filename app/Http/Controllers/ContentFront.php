@@ -102,12 +102,11 @@ class ContentFront extends GeneralController
 
     /**
      * Render page
-     * @param  [type] $key [description]
-     * @return [type]      [description]
+     * @param  [string] $alias
      */
-    public function pages($key = null)
+    public function pages($alias = null)
     {
-        $page = $this->getPage($key);
+        $page = $this->getPage($alias);
         if ($page) {
             return view(
                 'templates.' . sc_store('template') . '.shop_page',
@@ -125,12 +124,12 @@ class ContentFront extends GeneralController
 
     /**
      * Get page info
-     * @param  [type] $key [description]
+     * @param  [string] $alias [description]
      * @return [type]      [description]
      */
-    public function getPage($key = null)
+    public function getPage($alias = null)
     {
-        return ShopPage::where('key', $key)
+        return ShopPage::where('alias', $alias)
             ->where('status', 1)
             ->first();
     }

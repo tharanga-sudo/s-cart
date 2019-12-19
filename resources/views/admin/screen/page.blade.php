@@ -146,25 +146,25 @@
                         </div>
 
 
-                        <div class="form-group   {{ $errors->has('key') ? ' has-error' : '' }}">
+                        <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__keyword"
-                                class="col-sm-2  control-label">{{ trans('page.key') }}</label>
+                                class="col-sm-2  control-label">{{ trans('page.alias') }}</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
                                     @if (!in_array($page['id']??'', SC_GUARD_PAGES))
-                                    <input type="text" id="key" name="key" value="{!! old('key',($page['key']??'')) !!}"
-                                        class="form-control key" placeholder="" />
+                                    <input type="text" id="alias" name="alias" value="{!! old('alias',($page['alias']??'')) !!}"
+                                        class="form-control alias" placeholder="" />
                                     @else
-                                    <input type="text" id="key" value="{!! $page['key'] !!}" disabled
-                                        class="form-control key" placeholder="" />
+                                    <input type="text" id="alias" value="{!! $page['alias'] !!}" disabled
+                                        class="form-control alias" placeholder="" />
                                     @endif
 
 
                                 </div>
-                                @if ($errors->has('key'))
+                                @if ($errors->has('alias'))
                                 <span class="help-block">
-                                    {{ $errors->first('key') }}
+                                    {{ $errors->first('alias') }}
                                 </span>
                                 @endif
                             </div>
