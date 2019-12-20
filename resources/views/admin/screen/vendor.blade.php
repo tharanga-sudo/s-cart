@@ -28,7 +28,7 @@
                             <div class="fields-group">
 
                                 <div class="form-group   {{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label for="name" class="col-sm-2  control-label">{{ trans('vendor.name') }}</label>
+                                    <label for="name" class="col-sm-2  control-label">{{ trans('vendor.name') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -45,7 +45,7 @@
                                 </div>
 
                                 <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
-                                    <label for="alias" class="col-sm-2  control-label">{{ trans('vendor.alias') }}</label>
+                                    <label for="alias" class="col-sm-2  control-label">{!! trans('vendor.alias') !!}</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>

@@ -40,7 +40,7 @@
                         <div
                             class="form-group   {{ $errors->has('descriptions.'.$code.'.title') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__title"
-                                class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Category.title') }}</label>
+                                class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Category.title') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -59,7 +59,7 @@
                         <div
                             class="form-group   {{ $errors->has('descriptions.'.$code.'.keyword') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__keyword"
-                                class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Category.keyword') }}</label>
+                                class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Category.keyword') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -79,7 +79,7 @@
                         <div
                             class="form-group   {{ $errors->has('descriptions.'.$code.'.description') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__description"
-                                class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Category.description') }}</label>
+                                class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Category.description') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -156,7 +156,7 @@
 
                         <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
                             <label for="alias"
-                                class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Category.alias') }}</label>
+                                class="col-sm-2  control-label">{!! trans('Modules/Cms/Content::Category.alias') !!}</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>

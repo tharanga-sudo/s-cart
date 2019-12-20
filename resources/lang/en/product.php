@@ -3,7 +3,7 @@
 return [
     'id'                    => 'ID',
     'sku'                   => 'SKU',
-    'alias'                 => 'Url customize',
+    'alias'                 => 'Url customize <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
     'sku_validate'          => 'Only characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
     'alias_validate'        => 'Maximum 100 characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
     'description'           => 'Product description',

@@ -2,7 +2,7 @@
 return [
     'title' => 'Title',
     'image' => 'Image',
-    'alias'                 => 'Url customize',
+    'alias'                 => 'Url customize <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
     'alias_validate'        => 'Maximum 100 characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
     'status' => 'Status',
     'keyword' => 'Keyword',

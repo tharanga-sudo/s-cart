@@ -3,7 +3,7 @@
 return [
     'id'                    => 'ID',
     'sku'                   => 'Mã hàng',
-    'alias'                 => 'URL tùy chỉnh',
+    'alias'                 => 'URL tùy chỉnh <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
     'sku_validate'          => 'Chỉ sử dụng kí tự trong nhóm: "A-Z", "a-z", "0-9" and "-_" ',
     'alias_validate'        => 'Tối đa 100 kí tự trong nhóm: "A-Z", "a-z", "0-9" and "-_" ',
     'price'                 => 'Giá bán',
