@@ -338,7 +338,7 @@ class CreateShopTables extends Migration
             $table->integer('stock')->nullable()->default(0);
             $table->integer('sold')->nullable()->default(0);
             $table->tinyInteger('type')->nullable()->default(0)->index();
-            $table->tinyInteger('kind')->default(0)->comment('0:single, 1:bundle, 2:group')->index();
+            $table->tinyInteger('kind')->nullable()->default(0)->comment('0:single, 1:bundle, 2:group')->index();
             $table->tinyInteger('virtual')->nullable()->default(0)->comment('0:physical, 1:download, 2:only view, 3: Service')->index();
             $table->tinyInteger('status')->default(0)->index();
             $table->tinyInteger('sort')->default(0);
