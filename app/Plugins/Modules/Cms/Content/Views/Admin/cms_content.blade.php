@@ -167,7 +167,7 @@
                         </div>
 
                         <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
-                            <label for="{{ $code }}__keyword"
+                            <label for="alias"
                                 class="col-sm-2  control-label">{{ trans('Modules/Cms/Content::Content.alias') }}</label>
                             <div class="col-sm-8">
                                 <div class="input-group">

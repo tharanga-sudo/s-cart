@@ -24,7 +24,7 @@ public function category($alias)
 {
     $category_currently = CmsCategory::where('alias', $alias)->first();
     $entries = (new CmsCategory)
-        ->getContentsToCategory($category->id, $limit = sc_config('product_new'), $opt = 'paginate');
+        ->getContentsToCategory($category_currently->id, $limit = sc_config('product_new'), $opt = 'paginate');
     return view(
         $this->plugin->pathPlugin.'::cms_category',
         array(

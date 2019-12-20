@@ -228,6 +228,7 @@ class CmsCategoryController extends Controller
             'status' => !empty($data['status']) ? 1 : 0,
             'sort' => (int) $data['sort'],
         ];
+
         $category = CmsCategory::create($dataInsert);
         $id = $category->id;
         $dataDes = [];
