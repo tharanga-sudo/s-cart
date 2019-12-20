@@ -108,4 +108,7 @@ return [
         'only_view' => 'Chỉ xem',
         'service'   => 'Dịch vụ',
     ],
+    'config_manager' => [
+        'title' => ' Cấu hình sản phẩm',
+    ]
 ];

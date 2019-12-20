@@ -50,4 +50,7 @@ return [
             'status' => 'Tất cả trạng thái',
         ],
     ],
+    'config_manager' => [
+        'title' => ' Cấu hình khách hàng'
+    ]
 ];

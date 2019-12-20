@@ -106,4 +106,8 @@ return [
         'only_view' => 'Only view',
         'service'   => 'Service',
     ],
+    'config_manager' => [
+        'title' => ' Config product'
+    ]
+
 ];

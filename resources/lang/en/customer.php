@@ -46,4 +46,7 @@ return [
         'search'         => 'Search',
         'search_place'   => 'Search Name, ID or Email',
     ],
+    'config_manager' => [
+        'title' => ' Config customer'
+    ]
 ];
