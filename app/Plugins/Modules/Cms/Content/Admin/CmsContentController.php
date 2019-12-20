@@ -206,23 +206,30 @@ class CmsContentController extends Controller
     public function postCreate()
     {
         $data = request()->all();
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
         $validator = Validator::make($data, [
             'sort' => 'numeric|min:0',
             'category_id' => 'required',
             'descriptions.*.title' => 'required|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_content,alias|string|max:100',
         ], [
             'descriptions.*.title.required' => trans('validation.required', 
             ['attribute' => trans($this->plugin->pathPlugin.'::Content.title')]),
+            'alias.regex' => trans($this->plugin->pathPlugin.'::Content.alias_validate'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 
         $dataInsert = [
             'image' => $data['image'],
+            'alias' => $data['alias'],
             'category_id' => (int) $data['category_id'],
             'status' => !empty($data['status']) ? 1 : 0,
             'sort' => (int) $data['sort'],
@@ -276,32 +283,42 @@ class CmsContentController extends Controller
  */
     public function postEdit($id)
     {
+        $content = CmsContent::find($id);
         $data = request()->all();
+        
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
         $validator = Validator::make($data, [
             'category_id' => 'required',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_content,alias,' . $content->id . ',id|string|max:100',
             'sort' => 'numeric|min:0',
             'descriptions.*.title' => 'required|string|max:100',
         ], [
+            'alias.regex' => trans($this->plugin->pathPlugin.'::Content.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans($this->plugin->pathPlugin.'::Content.title')]),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 //Edit
 
         $dataUpdate = [
             'image' => $data['image'],
+            'alias' => $data['alias'],
             'category_id' => $data['category_id'],
             'sort' => $data['sort'],
             'status' => empty($data['status']) ? 0 : 1,
         ];
 
-        $obj = CmsContent::find($id);
-        $obj->update($dataUpdate);
-        $obj->descriptions()->delete();
+        $content = CmsContent::find($id);
+        $content->update($dataUpdate);
+        $content->descriptions()->delete();
         $dataDes = [];
         foreach ($data['descriptions'] as $code => $row) {
             $dataDes[] = [
