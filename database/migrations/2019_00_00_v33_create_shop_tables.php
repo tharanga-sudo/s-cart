@@ -435,11 +435,15 @@ class CreateShopTables extends Migration
         Schema::create('shop_user', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name', 100);
-            $table->string('last_name', 100);
+            $table->string('last_name', 100)->nullable();
             $table->string('email', 150)->unique();
+            $table->tinyInteger('sex', 1)->default(0)->comment('0:women, 1:men');
+            $table->dateTime('birthday')->nullable();
             $table->string('password', 100);
-            $table->string('address1', 100);
-            $table->string('address2', 100);
+            $table->string('postcode', 10)->nullable();
+            $table->string('address1', 100)->nullable();
+            $table->string('address2', 100)->nullable();
+            $table->string('company', 100)->nullable();
             $table->string('country', 10)->default('VN');
             $table->string('phone', 20);
             $table->string('remember_token', 100)->nullable();
@@ -621,6 +625,16 @@ class CreateShopTables extends Migration
             ['group' => '', 'code' => 'product', 'key' => 'product_virtual', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.virtual', 'store_id' => '1'],
             ['group' => '', 'code' => 'product', 'key' => 'product_attribute', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.attribute', 'store_id' => '1'],
             ['group' => '', 'code' => 'product', 'key' => 'product_available', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.available', 'store_id' => '1'],
+
+            ['group' => '', 'code' => 'customer', 'key' => 'lastname', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.lastname', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'address1', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.address1', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'address2', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.address2', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'company', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.company', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'postcode', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.postcode', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'country', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.country', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'group', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.group', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'birthday', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.birthday', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'sex', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.sex', 'store_id' => '1'],
 
 
         ]);
@@ -1123,7 +1137,7 @@ class CreateShopTables extends Migration
         ]);
 
         DB::table('shop_user')->insert([
-            ['id' => '1', 'first_name' => 'Naruto', 'last_name' => 'Kun', 'email' => 'test@test.com', 'password' => bcrypt(123), 'address1' => 'ADDRESS 1', 'address2' => 'ADDRESS 2', 'phone' => '0667151172', 'country' => 'VN', 'created_at' => date('Y-m-d H:i:s')],
+            ['id' => '1', 'first_name' => 'Naruto', 'last_name' => 'Kun', 'email' => 'test@test.com', 'password' => bcrypt(123), 'address1' => 'HCM', 'address2' => 'HCM city', 'phone' => '0667151172', 'postcode' => 70000, 'company' => 'KTC', 'country' => 'VN', 'created_at' => date('Y-m-d H:i:s')],
         ]);
 
         DB::table('shop_order')->insert([

@@ -47,6 +47,18 @@ return [
         'search_place'   => 'Search Name, ID or Email',
     ],
     'config_manager' => [
-        'title' => ' Config customer'
+        'title' => ' Config customer',
+        'field'                   => 'Field config',
+        'value'                    => 'Value',
+        'lastname'                    => 'Use LAST NAME',
+        'address1'                    => 'Use ADDRESS 1',
+        'address2'                    => 'Use ADDRESS 2',
+        'company'                    => 'Use COMPANY',
+        'postcode'                    => 'Use POSTCODE',
+        'country'                    => 'Use COUNTRY',
+        'group'                    => 'Use GROUP',
+        'birthday'                    => 'Use BIRTHDAY',
+        'sex'                    => 'Use SEX',
+
     ]
 ];
