@@ -83,6 +83,8 @@ class ShopCart extends GeneralController
                 'email' => $user->email,
                 'address1' => $user->address1,
                 'address2' => $user->address2,
+                'postcode' => $user->postcode,
+                'company' => $user->company,
                 'country' => $user->country,
                 'phone' => $user->phone,
                 'comment' => '',
@@ -91,6 +93,8 @@ class ShopCart extends GeneralController
             $addressDefaul = [
                 'first_name' => '',
                 'last_name' => '',
+                'postcode' => '',
+                'company' => '',
                 'email' => '',
                 'address1' => '',
                 'address2' => '',
@@ -164,7 +168,7 @@ class ShopCart extends GeneralController
             $validate['postcode'] = 'required|min:7';
         }
         if(sc_config('customer_company')) {
-            $validate['company'] = 'required|min:7';
+            $validate['company'] = 'required|min:3';
         }        
         $v = Validator::make(
             request()->all(), 
@@ -336,6 +340,8 @@ class ShopCart extends GeneralController
         $dataOrder['address2'] = $shippingAddress['address2'];
         $dataOrder['country'] = $shippingAddress['country'];
         $dataOrder['phone'] = $shippingAddress['phone'];
+        $dataOrder['postcode'] = $shippingAddress['postcode']??null;
+        $dataOrder['company'] = $shippingAddress['company']??null;
         $dataOrder['payment_method'] = $payment_method;
         $dataOrder['shipping_method'] = $shipping_method;
         $dataOrder['comment'] = $shippingAddress['comment'];

@@ -637,7 +637,7 @@ class CreateShopTables extends Migration
             ['group' => '', 'code' => 'customer', 'key' => 'customer_group', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.group', 'store_id' => '1'],
             ['group' => '', 'code' => 'customer', 'key' => 'customer_birthday', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.birthday', 'store_id' => '1'],
             ['group' => '', 'code' => 'customer', 'key' => 'customer_sex', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.sex', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'customer_phone', 'value' => '0', 'sort' => '1', 'detail' => 'lang::customer.config_manager.phone', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_phone', 'value' => '1', 'sort' => '1', 'detail' => 'lang::customer.config_manager.phone', 'store_id' => '1'],
 
 
         ]);
