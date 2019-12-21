@@ -18,6 +18,7 @@ return [
     'category'              => 'Danh mục',
     'cost'                  => 'Giá cost',
     'stock'                 => 'Số lượng',
+    'stock_status'          => 'Tình trạng sản phẩm',
     'name'                  => 'Tên',
     'keyword'               => 'Từ khóa',
     'description'           => 'Mô tả',
@@ -110,5 +111,18 @@ return [
     ],
     'config_manager' => [
         'title' => ' Cấu hình sản phẩm',
+        'field'                   => 'Trường cấu hình',
+        'value'                    => 'Giá trị',
+        'brand'                    => 'Sử dụng NHÃN HIỆU',
+        'vendor'                    => 'Sử dụng NHÀ CUNG CẤP',
+        'price'                    => 'Sử dụng GIÁ',
+        'cost'                    => 'Sử dụng GIÁ GỐC',
+        'stock'                    => 'Sử dụng SỐ LƯỢNG',
+        'type'                    => 'Sử dụng PHÂN LOẠI (mới, hot,...)',
+        'kind'                    => 'Sử dụng KIỂU (đơn, nhóm, bộ)',
+        'virtual'                    => 'Sử dụng Loại ĐẶC TÍNH',
+        'attribute'                    => 'Sử dụng THUỘC TÍNH (màu sắc, kích thước,...)',
+        'promotion'                    => 'Sử dụng GIÁ KHUYẾN MÃI',
+        'available'                    => 'Sử dụng THỜI GIAN KHẢ DỤNG',
     ]
 ];

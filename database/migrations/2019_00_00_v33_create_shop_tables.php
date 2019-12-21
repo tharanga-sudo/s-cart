@@ -484,7 +484,7 @@ class CreateShopTables extends Migration
     public function down()
     {
         Schema::dropIfExists('shop_banner');
-        Schema::dropIfExists('admi_config');
+        Schema::dropIfExists('admin_config');
         Schema::dropIfExists('admin_store');
         Schema::dropIfExists('admin_store_description');
         Schema::dropIfExists('shop_email_template');
@@ -608,6 +608,20 @@ class CreateShopTables extends Migration
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_CART_DEFAULT', 'value' => 'cart', 'sort' => '0', 'detail' => 'lang::url.PREFIX_CART_DEFAULT', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_CART_CHECKOUT', 'value' => 'checkout', 'sort' => '0', 'detail' => 'lang::url.PREFIX_CART_CHECKOUT', 'store_id' => '1'],
             ['group' => '', 'code' => 'url', 'key' => 'PREFIX_ORDER_SUCCESS', 'value' => 'order-success', 'sort' => '0', 'detail' => 'lang::url.PREFIX_ORDER_SUCCESS', 'store_id' => '1'],
+
+
+            ['group' => '', 'code' => 'product', 'key' => 'product_brand', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.brand', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_vendor', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.vendor', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_price', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.price', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_cost', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.cost', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_promotion', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.promotion', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_stock', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.stock', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_type', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.type', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_kind', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.kind', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_virtual', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.virtual', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_attribute', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.attribute', 'store_id' => '1'],
+            ['group' => '', 'code' => 'product', 'key' => 'product_available', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.available', 'store_id' => '1'],
+
 
         ]);
         DB::table('admin_store')->insert(

@@ -28,14 +28,17 @@
             <form action="{{ route('admin_product.edit',['id'=>$product['id']]) }}" method="post" accept-charset="UTF-8"
                 class="form-horizontal" id="form-main" enctype="multipart/form-data">
 
-                <div class="col-xs-12" id="start-add">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4 form-group">
-                        <div class="input-group input-group-sm" style="width: 300px;text-align: center;">
-                            <b>{{ trans('product.type') }}:</b> {{ $kinds[$product->kind]??'' }}
-                        </div>
+@if (sc_config('product_kind'))
+            <div class="col-xs-12" id="start-add">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 form-group">
+                    <div class="input-group input-group-sm" style="width: 300px;text-align: center;">
+                        <b>{{ trans('product.type') }}:</b> {{ $kinds[$product->kind]??'' }}
                     </div>
                 </div>
+            </div>    
+@endif
+
 
                 <div class="box-body">
                     <div class="fields-group">
@@ -149,9 +152,9 @@
                         $listCate = [];
                         $category = old('category',$product->categories->pluck('id')->toArray());
                         if(is_array($category)){
-                        foreach($category as $value){
-                        $listCate[] = (int)$value;
-                        }
+                            foreach($category as $value){
+                                $listCate[] = (int)$value;
+                            }
                         }
                         @endphp
 
@@ -285,6 +288,7 @@
                         </div>
                         {{-- //Alias --}}
 
+@if (sc_config('product_brand'))
                         {{-- Brand --}}
                         <div class="form-group  {{ $errors->has('brand_id') ? ' has-error' : '' }}">
                             <label for="brand_id" class="col-sm-2 control-label">{{ trans('product.brand') }}</label>
@@ -306,7 +310,9 @@
                             </div>
                         </div>
                         {{-- //Brand --}}
+@endif
 
+@if (sc_config('product_vendor'))
                         {{-- Vendor --}}
                         <div class="form-group  {{ $errors->has('vendor_id') ? ' has-error' : '' }}">
                             <label for="vendor_id" class="col-sm-2 control-label">{{ trans('product.vendor') }}</label>
@@ -328,8 +334,9 @@
                             </div>
                         </div>
                         {{-- //Vendor --}}
+@endif
 
-
+@if (sc_config('product_cost'))
                         {{-- Cost --}}
                         @if ($product->kind == SC_PRODUCT_SINGLE)
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('cost') ? ' has-error' : '' }}">
@@ -350,9 +357,9 @@
                         </div>
                         @endif
                         {{-- //Cost --}}
+@endif
 
-
-
+@if (sc_config('product_price'))
                         @if ($product->kind == SC_PRODUCT_SINGLE || $product->kind == SC_PRODUCT_BUILD)
                         {{-- Price --}}
                         <div class="form-group   {{ $errors->has('price') ? ' has-error' : '' }}">
@@ -371,10 +378,10 @@
                                 @endif
                             </div>
                         </div>
-
                         {{-- //Price --}}
+@endif
 
-
+@if (sc_config('product_promotion'))
                         {{-- price promotion --}}
                         <div class="form-group  kind kind0 kind1">
                             <label for="price"
@@ -433,16 +440,13 @@
                                 </button>
                                 @endif
 
-
-
-
                             </div>
                         </div>
                         {{-- //price promotion --}}
                         @endif
+@endif
 
-
-
+@if (sc_config('product_stock'))
                         {{-- Stock --}}
                         @if ($product->kind == SC_PRODUCT_SINGLE || $product->kind == SC_PRODUCT_BUILD)
                         <div class="form-group  {{ $errors->has('stock') ? ' has-error' : '' }}">
@@ -463,7 +467,9 @@
                         </div>
                         @endif
                         {{-- //Stock --}}
+@endif
 
+@if (sc_config('product_type'))
                         {{-- Type --}}
                         @if ($product->kind == SC_PRODUCT_SINGLE || $product->kind == SC_PRODUCT_BUILD)
                         <hr>
@@ -483,7 +489,9 @@
                         </div>
                         @endif
                         {{-- //Type --}}
+@endif
 
+@if (sc_config('product_virtual'))
                         {{-- Virtual --}}
                         @if ($product->kind == SC_PRODUCT_SINGLE || $product->kind == SC_PRODUCT_BUILD)
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('virtual') ? ' has-error' : '' }}">
@@ -502,7 +510,9 @@
                         </div>
                         @endif
                         {{-- //Virtual --}}
+@endif
 
+@if (sc_config('product_available'))
                         {{-- Date vailalable --}}
                         @if ($product->kind == SC_PRODUCT_SINGLE || $product->kind == SC_PRODUCT_BUILD)
                         <div
@@ -525,7 +535,7 @@
                         </div>
                         @endif
                         {{-- //Date vailalable --}}
-
+@endif
 
                         {{-- Sort --}}
                         <div class="form-group   {{ $errors->has('sort') ? ' has-error' : '' }}">
@@ -558,9 +568,9 @@
 
                             </div>
                         </div>
-                        {{-- //Virtual --}}
+                        {{-- //Status --}}
 
-
+@if (sc_config('product_kind'))
                         @if ($product->kind == SC_PRODUCT_GROUP)
                         {{-- List product in groups --}}
                         <hr>
@@ -675,10 +685,11 @@
                         </div>
                         {{-- //end List product build --}}
                         @endif
+@endif
 
 
-
-                        @if ($product->kind == SC_PRODUCT_SINGLE)
+@if (sc_config('product_attribute'))
+                    @if ($product->kind == SC_PRODUCT_SINGLE)
                         {{-- List product attributes --}}
                         <hr>
                         @if (!empty($attributeGroup))
@@ -693,52 +704,52 @@
                             <div class="col-sm-2"></div>
                             <div class="col-sm-8">
 
-
                                 @php
                                 $dataAtt = [];
                                 if(old('attribute')){
-                                $dataAtt = old('attribute');
-                                }else{
-                                $getDataAtt = $product->attributes->groupBy('attribute_group_id')->toArray();
-                                if(count($getDataAtt)){
-                                foreach ($getDataAtt as $groupKey => $row) {
-                                $dataAtt[$groupKey] = array_column($row, 'name');
-                                }
-                                }
+                                    $dataAtt = old('attribute');
+                                } else {
+                                    $getDataAtt = $product->attributes->groupBy('attribute_group_id')->toArray();
+                                    if(count($getDataAtt)) {
+                                        foreach ($getDataAtt as $groupKey => $row) {
+                                        $dataAtt[$groupKey] = array_column($row, 'name');
+                                        }
+                                    }
                                 }
                                 @endphp
 
                                 @foreach ($attributeGroup as $attGroupId => $attName)
-                                <table width="100%">
-                                    <tr>
-                                        <td colspan="2"><b>{{ $attName }}:</b><br></td>
-                                    </tr>
+                                    <table width="100%">
+                                        <tr>
+                                            <td colspan="2"><b>{{ $attName }}:</b><br></td>
+                                        </tr>
                                     @if (!empty($dataAtt[$attGroupId]))
-                                    @foreach ($dataAtt[$attGroupId] as $attValue)
-                                    @if ($attValue)
-                                    @php
-                                    $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
-                                    $newHtml = str_replace('attribute_value', $attValue, $newHtml);
-                                    @endphp
-                                    {!! $newHtml !!}
+                                        @foreach ($dataAtt[$attGroupId] as $attValue)
+                                            @if ($attValue)
+                                                @php
+                                                $newHtml = str_replace('attribute_group', $attGroupId, $htmlProductAtrribute);
+                                                $newHtml = str_replace('attribute_value', $attValue, $newHtml);
+                                                @endphp
+                                                {!! $newHtml !!}
+                                            @endif
+                                        @endforeach
                                     @endif
-                                    @endforeach
-                                    @endif
-                                    <tr>
-                                        <td colspan="2"><br><button type="button"
-                                                class="btn btn-flat btn-success add-attribute"
-                                                data-id="{{ $attGroupId }}">
-                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                                {{ trans('product.admin.add_attribute') }}
-                                            </button><br></td>
-                                    </tr>
-                                </table>
+                                        <tr>
+                                            <td colspan="2"><br><button type="button"
+                                                    class="btn btn-flat btn-success add-attribute"
+                                                    data-id="{{ $attGroupId }}">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    {{ trans('product.admin.add_attribute') }}
+                                                </button><br></td>
+                                        </tr>
+                                    </table>
                                 @endforeach
                             </div>
                         </div>
                         @endif
                         {{-- //end List product attributes --}}
-                        @endif
+                    @endif
+@endif
 
                     </div>
                 </div>
@@ -749,8 +760,7 @@
 
                 <div class="box-footer">
                     @csrf
-                    <div class="col-md-2">
-                    </div>
+                    <div class="col-md-2"></div>
 
                     <div class="col-md-8">
                         <div class="btn-group pull-right">

@@ -132,6 +132,9 @@ Get final price
  */
     public function showPrice($classNew = null, $classOld = null, $divWrap = null)
     {
+        if (!sc_config('product_price')) {
+            return false;
+        }
         $priceFinal = $this->getFinalPrice();
         switch ($this->kind) {
             case SC_PRODUCT_GROUP:
@@ -468,6 +471,9 @@ Get image
  */
     public function allowSale()
     {
+        if(!sc_config('product_price')) {
+            return false;
+        }
         if ($this->status &&
             (sc_config('product_preorder') == 1 || $this->date_available == null || date('Y-m-d H:i:s') >= $this->date_available) &&
             (sc_config('product_buy_out_of_stock') || $this->stock) &&

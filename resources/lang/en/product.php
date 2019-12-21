@@ -26,6 +26,7 @@ return [
     'virtual'               => 'Virtual',
     'cost'                  => 'Price cost',
     'stock'                 => 'Stock',
+    'stock_status'          => 'Stock status',
     'view'                  => 'View',
     'sold'                  => 'Sold',
     'sort'                  => 'Sort',
@@ -107,7 +108,20 @@ return [
         'service'   => 'Service',
     ],
     'config_manager' => [
-        'title' => ' Config product'
+        'title' => ' Config product',
+        'field'                   => 'Field config',
+        'value'                    => 'Value',
+        'brand'                    => 'Use BRAND',
+        'vendor'                    => 'Use VENDOR',
+        'price'                    => 'Use PRICE',
+        'stock'                    => 'Use STOCK',
+        'cost'                    => 'Use COST PRICE',
+        'type'                    => 'Use TYPE (new, hot,...)',
+        'kind'                    => 'Use KIND (single, group, bundle)',
+        'virtual'                    => 'Use TYPE VIRTUAL',
+        'attribute'                    => 'Use ATTRIBUTE (color, size,...)',
+        'promotion'                    => 'Use PROMOTION PRICE',
+        'available'                    => 'Use AVAILABLE TIME',
     ]
 
 ];

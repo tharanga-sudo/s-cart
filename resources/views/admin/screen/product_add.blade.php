@@ -53,16 +53,24 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-4 form-group  {{ $errors->has('kind') ? ' has-error' : '' }} ">
                         <div class="input-group input-group-sm" style="width: 300px;text-align: center;">
+                            @if (sc_config('product_kind'))
                             <select class="form-control" style="width: 100%;" name="kind">
                                 <option value="">{{ trans('product.admin.select_kind') }}</option>
                                 @foreach ($kinds as $key => $kind)
                                 <option value="{{ $key }}" {{ (old() && (int)old('kind') === $key)?'selected':'' }}>
                                     {{ $kind }}</option>
                                 @endforeach
-                            </select>
+                            </select>          
                             <span class="input-group-addon" id="apply-add">
                                 <i class="fa fa-hand-o-left"></i> {{ trans('product.kind') }}
-                            </span>
+                            </span>                                                  
+                            @else
+                                <select class="form-control" style="display:none" name="kind">
+                                    <option value="0" selected="selected">{{ $kinds[0] }}</option>
+                                </select>   
+                            @endif
+
+
                         </div>
                         @if ($errors->has('kind'))
                         <span class="help-block">
@@ -309,6 +317,7 @@
                         </div>
                         {{-- //alias --}}
 
+@if (sc_config('product_brand'))
                         {{-- select brand --}}
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('brand_id') ? ' has-error' : '' }}">
                             <label for="brand_id"
@@ -329,8 +338,11 @@
                                 @endif
                             </div>
                         </div>
-                        {{-- //select brand --}}
+                        {{-- //select brand --}}   
+@endif
 
+
+@if (sc_config('product_vendor'))
                         {{-- select vendor --}}
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('vendor_id') ? ' has-error' : '' }}">
                             <label for="vendor_id"
@@ -352,8 +364,9 @@
                             </div>
                         </div>
                         {{--// select vendor --}}
+@endif
 
-
+@if (sc_config('product_cost'))
                         {{-- cost --}}
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('cost') ? ' has-error' : '' }}">
                             <label for="cost" class="col-sm-2  control-label">{{ trans('product.cost') }}</label>
@@ -372,7 +385,9 @@
                             </div>
                         </div>
                         {{-- //cost --}}
+@endif
 
+@if (sc_config('product_price'))
                         {{-- price --}}
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('price') ? ' has-error' : '' }}">
                             <label for="price" class="col-sm-2  control-label">{{ trans('product.price') }}</label>
@@ -391,7 +406,9 @@
                             </div>
                         </div>
                         {{-- //price --}}
+@endif
 
+@if (sc_config('product_promotion'))
                         {{-- price promotion --}}
                         <div class="form-group  kind kind0 kind1">
                             <label for="price"
@@ -442,13 +459,12 @@
                                 </button>
                                 @endif
 
-
-
-
                             </div>
                         </div>
                         {{-- //price promotion --}}
+@endif
 
+@if (sc_config('product_stock'))
                         {{-- stock --}}
                         <div class="form-group  kind kind0  kind1 {{ $errors->has('stock') ? ' has-error' : '' }}">
                             <label for="stock" class="col-sm-2  control-label">{{ trans('product.stock') }}</label>
@@ -467,7 +483,9 @@
                             </div>
                         </div>
                         {{-- //stock --}}
+@endif
 
+@if (sc_config('product_type'))
                         {{-- type --}}
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('type') ? ' has-error' : '' }}">
                             <label for="type" class="col-sm-2  control-label">{{ trans('product.type') }}</label>
@@ -484,7 +502,9 @@
                             </div>
                         </div>
                         {{-- //type --}}
+@endif
 
+@if (sc_config('product_virtual'))
                         {{-- virtual --}}
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('virtual') ? ' has-error' : '' }}">
                             <label for="virtual" class="col-sm-2  control-label">{{ trans('product.virtual') }}</label>
@@ -501,7 +521,10 @@
                             </div>
                         </div>
                         {{-- //virtual --}}
+@endif
 
+
+@if (sc_config('product_available'))
                         {{-- date available --}}
                         <div
                             class="form-group  kind kind0 kind1  {{ $errors->has('date_available') ? ' has-error' : '' }}">
@@ -522,7 +545,7 @@
                             </div>
                         </div>
                         {{-- //date available --}}
-
+@endif
 
                         {{-- sort --}}
                         <div class="form-group    {{ $errors->has('sort') ? ' has-error' : '' }}">
@@ -558,7 +581,7 @@
                         </div>
                         {{-- //status --}}
 
-
+@if (sc_config('product_kind'))
                         {{-- List product in groups --}}
                         <div class="form-group  kind kind2 {{ $errors->has('productInGroup') ? ' has-error' : '' }}">
                             <hr>
@@ -635,8 +658,10 @@
                             </div>
                         </div>
                         {{-- //end List product build --}}
+@endif
 
 
+@if (sc_config('product_attribute'))
                         {{-- List product attributes --}}
 
                         @if (!empty($attributeGroup))
@@ -683,6 +708,8 @@
                         </div>
                         @endif
                         {{-- //end List product attributes --}}
+@endif
+
 
                     </div>
                 </div>
@@ -833,6 +860,8 @@ $(document).ready(function() {
 // image
 // with plugin options
 // $("input.image").fileinput({"browseLabel":"Browse","cancelLabel":"Cancel","showRemove":true,"showUpload":false,"dropZoneEnabled":false});
+
+process_form();
 
 $('[name="kind"]').change(function(event) {
     process_form();
