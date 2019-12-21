@@ -61,5 +61,6 @@ return [
         'group'                    => 'Sử dụng Nhóm',
         'birthday'                    => 'Sử dụng NGÀY SINH',
         'sex'                    => 'Sử dụng GIỚI TÍNH',
+        'phone'                    => 'Sử dụng SỐ ĐIỆN THOẠI',
     ]
 ];

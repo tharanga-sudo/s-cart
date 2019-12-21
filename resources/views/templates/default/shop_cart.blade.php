@@ -77,72 +77,118 @@
             @csrf
             <table class="table  table-bordered table-responsive">
                 <tr>
-                <td class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                    <label for="phone" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.first_name') }}:</label> <input name="first_name" type="text" placeholder="{{ trans('cart.first_name') }}" value="{{(old('first_name'))?old('first_name'):$shippingAddress['first_name']}}">
-                        @if($errors->has('first_name'))
-                            <span class="help-block">{{ $errors->first('first_name') }}</span>
-                        @endif
-                    </td>
+                @if (sc_config('customer_lastname'))
                     <td class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                        <label for="phone" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.last_name') }}:</label> <input name="last_name" type="text" placeholder="{{ trans('cart.last_name') }}" value="{{(old('last_name'))?old('last_name'):$shippingAddress['last_name']}}">
+                        <label for="phone" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.last_name') }}:</label> 
+                        <input name="last_name" type="text" placeholder="{{ trans('cart.last_name') }}" value="{{(old('last_name'))?old('last_name'):$shippingAddress['last_name']}}">
                             @if($errors->has('last_name'))
                                 <span class="help-block">{{ $errors->first('last_name') }}</span>
                             @endif
-                        </td>
+                    </td> 
+                    <td class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                        <label for="phone" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.first_name') }}:</label> 
+                        <input name="first_name" type="text" placeholder="{{ trans('cart.first_name') }}" value="{{(old('first_name'))?old('first_name'):$shippingAddress['first_name']}}">
+                            @if($errors->has('first_name'))
+                                <span class="help-block">{{ $errors->first('first_name') }}</span>
+                            @endif
+                    </td>
+                @else
+                <td colspan="2" class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                    <label for="phone" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.name') }}:</label> 
+                    <input name="first_name" type="text" placeholder="{{ trans('cart.name') }}" value="{{(old('first_name'))?old('first_name'):$shippingAddress['first_name']}}">
+                    @if($errors->has('first_name'))
+                        <span class="help-block">{{ $errors->first('first_name') }}</span>
+                    @endif
+                </td>
+                @endif
                 </tr>
+
                 <tr>
+                    @if (sc_config('customer_phone'))
                     <td  class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <label for="email" class="control-label"><i class="fa fa-user"></i> {{ trans('cart.email') }}:</label> <input name="email" type="text" placeholder="{{ trans('cart.email') }}" value="{{(old('email'))?old('email'):$shippingAddress['email']}}">
+                        <label for="email" class="control-label"><i class="fa fa-envelope"></i> {{ trans('cart.email') }}:</label> 
+                        <input name="email" type="text" placeholder="{{ trans('cart.email') }}" value="{{(old('email'))?old('email'):$shippingAddress['email']}}">
                             @if($errors->has('email'))
                                 <span class="help-block">{{ $errors->first('email') }}</span>
                             @endif
                     </td>
                     <td class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                        <label for="phone" class="control-label"><i class="fa fa-phone" aria-hidden="true"></i> {{ trans('cart.phone') }}:</label> <input name="phone" type="text" placeholder="{{ trans('cart.phone') }}" value="{{(old('phone'))?old('phone'):$shippingAddress['phone']}}">
-                            @if($errors->has('phone'))
-                                <span class="help-block">{{ $errors->first('phone') }}</span>
-                            @endif
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="2" class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
-                        <label  for="country" class="control-label"><i class="fa fa-dribbble" aria-hidden="true"></i> {{ trans('cart.country') }}:</label>
-                        @php
-                            $ct = (old('country'))?old('country'):$shippingAddress['country'];
-                        @endphp
-                        <select class="form-control country " style="width: 100%;" name="country" >
-                            <option value="">__{{ trans('cart.country') }}__</option>
-                            @foreach ($countries as $k => $v)
-                                <option value="{{ $k }}" {{ ($ct ==$k) ? 'selected':'' }}>{{ $v }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('country'))
-                            <span class="help-block">
-                                {{ $errors->first('country') }}
-                            </span>
+                        <label for="phone" class="control-label"><i class="fa fa-phone" aria-hidden="true"></i> {{ trans('cart.phone') }}:</label> 
+                        <input name="phone" type="text" placeholder="{{ trans('cart.phone') }}" value="{{(old('phone'))?old('phone'):$shippingAddress['phone']}}">
+                        @if($errors->has('phone'))
+                            <span class="help-block">{{ $errors->first('phone') }}</span>
                         @endif
                     </td>
+                    @else
+                    <td  colspan="2" class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <label for="email" class="control-label"><i class="fa fa-envelope"></i> {{ trans('cart.email') }}:</label> 
+                        <input name="email" type="text" placeholder="{{ trans('cart.email') }}" value="{{(old('email'))?old('email'):$shippingAddress['email']}}">
+                        @if($errors->has('email'))
+                            <span class="help-block">{{ $errors->first('email') }}</span>
+                        @endif
+                    </td>
+                    @endif
+
                 </tr>
 
 
+                @if (sc_config('customer_country'))
+                    <tr>
+                        <td colspan="2" class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                            <label  for="country" class="control-label"><i class="fa fa-dribbble" aria-hidden="true"></i> {{ trans('cart.country') }}:</label>
+                            @php
+                                $ct = (old('country'))?old('country'):$shippingAddress['country'];
+                            @endphp
+                            <select class="form-control country " style="width: 100%;" name="country" >
+                                <option value="">__{{ trans('cart.country') }}__</option>
+                                @foreach ($countries as $k => $v)
+                                    <option value="{{ $k }}" {{ ($ct ==$k) ? 'selected':'' }}>{{ $v }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('country'))
+                                <span class="help-block">
+                                    {{ $errors->first('country') }}
+                                </span>
+                            @endif
+                        </td>
+                    </tr>    
+                @endif
+                
                 <tr>
-                    <td class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}"><label for="address1" class="control-label"><i class="fa fa-home"></i> {{ trans('cart.address1') }}:</label> <input name="address1" type="text" placeholder="{{ trans('cart.address1') }}" value="{{ (old('address1'))?old('address1'):$shippingAddress['address1']}}">
-                            @if($errors->has('address1'))
-                                <span class="help-block">{{ $errors->first('address1') }}</span>
-                            @endif</td>
-                    <td class="form-group{{ $errors->has('address2') ? ' has-error' : '' }}"><label for="address2" class="control-label"><i class="fa fa-university"></i> {{ trans('cart.address2') }}</label><input name="address2" type="text" placeholder="{{ trans('cart.address2') }}" value="{{ (old('address2'))?old('address2'):$shippingAddress['address2']}}">
-                            @if($errors->has('address2'))
-                                <span class="help-block">{{ $errors->first('address2') }}</span>
-                            @endif</td>
+                    @if (sc_config('customer_address2'))
+                    <td class="form-group {{ $errors->has('address1') ? ' has-error' : '' }}">
+                        <label for="address1" class="control-label"><i class="fa fa-home"></i> {{ trans('cart.address1') }}:</label> 
+                        <input name="address1" type="text" placeholder="{{ trans('cart.address1') }}" value="{{ (old('address1'))?old('address1'):$shippingAddress['address1']}}">
+                        @if($errors->has('address1'))
+                            <span class="help-block">{{ $errors->first('address1') }}</span>
+                        @endif
+                    </td>                    
+                    <td class="form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
+                        <label for="address2" class="control-label"><i class="fa fa-university"></i> {{ trans('cart.address2') }}</label>
+                        <input name="address2" type="text" placeholder="{{ trans('cart.address2') }}" value="{{ (old('address2'))?old('address2'):$shippingAddress['address2']}}">
+                        @if($errors->has('address2'))
+                        <span class="help-block">{{ $errors->first('address2') }}</span>
+                        @endif
+                    </td>
+                    @else
+                    <td colspan="2" class="form-group {{ $errors->has('address1') ? ' has-error' : '' }}">
+                        <label for="address1" class="control-label"><i class="fa fa-home"></i> {{ trans('cart.address') }}:</label> 
+                        <input name="address1" type="text" placeholder="{{ trans('cart.address') }}" value="{{ (old('address1'))?old('address1'):$shippingAddress['address1']}}">
+                        @if($errors->has('address1'))
+                            <span class="help-block">{{ $errors->first('address1') }}</span>
+                        @endif
+                    </td>  
+                    @endif
                 </tr>
+
                 <tr>
                     <td colspan="2">
                         <label  class="control-label"><i class="fa fa-file-image-o"></i> {{ trans('cart.note') }}:</label>
                         <textarea rows="5" name="comment" placeholder="{{ trans('cart.note') }}....">{{ (old('comment'))?old('comment'):$shippingAddress['comment'] }}</textarea>
                     </td>
+                </tr>                    
 
-                </tr>
+
             </table>
 
     </div>

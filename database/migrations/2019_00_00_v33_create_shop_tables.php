@@ -626,15 +626,16 @@ class CreateShopTables extends Migration
             ['group' => '', 'code' => 'product', 'key' => 'product_attribute', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.attribute', 'store_id' => '1'],
             ['group' => '', 'code' => 'product', 'key' => 'product_available', 'value' => '1', 'sort' => '0', 'detail' => 'lang::product.config_manager.available', 'store_id' => '1'],
 
-            ['group' => '', 'code' => 'customer', 'key' => 'lastname', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.lastname', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'address1', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.address1', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'address2', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.address2', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'company', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.company', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'postcode', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.postcode', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'country', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.country', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'group', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.group', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'birthday', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.birthday', 'store_id' => '1'],
-            ['group' => '', 'code' => 'customer', 'key' => 'sex', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.sex', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_lastname', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.lastname', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_address1', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.address1', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_address2', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.address2', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_company', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.company', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_postcode', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.postcode', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_country', 'value' => '1', 'sort' => '0', 'detail' => 'lang::customer.config_manager.country', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_group', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.group', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_birthday', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.birthday', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_sex', 'value' => '0', 'sort' => '0', 'detail' => 'lang::customer.config_manager.sex', 'store_id' => '1'],
+            ['group' => '', 'code' => 'customer', 'key' => 'customer_phone', 'value' => '0', 'sort' => '1', 'detail' => 'lang::customer.config_manager.phone', 'store_id' => '1'],
 
 
         ]);

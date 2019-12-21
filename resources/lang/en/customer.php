@@ -59,6 +59,7 @@ return [
         'group'                    => 'Use GROUP',
         'birthday'                    => 'Use BIRTHDAY',
         'sex'                    => 'Use SEX',
+        'phone'                    => 'Use PHONE',
 
     ]
 ];

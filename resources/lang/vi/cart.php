@@ -28,4 +28,5 @@ return [
     'country'          => 'Quốc gia',
     'fist_name'          => 'Tên',
     'last_name'          => 'Họ',
+    'name'          => 'Họ tên',
 ];
