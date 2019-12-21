@@ -52,7 +52,7 @@
         <td><input style="width: 70px;" type="number" data-id="{{ $item->id }}" data-rowid="{{$item->rowId}}" onChange="updateCart($(this));" class="item-qty" name="qty-{{$item->id}}" value="{{$item->qty}}"><span class="text-danger item-qty-{{$item->id}}" style="display: none;"></span></td>
         <td align="right">{{sc_currency_render($item->subtotal)}}</td>
         <td>
-            <a onClick="return confirm('Confirm?')" title="Remove Item" alt="Remove Item" class="cart_quantity_delete" href="{{route("cart.remove",['id'=>$item->rowId])}}"><i class="fa fa-times"></i></a>
+            <a onClick="return confirm('Confirm?')" title="Remove Item" alt="Remove Item" class="cart_quantity_delete" href="{{route("cart.remove",['id'=>$item->rowId])}}"><i class="fa fa-times" aria-hidden="true"></i></a>
         </td>
     </tr>
     @endforeach
@@ -61,17 +61,20 @@
         <tr  style="background: #eaebec">
             <td colspan="7">
                  <div class="pull-left">
-                <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('home') }}'"><i class="fa fa-arrow-left"></i>{{ trans('cart.back_to_shop') }}</button>
+                <button class="btn btn-default" type="button" style="cursor: pointer;padding:10px 30px" onClick="location.href='{{ route('home') }}'"><i class="fa fa-arrow-left"></i> {{ trans('cart.back_to_shop') }}</button>
                 </div>
                  <div class="pull-right">
-                <a onClick="return confirm('Confirm ?')" href="{{route('cart.clear')}}"><button class="btn" type="button" style="cursor: pointer;padding:10px 30px">{{ trans('cart.remove_all') }}</button></a>
+                <button class="btn" type="button" style="cursor: pointer;padding:10px 30px" onClick="if(confirm('Confirm ?')) window.location.href='{{ route('cart.clear') }}';" >
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                    {{ trans('cart.remove_all') }}</button>
                 </div>
             </td>
         </tr>
     </tfoot>
   </table>
   </div>
-<form class="sc-shipping-address" id="form-order" role="form" method="POST" action="{{ route('checkout') }}">
+
+<form class="sc-shipping-address" id="form-order" role="form" method="POST" action="{{ route('cart.process') }}">
 <div class="row">
     <div class="col-md-6">
             @csrf
@@ -153,7 +156,30 @@
                         </td>
                     </tr>    
                 @endif
+
                 
+                <tr>
+                    @if (sc_config('customer_postcode'))
+                    <td class="form-group {{ $errors->has('postcode') ? ' has-error' : '' }}">
+                        <label for="postcode" class="control-label"><i class="fa fa-home"></i> {{ trans('cart.postcode') }}:</label> 
+                        <input name="postcode" type="text" placeholder="{{ trans('cart.postcode') }}" value="{{ (old('postcode'))?old('postcode'):$shippingAddress['postcode']}}">
+                        @if($errors->has('postcode'))
+                            <span class="help-block">{{ $errors->first('postcode') }}</span>
+                        @endif
+                    </td>
+                    @endif
+
+                    @if (sc_config('customer_company'))
+                    <td class="form-group{{ $errors->has('company') ? ' has-error' : '' }}">
+                        <label for="company" class="control-label"><i class="fa fa-university"></i> {{ trans('cart.company') }}</label>
+                        <input name="company" type="text" placeholder="{{ trans('cart.company') }}" value="{{ (old('company'))?old('company'):$shippingAddress['company']}}">
+                        @if($errors->has('company'))
+                        <span class="help-block">{{ $errors->first('company') }}</span>
+                        @endif
+                    </td>
+                    @endif
+                </tr>
+
                 <tr>
                     @if (sc_config('customer_address2'))
                     <td class="form-group {{ $errors->has('address1') ? ' has-error' : '' }}">
@@ -183,7 +209,7 @@
 
                 <tr>
                     <td colspan="2">
-                        <label  class="control-label"><i class="fa fa-file-image-o"></i> {{ trans('cart.note') }}:</label>
+                        <label  class="control-label"><i class="fa fa-calendar-o"></i> {{ trans('cart.note') }}:</label>
                         <textarea rows="5" name="comment" placeholder="{{ trans('cart.note') }}....">{{ (old('comment'))?old('comment'):$shippingAddress['comment'] }}</textarea>
                     </td>
                 </tr>                    

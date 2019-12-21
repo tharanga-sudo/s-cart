@@ -141,19 +141,34 @@ class ShopCart extends GeneralController
             'max' => trans('validation.max.string'),
             'required' => trans('validation.required'),
         ];
+        $validate = [
+            'first_name' => 'required|max:100',
+            'address1' => 'required|max:100',
+            'email' => 'required|string|email|max:255',
+            'shippingMethod' => 'required',
+            'paymentMethod' => 'required',
+        ];
+        if(sc_config('customer_lastname')) {
+            $validate['last_name'] = 'required|max:100';
+        }
+        if(sc_config('customer_address2')) {
+            $validate['address2'] = 'required|max:100';
+        }
+        if(sc_config('customer_phone')) {
+            $validate['phone'] = 'required|regex:/^0[^0][0-9\-]{7,13}$/';
+        }
+        if(sc_config('customer_country')) {
+            $validate['country'] = 'required|min:2';
+        }
+        if(sc_config('customer_postcode')) {
+            $validate['postcode'] = 'required|min:7';
+        }
+        if(sc_config('customer_company')) {
+            $validate['company'] = 'required|min:7';
+        }        
         $v = Validator::make(
             request()->all(), 
-            [
-                'first_name' => 'required|max:100',
-                'last_name' => 'required|max:100',
-                'address1' => 'required|max:100',
-                'address2' => 'required|max:100',
-                'phone' => 'required|regex:/^0[^0][0-9\-]{7,13}$/',
-                'email' => 'required|string|email|max:255',
-                'shippingMethod' => 'required',
-                'paymentMethod' => 'required',
-                'country' => 'required|min:2',
-            ], 
+            $validate, 
             $messages
         );
         if ($v->fails()) {
@@ -177,6 +192,8 @@ class ShopCart extends GeneralController
                     'address1' => request('address1'),
                     'address2' => request('address2'),
                     'phone' => request('phone'),
+                    'postcode' => request('postcode'),
+                    'company' => request('company'),
                     'comment' => request('comment'),
                 ],
             ]

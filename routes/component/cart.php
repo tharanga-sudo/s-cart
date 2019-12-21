@@ -28,11 +28,11 @@ Route::post('/add_to_cart_ajax', 'ShopCart@addToCartAjax')
 Route::post('/update_to_cart', 'ShopCart@updateToCart')
 ->name('cart.update');
 
+Route::post('/checkout_prepare', 'ShopCart@processCart')
+->name('cart.process');
 
 Route::get('/'.$prefixCartCheckout.$suffix, 'ShopCart@getCheckout')
 ->name('checkout');
-Route::post('/checkout_prepare', 'ShopCart@processCart')
-->name('checkout.prepare');
 
 Route::post('/order_add', 'ShopCart@addOrder')
 ->name('order.add');

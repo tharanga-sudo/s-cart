@@ -61,12 +61,8 @@
         <h3 class="control-label"><i class="fa fa-truck" aria-hidden="true"></i> {{ trans('cart.shipping_address') }}:<br></h3>
         <table class="table box table-bordered" id="showTotal">
             <tr>
-                <th>{{ trans('cart.first_name') }}:</td>
-                <td>{{ $shippingAddress['first_name'] }}</td>
-            </tr>
-            <tr>
-                <th>{{ trans('cart.last_name') }}:</td>
-                <td>{{ $shippingAddress['last_name'] }}</td>
+                <th>{{ trans('cart.name') }}:</td>
+                <td>{{ $shippingAddress['first_name'] }} {{ $shippingAddress['last_name'] }}</td>
             </tr>
             <tr>
                 <th>{{ trans('cart.phone') }}:</td>
@@ -80,6 +76,21 @@
                 <th>{{ trans('cart.address') }}:</td>
                 <td>{{ $shippingAddress['address1'].' '.$shippingAddress['address2'].','.$shippingAddress['country'] }}</td>
             </tr>
+            @if (sc_config('customer_postcode'))
+            <tr>
+                <th>{{ trans('cart.postcode') }}:</td>
+                <td>{{ $shippingAddress['postcode']}}</td>
+            </tr>
+            @endif
+
+            @if (sc_config('customer_company'))
+            <tr>
+                <th>{{ trans('cart.company') }}:</td>
+                <td>{{ $shippingAddress['company']}}</td>
+            </tr> 
+            @endif
+
+
              <tr>
                 <th>{{ trans('cart.note') }}:</td>
                 <td>{{ $shippingAddress['comment'] }}</td>
