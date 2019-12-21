@@ -231,6 +231,8 @@ class CreateShopTables extends Migration
             $table->string('address1', 100);
             $table->string('address2', 100);
             $table->string('country', 10)->default('VN');
+            $table->string('company', 100)->nullable();
+            $table->string('postcode', 10)->nullable();
             $table->string('phone', 20);
             $table->string('email', 150);
             $table->string('comment', 300)->nullable();

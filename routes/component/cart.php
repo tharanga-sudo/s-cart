@@ -27,7 +27,6 @@ Route::post('/add_to_cart_ajax', 'ShopCart@addToCartAjax')
 ->name('cart.add_ajax');
 Route::post('/update_to_cart', 'ShopCart@updateToCart')
 ->name('cart.update');
-
 Route::post('/checkout_prepare', 'ShopCart@processCart')
 ->name('cart.process');
 
