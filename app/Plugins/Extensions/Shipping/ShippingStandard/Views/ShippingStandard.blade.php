@@ -15,8 +15,8 @@
              <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th width="40%">{{ trans($pathExtension.'::ShippingStandard.fee') }}</th>
-                  <th width="40%">{{ trans($pathExtension.'::ShippingStandard.shipping_free') }}</th>
+                  <th width="40%">{{ trans($pathPlugin.'::ShippingStandard.fee') }}</th>
+                  <th width="40%">{{ trans($pathPlugin.'::ShippingStandard.shipping_free') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,7 +27,7 @@
                         data-type="text" 
                         data-pk="{{ $data['id'] }}" 
                         data-url="{{ route('admin_extension.process',['group'=>$group,'key'=>$key]) }}" 
-                        data-title="{{ trans($pathExtension.'::ShippingStandard.fee') }}">
+                        data-title="{{ trans($pathPlugin.'::ShippingStandard.fee') }}">
                           {{ $data['fee'] }}
                         </a>
                     </td>
@@ -37,7 +37,7 @@
                             data-type="text" 
                             data-pk="{{ $data['id'] }}" 
                             data-url="{{ route('admin_extension.process',['group'=> $group,'key'=>$key]) }}" 
-                            data-title="{{ trans($pathExtension.'::ShippingStandard.shipping_free') }}">
+                            data-title="{{ trans($pathPlugin.'::ShippingStandard.shipping_free') }}">
                             {{ $data['shipping_free'] }}
                             </a>
                         </td>

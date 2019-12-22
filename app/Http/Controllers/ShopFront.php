@@ -57,15 +57,16 @@ class ShopFront extends GeneralController
         }
 
         $itemsList = (new ShopCategory)->getCategories($parent = 0, $limit = sc_config('item_list'), $opt = 'paginate', $sortBy, $sortOrder);
+        
         return view('templates.' . sc_store('template') . '.shop_item_list',
-            array(
-                'title' => trans('front.categories'),
-                'itemsList' => $itemsList,
-                'keyword' => '',
-                'description' => '',
-                'layout_page' => 'item_list',
-                'filter_sort' => $filter_sort,
-            ));
+        array(
+            'title' => trans('front.categories'),
+            'itemsList' => $itemsList,
+            'keyword' => '',
+            'description' => '',
+            'layout_page' => 'item_list',
+            'filter_sort' => $filter_sort,
+        ));
     }
 
 /**
@@ -92,6 +93,7 @@ class ShopFront extends GeneralController
         }
 
         $category = (new ShopCategory)->getCategory($id = null, $alias);
+
         if ($category) {
             $products = (new ShopProduct)->getProductsToCategory($category->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder);
             $itemsList = (new ShopCategory)->getCategories($parent = $category->id);
@@ -137,6 +139,7 @@ class ShopFront extends GeneralController
         }
 
         $products = (new ShopProduct)->getProducts($type = null, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder);
+        
         return view('templates.' . sc_store('template') . '.shop_products_list',
             array(
                 'title' => trans('front.all_product'),
@@ -145,8 +148,7 @@ class ShopFront extends GeneralController
                 'products' => $products,
                 'layout_page' => 'product_list',
                 'filter_sort' => $filter_sort,
-            )
-        );
+            ));
     }
 
 /**
@@ -303,16 +305,20 @@ class ShopFront extends GeneralController
         }
 
         $brand = ShopBrand::where('alias', $alias)->first();
-        return view('templates.' . sc_store('template') . '.shop_products_list',
-            array(
-                'title' => $brand->name,
-                'description' => '',
-                'keyword' => '',
-                'layout_page' => 'product_list',
-                'products' => $brand->getProductsToBrand($brand->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder),
-                'filter_sort' => $filter_sort,
-            )
-        );
+        if($brand) {
+            return view('templates.' . sc_store('template') . '.shop_products_list',
+                array(
+                    'title' => $brand->name,
+                    'description' => '',
+                    'keyword' => '',
+                    'layout_page' => 'product_list',
+                    'products' => $brand->getProductsToBrand($brand->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder),
+                    'filter_sort' => $filter_sort,
+                )
+            );
+        } else {
+            return $this->itemNotFound();
+        }
     }
 
 /**
@@ -375,7 +381,8 @@ class ShopFront extends GeneralController
         }
 
         $vendor = ShopVendor::where('alias', $alias)->first();
-        return view('templates.' . sc_store('template') . '.shop_products_list',
+        if ($vendor) {
+            return view('templates.' . sc_store('template') . '.shop_products_list',
             array(
                 'title' => $vendor->name,
                 'description' => '',
@@ -385,6 +392,11 @@ class ShopFront extends GeneralController
                 'filter_sort' => $filter_sort,
             )
         );
+        } else {
+            return $this->itemNotFound();
+        }
+
+
     }
 
 /**

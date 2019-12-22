@@ -5,7 +5,7 @@ namespace App\Plugins\Extensions\Total\Discount\Admin;
 
 use App\Plugins\Extensions\Total\Discount\Models\DiscountModel;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\ShopLanguage;
 use App\Plugins\Extensions\Total\Discount\AppConfig;
 use Validator;
 
