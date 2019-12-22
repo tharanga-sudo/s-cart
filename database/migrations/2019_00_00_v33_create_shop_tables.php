@@ -201,7 +201,7 @@ class CreateShopTables extends Migration
             $table->integer('used')->default(0);
             $table->integer('login')->default(0);
             $table->tinyInteger('status')->default(0);
-            $table->dateTime('expires_at');
+            $table->dateTime('expires_at')->nullable();
         });
 
         Schema::create('shop_discount_user', function (Blueprint $table) {

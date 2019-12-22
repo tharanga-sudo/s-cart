@@ -108,12 +108,11 @@ class AppConfig extends ConfigDefault
         $check = json_decode((new DiscountController)->check($discount, $uID), true);
         if (!empty($discount) && !$check['error']) {
             $arrType = [
-                '0' => 'Cash',
-                '1' => 'Point',
-                '2' => '%',
+                'point' => 'Point',
+                'percent' => '%',
             ];
             $subtotal = \Cart::subtotal();
-            $value = ($check['content']['group'] == '2') ? floor($subtotal * $check['content']['reward'] / 100) : $check['content']['reward'];
+            $value = ($check['content']['type'] == 'percent') ? floor($subtotal * $check['content']['reward'] / 100) : $check['content']['reward'];
             $arrData = array(
                 'title' => '<b>' . $this->title . ':</b> ' . $discount . '',
                 'code' => $this->configKey,
