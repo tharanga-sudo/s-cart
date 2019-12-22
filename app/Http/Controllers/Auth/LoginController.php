@@ -56,7 +56,7 @@ class LoginController extends GeneralController
         if (Auth::user()) {
             return redirect()->route('home');
         }
-        return view('templates.' . sc_store('template') . '.shop_login',
+        return view($this->templatePath . '.shop_login',
             array(
                 'title' => trans('front.login'),
                 'countries' => ShopCountry::getArray(),

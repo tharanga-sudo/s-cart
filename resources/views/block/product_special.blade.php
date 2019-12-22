@@ -16,9 +16,9 @@
                                 <a href="{{ $productSpecial->getUrl() }}"><p>{{ $productSpecial->name }}</p></a>
                               </div>
                           @if ($productSpecial->price != $productSpecial->getFinalPrice())
-                          <img src="{{ asset('templates/'.sc_store('template').'/images/home/sale.png') }}" class="new" alt="" />
+                          <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
                           @elseif($productSpecial->type == SC_PRODUCT_NEW)
-                          <img src="{{ asset('templates/'.sc_store('template').'/images/home/new.png') }}" class="new" alt="" />
+                          <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
                           @endif
                           </div>
                         </div>

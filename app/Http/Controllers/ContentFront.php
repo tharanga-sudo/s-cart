@@ -23,7 +23,7 @@ class ContentFront extends GeneralController
     {
         $page = $this->getPage('contact');
         return view(
-            'templates.' . sc_store('template') . '.shop_contact',
+            $this->templatePath . '.shop_contact',
             array(
                 'title' => trans('front.contact'),
                 'description' => '',
@@ -109,7 +109,7 @@ class ContentFront extends GeneralController
         $page = $this->getPage($alias);
         if ($page) {
             return view(
-                'templates.' . sc_store('template') . '.shop_page',
+                $this->templatePath . '.shop_page',
                 array(
                     'title' => $page->title,
                     'description' => '',
@@ -143,7 +143,7 @@ class ContentFront extends GeneralController
         $news = (new ShopNews)
             ->getItemsNews($limit = sc_config('product_new'), $opt = 'paginate');
         return view(
-            'templates.' . sc_store('template') . '.shop_news',
+            $this->templatePath . '.shop_news',
             array(
                 'title' => trans('front.blog'),
                 'description' => sc_store('description'),
@@ -167,7 +167,7 @@ class ContentFront extends GeneralController
         if ($news_currently) {
             $title = ($news_currently) ? $news_currently->title : trans('front.not_found');
             return view(
-                'templates.' . sc_store('template') . '.shop_news_detail',
+                $this->templatePath . '.shop_news_detail',
                 array(
                     'title' => $title,
                     'news_currently' => $news_currently,
@@ -179,7 +179,7 @@ class ContentFront extends GeneralController
             );
         } else {
             return view(
-                'templates.' . sc_store('template') . '.notfound',
+                $this->templatePath . '.notfound',
                 array(
                     'title' => trans('front.not_found'),
                     'description' => '',

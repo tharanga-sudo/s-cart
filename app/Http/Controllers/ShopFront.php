@@ -22,7 +22,7 @@ class ShopFront extends GeneralController
      */
     public function index(Request $request)
     {
-        return view('templates.' . sc_store('template') . '.shop_home',
+        return view($this->templatePath . '.shop_home',
             array(
                 'products_new' => (new ShopProduct)->getProducts($type = null, $limit = sc_config('product_new'), $opt = null),
                 'products_hot' => (new ShopProduct)->getProducts($type = SC_PRODUCT_HOT, $limit = sc_config('product_hot'), $opt = 'random'),
@@ -58,7 +58,7 @@ class ShopFront extends GeneralController
 
         $itemsList = (new ShopCategory)->getCategories($parent = 0, $limit = sc_config('item_list'), $opt = 'paginate', $sortBy, $sortOrder);
         
-        return view('templates.' . sc_store('template') . '.shop_item_list',
+        return view($this->templatePath . '.shop_item_list',
         array(
             'title' => trans('front.categories'),
             'itemsList' => $itemsList,
@@ -97,7 +97,7 @@ class ShopFront extends GeneralController
         if ($category) {
             $products = (new ShopProduct)->getProductsToCategory($category->id, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder);
             $itemsList = (new ShopCategory)->getCategories($parent = $category->id);
-            return view('templates.' . sc_store('template') . '.shop_products_list',
+            return view($this->templatePath . '.shop_products_list',
                 array(
                     'title' => $category->name,
                     'description' => $category->description,
@@ -140,7 +140,7 @@ class ShopFront extends GeneralController
 
         $products = (new ShopProduct)->getProducts($type = null, $limit = sc_config('product_list'), $opt = 'paginate', $sortBy, $sortOrder);
         
-        return view('templates.' . sc_store('template') . '.shop_products_list',
+        return view($this->templatePath . '.shop_products_list',
             array(
                 'title' => trans('front.all_product'),
                 'keyword' => '',
@@ -180,7 +180,7 @@ class ShopFront extends GeneralController
             $arrCategoriId = array_keys($categories);
             $productsToCategory = (new ShopProduct)->getProductsToCategory($arrCategoriId, $limit = sc_config('product_relation'), $opt = 'random');
             //Check product available
-            return view('templates.' . sc_store('template') . '.shop_product_detail',
+            return view($this->templatePath . '.shop_product_detail',
                 array(
                     'title' => $product->name,
                     'description' => $product->description,
@@ -270,7 +270,7 @@ class ShopFront extends GeneralController
         }
 
         $itemsList = (new ShopBrand)->getBrands($limit = sc_config('item_list'), $opt = 'paginate', $sortBy, $sortOrder);
-        return view('templates.' . sc_store('template') . '.shop_item_list',
+        return view($this->templatePath . '.shop_item_list',
             array(
                 'title' => trans('front.brands'),
                 'itemsList' => $itemsList,
@@ -306,7 +306,7 @@ class ShopFront extends GeneralController
 
         $brand = ShopBrand::where('alias', $alias)->first();
         if($brand) {
-            return view('templates.' . sc_store('template') . '.shop_products_list',
+            return view($this->templatePath . '.shop_products_list',
                 array(
                     'title' => $brand->name,
                     'description' => '',
@@ -345,7 +345,7 @@ class ShopFront extends GeneralController
 
         $itemsList = (new ShopVendor)->getVendors($limit = sc_config('item_list'), $opt = 'paginate', $sortBy, $sortOrder);
 
-        return view('templates.' . sc_store('template') . '.shop_item_list',
+        return view($this->templatePath . '.shop_item_list',
             array(
                 'title' => trans('front.vendors'),
                 'itemsList' => $itemsList,
@@ -382,7 +382,7 @@ class ShopFront extends GeneralController
 
         $vendor = ShopVendor::where('alias', $alias)->first();
         if ($vendor) {
-            return view('templates.' . sc_store('template') . '.shop_products_list',
+            return view($this->templatePath . '.shop_products_list',
             array(
                 'title' => $vendor->name,
                 'description' => '',
@@ -422,7 +422,7 @@ class ShopFront extends GeneralController
             $sortOrder = $filterArr[$filter_sort][1];
         }
         $keyword = request('keyword') ?? '';
-        return view('templates.' . sc_store('template') . '.shop_products_list',
+        return view($this->templatePath . '.shop_products_list',
             array(
                 'title' => trans('front.search') . ': ' . $keyword,
                 'products' => (new ShopProduct)->getSearch($keyword, $limit = sc_config('product_list'), $sortBy, $sortOrder),

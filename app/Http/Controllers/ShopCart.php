@@ -106,7 +106,7 @@ class ShopCart extends GeneralController
         $shippingAddress = session('shippingAddress') ? session('shippingAddress') : $addressDefaul;
         $objects = ShopOrderTotal::getObjectOrderTotal();
         return view(
-            'templates.' . sc_store('template') . '.shop_cart',
+            $this->templatePath . '.shop_cart',
             [
                 'title' => trans('front.cart_title'),
                 'description' => '',
@@ -238,7 +238,7 @@ class ShopCart extends GeneralController
         session(['dataTotal' => $dataTotal]);
 
         return view(
-            'templates.' . sc_store('template') . '.shop_checkout',
+            $this->templatePath . '.shop_checkout',
             [
                 'title' => trans('front.checkout_title'),
                 'description' => '',
@@ -533,7 +533,7 @@ class ShopCart extends GeneralController
     {
 
         $wishlist = Cart::instance('wishlist')->content();
-        return view('templates.' . sc_store('template') . '.shop_wishlist',
+        return view($this->templatePath . '.shop_wishlist',
             array(
                 'title' => trans('front.wishlist'),
                 'description' => '',
@@ -551,7 +551,7 @@ class ShopCart extends GeneralController
     public function compare()
     {
         $compare = Cart::instance('compare')->content();
-        return view('templates.' . sc_store('template') . '.shop_compare',
+        return view($this->templatePath . '.shop_compare',
             array(
                 'title' => trans('front.compare'),
                 'description' => '',
@@ -749,7 +749,7 @@ class ShopCart extends GeneralController
             return redirect()->route('home');
         }
         return view(
-            'templates.' . sc_store('template') . '.shop_order_success',
+            $this->templatePath . '.shop_order_success',
             [
                 'title' => trans('order.success.title'),
                 'layout_page' =>'shop_order_success',

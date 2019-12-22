@@ -25,7 +25,7 @@ class ShopAccount extends GeneralController
     public function index()
     {
         $user = Auth::user();
-        return view('templates.' . sc_store('template') . '.account.index')
+        return view($this->templatePath . '.account.index')
             ->with(
                 [
                 'title' => trans('account.my_profile'),
@@ -44,7 +44,7 @@ class ShopAccount extends GeneralController
     {
         $user = Auth::user();
         $id = $user->id;
-        return view('templates.' . sc_store('template') . '.account.change_password')
+        return view($this->templatePath . '.account.change_password')
         ->with(
             [
                 'title' => trans('account.change_password'),
@@ -116,7 +116,7 @@ class ShopAccount extends GeneralController
         $user = Auth::user();
         $id = $user->id;
         $dataUser = ShopUser::find($id);
-        return view('templates.' . sc_store('template') . '.account.change_infomation')
+        return view($this->templatePath . '.account.change_infomation')
             ->with(
                 [
                     'title' => trans('account.change_infomation'),
@@ -174,7 +174,7 @@ class ShopAccount extends GeneralController
         $id = $user->id;
         $orders = ShopOrder::with('orderTotal')->where('user_id', $id)->sort()->get();
         $statusOrder = ShopOrderStatus::pluck('name', 'id')->all();
-        return view('templates.' . sc_store('template') . '.account.order_list')
+        return view($this->templatePath . '.account.order_list')
             ->with(
                 [
                 'title' => trans('account.order_list'),
