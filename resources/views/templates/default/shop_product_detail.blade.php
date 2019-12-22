@@ -52,10 +52,19 @@
                 <h2  id="product-detail-name">{{ $product->name }}</h2>
                 <p>SKU: <span  id="product-detail-model">{{ $product->sku }}</span></p>
                 <div id="product-detail-price">
-                  {!! $product->showPrice() !!}
+                  {!! $product->showPriceDetail() !!}
                 </div>
 
-                @if ($product->allowSale())
+                @if ($product->kind == SC_PRODUCT_GROUP)
+                <span id="product-detail-cart-group" style="display:none">
+                  <label>{{ trans('product.quantity') }}:</label>
+                  <input type="number" name="qty" value="1" min="1" />
+                  <button type="submit" class="btn btn-fefault cart">
+                    <i class="fa fa-shopping-cart"></i>
+                    {{trans('front.add_to_cart')}}
+                  </button>
+                </span>                      
+                @else ($product->allowSale())
                 <span>
                   <label>{{ trans('product.quantity') }}:</label>
                   <input type="number" name="qty" value="1" min="1" />
@@ -209,7 +218,8 @@
               $('#loading').show();
           },
           success: function(data){
-            console.log(data);
+            //console.log(data);
+            $('#product-detail-cart-group').show();
             $('#product-detail-name').html(data.name);
             $('#product-detail-model').html(data.sku);
             $('#product-detail-price').html(data.showPrice);

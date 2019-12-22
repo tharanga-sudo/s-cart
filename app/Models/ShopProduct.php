@@ -164,6 +164,49 @@ Get final price
 
     }
 
+    /**
+     * [showPriceDetail description]
+     *
+     * @param   [type]  $classNew  [$classNew description]
+     * @param   [type]  $classOld  [$classOld description]
+     * @param   [type]  $divWrap   [$divWrap description]
+     *
+     * @return  [type]             [return description]
+     */
+    public function showPriceDetail($classNew = null, $classOld = null, $divWrap = null)
+    {
+        if (!sc_config('product_price')) {
+            return false;
+        }
+        $priceFinal = $this->getFinalPrice();
+        switch ($this->kind) {
+            case SC_PRODUCT_GROUP:
+                $str = '<span class="' . (($classNew) ? $classNew : 'sc-new-price') . '">' . trans('product.price_group_chose') . '</span>';
+                if ($divWrap != null) {
+                    $str = '<div class="' . $divWrap . '">' . $str . '</div>';
+                }
+                return $str;
+                break;
+
+            default:
+                if ($this->price == $priceFinal) {
+                    $str = '<span class="' . (($classNew) ? $classNew : 'sc-new-price') . '">' . sc_currency_render($this->price) . '</span>';
+                    if ($divWrap != null) {
+                        $str = '<div class="' . $divWrap . '">' . $str . '</div>';
+                    }
+                    return $str;
+                } else {
+                    $str = '<span class="' . (($classNew) ? $classNew : 'sc-new-price') . '">' . sc_currency_render($priceFinal) . '</span><span class="' . (($classNew) ? $classOld : 'sc-old-price') . '">' . sc_currency_render($this->price) . '</span>';
+                    if ($divWrap != null) {
+                        $str = '<div class="' . $divWrap . '">' . $str . '</div>';
+                    }
+                    return $str;
+                }
+                break;
+        }
+
+    }
+
 /**
  * Get product detail
  * @param  [int] $id [description]

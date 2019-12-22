@@ -44,6 +44,7 @@ return [
     'overview'              => 'Quick Overview',
     'comment'               => 'Comment',
     'price_group'           => 'Click view price',
+    'price_group_chose'     => 'Please chose product',
     'groups'                => 'Products group',
     'builds'                => 'Products build',
     'admin'                 => [

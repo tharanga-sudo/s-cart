@@ -43,6 +43,7 @@ return [
     'overview'              => 'Mô tả',
     'comment'               => 'Đánh giá',
     'price_group'           => 'Bấm xem giá',
+    'price_group_chose'     => 'Chọn sản phẩm',
     'groups'                => 'Nhóm sản phẩm',
     'builds'                => 'Bộ sản phẩm',
 
