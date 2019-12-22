@@ -1,5 +1,5 @@
 @if (sc_config('SITE_STATUS') != 'on')
-  @include('templates.' . sc_store('template') . '.maintenance')
+  @include($templatePath . '.maintenance')
   @php
     exit();
   @endphp
