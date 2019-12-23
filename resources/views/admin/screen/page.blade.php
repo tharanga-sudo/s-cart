@@ -156,8 +156,8 @@
                                     <input type="text" id="alias" name="alias" value="{!! old('alias',($page['alias']??'')) !!}"
                                         class="form-control alias" placeholder="" />
                                     @else
-                                    <input type="text" id="alias" name="alias" value="{!! old('alias',($page['alias']??'')) !!}"
-                                        class="form-control alias" type="hidden" placeholder="" />
+                                    <input type="hidden" id="alias" name="alias" value="{!! old('alias',($page['alias']??'')) !!}"
+                                        class="form-control alias"  placeholder="" />
                                     <input type="text" id="alias_show" value="{!! $page['alias'] !!}" disabled
                                         class="form-control alias" placeholder="" />
                                     @endif
