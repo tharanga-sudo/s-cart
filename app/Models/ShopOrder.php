@@ -198,7 +198,7 @@ class ShopOrder extends Model
             $codeDiscount = session('Discount') ?? '';
             if ($codeDiscount) {
                 if (!empty(sc_config('Discount'))) {
-                    $moduleClass = sc_get_class_total_controller('Discount');
+                    $moduleClass = sc_get_class_extension_controller('Total', 'Discount');
                     $returnModuleDiscount = (new $moduleClass)->apply($codeDiscount, $uID, $msg = 'Order #' . $orderID);
                     $arrReturnModuleDiscount = json_decode($returnModuleDiscount, true);
                     if ($arrReturnModuleDiscount['error'] == 1) {

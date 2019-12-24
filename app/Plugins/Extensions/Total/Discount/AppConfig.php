@@ -112,7 +112,7 @@ class AppConfig extends ConfigDefault
                 '2' => '%',
             ];
             $subtotal = \Cart::subtotal();
-            $value = ($check['content']['group'] == '2') ? floor($subtotal * $check['content']['reward'] / 100) : $check['content']['reward'];
+            $value = ($check['content']['type'] == '2') ? floor($subtotal * $check['content']['reward'] / 100) : $check['content']['reward'];
             $arrData = array(
                 'title' => '<b>' . $this->title . ':</b> ' . $discount . '',
                 'code' => $this->configKey,
