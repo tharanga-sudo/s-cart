@@ -77,7 +77,12 @@ Config info
 if (!function_exists('sc_config')) {
     function sc_config($key = null, $default = null)
     {
-        $allConfig = AdminConfig::getAll();
+        $allConfig = [];
+        try {
+            $allConfig = AdminConfig::getAll();
+        } catch(\Exception $e) {
+            sc_report($e->getMessage());
+        }
         if ($key == null) {
             return $allConfig;
         }
