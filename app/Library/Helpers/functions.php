@@ -81,7 +81,7 @@ if (!function_exists('sc_config')) {
         try {
             $allConfig = AdminConfig::getAll();
         } catch(\Exception $e) {
-            sc_report($e->getMessage());
+            //
         }
         if ($key == null) {
             return $allConfig;
