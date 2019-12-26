@@ -33,6 +33,6 @@ return [
         ],
     ],
     'config_manager' => [
-        'title' => 'Config URL',
+        'title' => 'Link manager',
     ],
 ];
