@@ -53,7 +53,7 @@ class AppConfig extends ConfigDefault
                     AdminMenu::insert([
                         'id' => 100,
                         'sort' => 102,
-                        'parent_id' => 0,
+                        'parent_id' => 7,
                         'title' => 'admin.module_manager.cms_manager',
                         'icon' => 'fa-coffee',
                     ]);
