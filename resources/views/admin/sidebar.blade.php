@@ -25,28 +25,22 @@
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-<style>
-  .a-level1{
-    padding: 12px 5px 12px 15px !important;
-  }
-</style>
+      <ul class="sidebar-menu tree" data-widget="tree">
 @php
   $menus = Admin::getMenuVisible();
 @endphp
 {{-- Level 0 --}}
         @foreach ($menus[0] as $level0)
-        <li class=" header">
+        <li class="header">
           {{ sc_language_render($level0->title) }}
         </li>
         {{-- LEvel 1  --}}
-        <ul class="treeview-menu" style="display:block">
           @foreach ($menus[$level0->id] as $level1)
             @if($level1->uri)
               <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span></a></li>
             @else
             <li class="treeview">
-              <a href="#" class="a-level1">
+              <a href="#">
                 <i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -102,7 +96,6 @@
               </li>
             @endif
           @endforeach
-        </ul>
       {{--  end level 1 --}}
 
         @endforeach
