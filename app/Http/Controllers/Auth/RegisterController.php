@@ -51,38 +51,65 @@ class RegisterController extends GeneralController
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $validate = [
             'reg_first_name' => 'required|string|max:100',
-            'reg_last_name' => 'required|string|max:100',
             'reg_email' => 'required|string|email|max:255|unique:' . (new ShopUser)->getTable() . ',email',
             'reg_password' => 'required|string|min:6|confirmed',
-            'reg_phone' => 'required|regex:/^0[^0][0-9\-]{7,13}$/',
             'reg_address1' => 'required|string|max:255',
-            'reg_address2' => 'required|string|max:255',
-            'reg_country' => 'required',
-        ]
-        );
+        ];
+        if(sc_config('customer_lastname')) {
+            $validate['reg_last_name'] = 'required|max:100';
+        }
+        if(sc_config('customer_address2')) {
+            $validate['reg_address2'] = 'required|max:100';
+        }
+        if(sc_config('customer_phone')) {
+            $validate['reg_phone'] = 'required|regex:/^0[^0][0-9\-]{7,13}$/';
+        }
+        if(sc_config('customer_country')) {
+            $validate['reg_country'] = 'required|min:2';
+        }
+        if(sc_config('customer_postcode')) {
+            $validate['reg_postcode'] = 'required|min:7';
+        }
+        if(sc_config('customer_company')) {
+            $validate['reg_company'] = 'required|min:3';
+        }   
+        if(sc_config('customer_sex')) {
+            $validate['reg_sex'] = 'required';
+        }   
+        if(sc_config('customer_birthday')) {
+            $validate['reg_birthday'] = 'required';
+        } 
+        if(sc_config('customer_group')) {
+            $validate['reg_group'] = 'required';
+        }  
+        return Validator::make($data, $validate);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\ShopUser
      */
     protected function create(array $data)
     {
-
-        $user = ShopUser::createCustomer([
+        $dataMap = [
             'first_name' => $data['reg_first_name'],
-            'last_name' => $data['reg_last_name'],
+            'last_name' => $data['reg_last_name']??'',
             'email' => $data['reg_email'],
             'password' => bcrypt($data['reg_password']),
-            'phone' => $data['reg_phone'],
+            'phone' => $data['reg_phone']??null,
             'address1' => $data['reg_address1'],
-            'address2' => $data['reg_address2'],
-            'country' => $data['reg_country'],
-        ]);
+            'address2' => $data['reg_address2']??'',
+            'country' => $data['reg_country']??'VN',
+            'group' => $data['reg_group']??1,
+            'birthday' => $data['reg_birthday']??null,
+            'sex' => $data['reg_sex']??0,
+            'postcode' => $data['reg_postcode']??null,
+        ];
+        $user = ShopUser::createCustomer($dataMap);
         if ($user) {
             if (sc_config('welcome_customer')) {
 
@@ -102,14 +129,14 @@ class RegisterController extends GeneralController
                     ];
                     $dataReplace = [
                         trans('email.welcome_customer.title'),
-                        $data['reg_first_name'],
-                        $data['reg_last_name'],
-                        $data['reg_email'],
-                        $data['reg_phone'],
-                        $data['reg_password'],
-                        $data['reg_address1'],
-                        $data['reg_address2'],
-                        $data['reg_country'],                        
+                        $dataMap['first_name'],
+                        $dataMap['last_name'],
+                        $dataMap['email'],
+                        $dataMap['phone'],
+                        $dataMap['password'],
+                        $dataMap['address1'],
+                        $dataMap['address2'],
+                        $dataMap['country'],
                     ];
                     $content = preg_replace($dataFind, $dataReplace, $content);
                     $data_mail = [
