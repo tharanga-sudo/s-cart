@@ -1,6 +1,5 @@
 <?php
 
-use App\Library\Helper;
 use App\Models\AdminConfig;
 use App\Models\AdminStore;
 use App\Models\ShopBlockContent;
@@ -24,11 +23,7 @@ Get all block content
 if (!function_exists('sc_link')) {
     function sc_link()
     {
-        if (Helper::$layoutsUrl !== null) {
-            return Helper::$layoutsUrl;
-        }
-        Helper::$layoutsUrl = ShopLink::getGroup();
-        return Helper::$layoutsUrl;
+        return ShopLink::getGroup();
     }
 }
 
@@ -38,11 +33,7 @@ Get all layouts
 if (!function_exists('sc_block_content')) {
     function sc_block_content()
     {
-        if (Helper::$layouts !== null) {
-            return Helper::$layouts;
-        }
-        Helper::$layouts = ShopBlockContent::getLayout();
-        return Helper::$layouts;
+        return ShopBlockContent::getLayout();
     }
 }
 
@@ -86,7 +77,12 @@ Config info
 if (!function_exists('sc_config')) {
     function sc_config($key = null, $default = null)
     {
-        $allConfig = AdminConfig::getAll();
+        $allConfig = [];
+        try {
+            $allConfig = AdminConfig::getAll();
+        } catch(\Exception $e) {
+            //
+        }
         if ($key == null) {
             return $allConfig;
         }
@@ -135,9 +131,19 @@ if (!function_exists('sc_url_render')) {
         if (count($arrCheckRoute) == 2) {
             $arrRoute = explode('::', $string);
             if (isset($arrRoute[2])) {
-                return route($arrRoute[1], $arrRoute[2]);
+                try {
+                    return route($arrRoute[1], $arrRoute[2]);
+                } catch(\Exception $e) {
+                    sc_report($e->getMessage());
+                    return false;
+                }  
             } else {
-                return route($arrRoute[1]);
+                try {
+                    return route($arrRoute[1]);
+                } catch(\Exception $e) {
+                    sc_report($e->getMessage());
+                    return false;
+                }                
             }
         }
 
@@ -154,11 +160,7 @@ if (!function_exists('sc_url_render')) {
 if (!function_exists('sc_language_all')) {
     function sc_language_all()
     {
-        if (Helper::$languages !== null) {
-            return Helper::$languages;
-        }
-        Helper::$languages = ShopLanguage::getList();
-        return Helper::$languages;
+        return ShopLanguage::getList();
     }
 }
 

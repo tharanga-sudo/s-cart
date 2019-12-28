@@ -2,7 +2,8 @@
 return [
     'title' => 'Tiêu đề',
     'image' => 'Hình ảnh',
-    'key' => 'Key',
+    'alias'                 => 'URL tùy chỉnh <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
+    'alias_validate'        => 'Tối đa 100 kí tự trong nhóm: "A-Z", "a-z", "0-9" and "-_" ',
     'key_validate' => 'Chỉ sử dụng kí tự trong nhóm: "A-Z", "a-z", "0-9" and ".-_" ',
     'status' => 'Trạng thái',
     'keyword' => 'Từ khóa',

@@ -18,10 +18,6 @@ class CmsContent extends Model
         'description',
         'content',
     ];
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function category()
     {
@@ -59,7 +55,7 @@ Get image
  */
     public function getUrl()
     {
-        return route('cms.content', ['name' => sc_word_format_url(empty($this->title) ? 'no-title' : $this->title), 'id' => $this->id]);
+        return route('cms.content', ['alias' => $this->alias]);
     }
 
     //Fields language
@@ -124,6 +120,7 @@ Get image
                     $table->increments('id');
                     $table->integer('category_id')->default(0);
                     $table->string('image', 100)->nullable();
+                    $table->string('alias', 120)->unique();
                     $table->tinyInteger('sort')->default(0);
                     $table->tinyInteger('status')->default(0);
                     $table->timestamp('created_at')->nullable();

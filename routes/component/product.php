@@ -1,9 +1,10 @@
 <?php
-Route::group(['prefix' => 'product'], function ($router) {
+$prefixProduct = sc_config('PREFIX_PRODUCT')??'product';
+
+Route::group(['prefix' => $prefixProduct], function ($router) use($suffix) {
     $router->get('/', 'ShopFront@allProducts')->name('product.all');
     $router->post('/info', 'ShopFront@productInfo')
         ->name('product.info');
-    $router->get('/{name}_{id}', 'ShopFront@productDetail')
-        ->where(['id' => '[0-9]+'])
+    $router->get('/{alias}'.$suffix, 'ShopFront@productDetail')
         ->name('product.detail');
 });

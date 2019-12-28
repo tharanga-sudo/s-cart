@@ -9,6 +9,10 @@ return [
     'address1'     => 'Address 1',
     'address2'     => 'Address 2',
     'country'      => 'Country',
+    'company'      => 'Company',
+    'postcode'     => 'Postcode',
+    'sex'          => 'Sex',
+    'birthday'     => 'Birthday',
     'password'     => 'Password',
     'status'       => 'Status',
     'created_at'   => 'Created at',
@@ -46,4 +50,20 @@ return [
         'search'         => 'Search',
         'search_place'   => 'Search Name, ID or Email',
     ],
+    'config_manager' => [
+        'title' => ' Config customer',
+        'field'                   => 'Field config',
+        'value'                    => 'Value',
+        'lastname'                    => 'Use LAST NAME',
+        'address1'                    => 'Use ADDRESS 1',
+        'address2'                    => 'Use ADDRESS 2',
+        'company'                    => 'Use COMPANY',
+        'postcode'                    => 'Use POSTCODE',
+        'country'                    => 'Use COUNTRY',
+        'group'                    => 'Use GROUP',
+        'birthday'                    => 'Use BIRTHDAY',
+        'sex'                    => 'Use SEX',
+        'phone'                    => 'Use PHONE',
+
+    ]
 ];

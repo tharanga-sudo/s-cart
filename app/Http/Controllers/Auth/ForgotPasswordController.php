@@ -42,7 +42,7 @@ class ForgotPasswordController extends GeneralController
         if (Auth::user()) {
             return redirect()->route('home');
         }
-        return view('templates.' . sc_store('template') . '.auth.forgot',
+        return view($this->templatePath . '.auth.forgot',
             array(
                 'title' => trans('front.forgot_password'),
             )

@@ -1,14 +1,8 @@
 <?php
-Route::group(['prefix' => 'brand'], function ($router) {
+$prefixBrand = sc_config('PREFIX_BRAND')??'brand';
+
+Route::group(['prefix' => $prefixBrand], function ($router) use($suffix) {
     $router->get('/', 'ShopFront@getBrands')->name('brands');
-    $router->get('/{name}_{id}', 'ShopFront@productToBrand')
-        ->where(['id' => '[0-9]+'])->name('brand');
+    $router->get('/{alias}'.$suffix, 'ShopFront@productToBrand')
+        ->name('brand');
 });
-
-Route::get('/checkout.html', 'ShopCart@getCheckout')
-->name('checkout');
-Route::post('/checkout.html', 'ShopCart@processCart')
-->name('checkout.prepare');
-
-Route::post('/order_add', 'ShopCart@addOrder')
-->name('order.add');

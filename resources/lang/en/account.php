@@ -19,6 +19,12 @@ return [
     'password_old_notcorrect' => 'Old password not correct!',
     'address1'                => 'Address 1',
     'address2'                => 'Address 2',
+    'address'                 => 'Address',
+    'postcode'                => 'Postcode',
+    'company'                 => 'Company',
+    'sex'                     => 'Sex',
+    'birthday'                => 'Birthday',
+    'group'                   => 'Group',
     'country'                 => 'Country',
     'signup'                  => 'Signup',
     'login'                   => 'Login',
@@ -26,5 +32,7 @@ return [
     'phone'                   => 'Phone',
     'first_name'              => 'First name',
     'last_name'               => 'Last name',
-
+    'name'                    => 'Full name',
+    'sex_women'               => 'Women',
+    'sex_men'                 => 'Men',
 ];

@@ -46,7 +46,7 @@ class ResetPasswordController extends GeneralController
         if (Auth::user()) {
             return redirect()->route('home');
         }
-        return view('templates.' . sc_store('template') . '.auth.reset',
+        return view($this->templatePath . '.auth.reset',
             [
                 'title' => trans('front.reset_password'),
                 'token' => $token,

@@ -112,9 +112,9 @@
                             </div>
 
                             <div class="form-group  ">
-                                <label for="status" class="col-sm-2  control-label">{{ trans('layout.status') }}</label>
+                                <label for="status" class="col-sm-2  control-label">{{ trans('link.status') }}</label>
                                 <div class="col-sm-8">
-                                <input type="checkbox" name="status"  {{ old('status',(empty($layout['status'])?0:1))?'checked':''}}>
+                                <input type="checkbox" name="status"  {{ old('status',(empty($link['status'])?0:1))?'checked':''}}>
 
                                 </div>
                             </div>

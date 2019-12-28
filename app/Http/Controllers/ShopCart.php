@@ -83,6 +83,8 @@ class ShopCart extends GeneralController
                 'email' => $user->email,
                 'address1' => $user->address1,
                 'address2' => $user->address2,
+                'postcode' => $user->postcode,
+                'company' => $user->company,
                 'country' => $user->country,
                 'phone' => $user->phone,
                 'comment' => '',
@@ -91,6 +93,8 @@ class ShopCart extends GeneralController
             $addressDefaul = [
                 'first_name' => '',
                 'last_name' => '',
+                'postcode' => '',
+                'company' => '',
                 'email' => '',
                 'address1' => '',
                 'address2' => '',
@@ -102,7 +106,7 @@ class ShopCart extends GeneralController
         $shippingAddress = session('shippingAddress') ? session('shippingAddress') : $addressDefaul;
         $objects = ShopOrderTotal::getObjectOrderTotal();
         return view(
-            'templates.' . sc_store('template') . '.shop_cart',
+            $this->templatePath . '.shop_cart',
             [
                 'title' => trans('front.cart_title'),
                 'description' => '',
@@ -141,19 +145,34 @@ class ShopCart extends GeneralController
             'max' => trans('validation.max.string'),
             'required' => trans('validation.required'),
         ];
+        $validate = [
+            'first_name' => 'required|max:100',
+            'address1' => 'required|max:100',
+            'email' => 'required|string|email|max:255',
+            'shippingMethod' => 'required',
+            'paymentMethod' => 'required',
+        ];
+        if(sc_config('customer_lastname')) {
+            $validate['last_name'] = 'required|max:100';
+        }
+        if(sc_config('customer_address2')) {
+            $validate['address2'] = 'required|max:100';
+        }
+        if(sc_config('customer_phone')) {
+            $validate['phone'] = 'required|regex:/^0[^0][0-9\-]{7,13}$/';
+        }
+        if(sc_config('customer_country')) {
+            $validate['country'] = 'required|min:2';
+        }
+        if(sc_config('customer_postcode')) {
+            $validate['postcode'] = 'required|min:7';
+        }
+        if(sc_config('customer_company')) {
+            $validate['company'] = 'required|min:3';
+        }        
         $v = Validator::make(
             request()->all(), 
-            [
-                'first_name' => 'required|max:100',
-                'last_name' => 'required|max:100',
-                'address1' => 'required|max:100',
-                'address2' => 'required|max:100',
-                'phone' => 'required|regex:/^0[^0][0-9\-]{7,13}$/',
-                'email' => 'required|string|email|max:255',
-                'shippingMethod' => 'required',
-                'paymentMethod' => 'required',
-                'country' => 'required|min:2',
-            ], 
+            $validate, 
             $messages
         );
         if ($v->fails()) {
@@ -177,6 +196,8 @@ class ShopCart extends GeneralController
                     'address1' => request('address1'),
                     'address2' => request('address2'),
                     'phone' => request('phone'),
+                    'postcode' => request('postcode'),
+                    'company' => request('company'),
                     'comment' => request('comment'),
                 ],
             ]
@@ -217,7 +238,7 @@ class ShopCart extends GeneralController
         session(['dataTotal' => $dataTotal]);
 
         return view(
-            'templates.' . sc_store('template') . '.shop_checkout',
+            $this->templatePath . '.shop_checkout',
             [
                 'title' => trans('front.checkout_title'),
                 'description' => '',
@@ -319,6 +340,8 @@ class ShopCart extends GeneralController
         $dataOrder['address2'] = $shippingAddress['address2'];
         $dataOrder['country'] = $shippingAddress['country'];
         $dataOrder['phone'] = $shippingAddress['phone'];
+        $dataOrder['postcode'] = $shippingAddress['postcode']??null;
+        $dataOrder['company'] = $shippingAddress['company']??null;
         $dataOrder['payment_method'] = $payment_method;
         $dataOrder['shipping_method'] = $shipping_method;
         $dataOrder['comment'] = $shippingAddress['comment'];
@@ -510,7 +533,7 @@ class ShopCart extends GeneralController
     {
 
         $wishlist = Cart::instance('wishlist')->content();
-        return view('templates.' . sc_store('template') . '.shop_wishlist',
+        return view($this->templatePath . '.shop_wishlist',
             array(
                 'title' => trans('front.wishlist'),
                 'description' => '',
@@ -528,7 +551,7 @@ class ShopCart extends GeneralController
     public function compare()
     {
         $compare = Cart::instance('compare')->content();
-        return view('templates.' . sc_store('template') . '.shop_compare',
+        return view($this->templatePath . '.shop_compare',
             array(
                 'title' => trans('front.compare'),
                 'description' => '',
@@ -726,7 +749,7 @@ class ShopCart extends GeneralController
             return redirect()->route('home');
         }
         return view(
-            'templates.' . sc_store('template') . '.shop_order_success',
+            $this->templatePath . '.shop_order_success',
             [
                 'title' => trans('order.success.title'),
                 'layout_page' =>'shop_order_success',

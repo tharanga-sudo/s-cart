@@ -3,7 +3,9 @@
 return [
     'id'                    => 'ID',
     'sku'                   => 'SKU',
-    'sku_validate'          => 'Only characters in the group: "A-Z", "a-z", "0-9" and ".-_" ',
+    'alias'                 => 'Url customize <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
+    'sku_validate'          => 'Only characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
+    'alias_validate'        => 'Maximum 100 characters in the group: "A-Z", "a-z", "0-9" and "-_" ',
     'description'           => 'Product description',
     'price'                 => 'Price',
     'price_promotion'       => 'Price promotion',
@@ -24,6 +26,7 @@ return [
     'virtual'               => 'Virtual',
     'cost'                  => 'Price cost',
     'stock'                 => 'Stock',
+    'stock_status'          => 'Stock status',
     'view'                  => 'View',
     'sold'                  => 'Sold',
     'sort'                  => 'Sort',
@@ -41,6 +44,7 @@ return [
     'overview'              => 'Quick Overview',
     'comment'               => 'Comment',
     'price_group'           => 'Click view price',
+    'price_group_chose'     => 'Please chose product',
     'groups'                => 'Products group',
     'builds'                => 'Products build',
     'admin'                 => [
@@ -82,11 +86,11 @@ return [
             'view_desc' => 'View desc',
             'view_asc' => 'View asc',
             'sold_desc' => 'Sold desc',
-            'sold_asc' => 'Sold asc',            
+            'sold_asc' => 'Sold asc',
         ],
         'search'                  => 'Search',
         'search_place'            => 'Search Name, SKU or ID',
-        'cant_remove_child'        =>'Please remove list products from Builds or Groups before delete them',
+        'cant_remove_child'        => 'Please remove list products from Builds or Groups before delete them',
     ],
     'types'                 => [
         'normal' => 'Normal',
@@ -104,4 +108,21 @@ return [
         'only_view' => 'Only view',
         'service'   => 'Service',
     ],
+    'config_manager' => [
+        'title' => ' Config product',
+        'field'                   => 'Field config',
+        'value'                    => 'Value',
+        'brand'                    => 'Use BRAND',
+        'vendor'                    => 'Use VENDOR',
+        'price'                    => 'Use PRICE',
+        'stock'                    => 'Use STOCK',
+        'cost'                    => 'Use COST PRICE',
+        'type'                    => 'Use TYPE (new, hot,...)',
+        'kind'                    => 'Use KIND (single, group, bundle)',
+        'virtual'                    => 'Use TYPE VIRTUAL',
+        'attribute'                    => 'Use ATTRIBUTE (color, size,...)',
+        'promotion'                    => 'Use PROMOTION PRICE',
+        'available'                    => 'Use AVAILABLE TIME',
+    ]
+
 ];

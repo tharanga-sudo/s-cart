@@ -1,5 +1,5 @@
 <?php
-#app/Modules/Cms/Content/Admin/CmsContentController.php
+#app$this->plugin->pathPlugin.//Admin/CmsContentController.php
 namespace App\Plugins\Modules\Cms\Content\Admin;
 
 use App\Http\Controllers\Controller;
@@ -7,22 +7,25 @@ use App\Models\ShopLanguage;
 use App\Plugins\Modules\Cms\Content\Models\CmsCategory;
 use App\Plugins\Modules\Cms\Content\Models\CmsContent;
 use App\Plugins\Modules\Cms\Content\Models\CmsContentDescription;
+use App\Plugins\Modules\Cms\Content\AppConfig;
 use Validator;
 
 class CmsContentController extends Controller
 {
     public $languages;
+    public $plugin;
 
     public function __construct()
     {
         $this->languages = ShopLanguage::getList();
+        $this->plugin = new AppConfig;
 
     }
 
     public function index()
     {
         $data = [
-            'title' => trans('Modules/Cms/Content::Content.admin.list'),
+            'title' => trans($this->plugin->pathPlugin.'::Content.admin.list'),
             'sub_title' => '',
             'icon' => 'fa fa-indent',
             'menu_left' => '',
@@ -40,21 +43,21 @@ class CmsContentController extends Controller
 
         $listTh = [
             'check_row' => '',
-            'id' => trans('Modules/Cms/Content::Content.id'),
-            'image' => trans('Modules/Cms/Content::Content.image'),
-            'title' => trans('Modules/Cms/Content::Content.title'),
-            'category_id' => trans('Modules/Cms/Content::Content.category_id'),
-            'status' => trans('Modules/Cms/Content::Content.status'),
-            'sort' => trans('Modules/Cms/Content::Content.sort'),
-            'action' => trans('Modules/Cms/Content::Content.admin.action'),
+            'id' => trans($this->plugin->pathPlugin.'::Content.id'),
+            'image' => trans($this->plugin->pathPlugin.'::Content.image'),
+            'title' => trans($this->plugin->pathPlugin.'::Content.title'),
+            'category_id' => trans($this->plugin->pathPlugin.'::Content.category_id'),
+            'status' => trans($this->plugin->pathPlugin.'::Content.status'),
+            'sort' => trans($this->plugin->pathPlugin.'::Content.sort'),
+            'action' => trans($this->plugin->pathPlugin.'::Content.admin.action'),
         ];
         $sort_order = request('sort_order') ?? 'id_desc';
         $keyword = request('keyword') ?? '';
         $arrSort = [
-            'id__desc' => trans('Modules/Cms/Content::Content.admin.sort_order.id_desc'),
-            'id__asc' => trans('Modules/Cms/Content::Content.admin.sort_order.id_asc'),
-            'title__desc' => trans('Modules/Cms/Content::Content.admin.sort_order.title_desc'),
-            'title__asc' => trans('Modules/Cms/Content::Content.admin.sort_order.title_asc'),
+            'id__desc' => trans($this->plugin->pathPlugin.'::Content.admin.sort_order.id_desc'),
+            'id__asc' => trans($this->plugin->pathPlugin.'::Content.admin.sort_order.id_asc'),
+            'title__desc' => trans($this->plugin->pathPlugin.'::Content.admin.sort_order.title_desc'),
+            'title__asc' => trans($this->plugin->pathPlugin.'::Content.admin.sort_order.title_asc'),
         ];
         $obj = new CmsContent;
 
@@ -86,7 +89,7 @@ class CmsContentController extends Controller
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'sort' => $row['sort'],
                 'action' => '
-                    <a href="' . route('admin_cms_content.edit', ['id' => $row['id']]) . '"><span title="' . trans('Modules/Cms/Content::Content.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
+                    <a href="' . route('admin_cms_content.edit', ['id' => $row['id']]) . '"><span title="' . trans($this->plugin->pathPlugin.'::Content.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
                     <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>'
                 ,
@@ -98,7 +101,7 @@ class CmsContentController extends Controller
         $data['pagination'] = $dataTmp
             ->appends(request()->except(['_token', '_pjax']))
             ->links('admin.component.pagination');
-        $data['result_items'] = trans('Modules/Cms/Content::Content.admin.result_item', 
+        $data['result_items'] = trans($this->plugin->pathPlugin.'::Content.admin.result_item', 
             [
                 'item_from' => $dataTmp->firstItem(), 
                 'item_to' => $dataTmp->lastItem(), 
@@ -163,7 +166,7 @@ class CmsContentController extends Controller
                    </div>
                    <div class="btn-group pull-right">
                          <div class="form-group">
-                           <input type="text" name="keyword" class="form-control" placeholder="' . trans('Modules/Cms/Content::Content.admin.search_place') . '" value="' . $keyword . '">
+                           <input type="text" name="keyword" class="form-control" placeholder="' . trans($this->plugin->pathPlugin.'::Content.admin.search_place') . '" value="' . $keyword . '">
                          </div>
                    </div>
                 </form>';
@@ -182,9 +185,9 @@ class CmsContentController extends Controller
     public function create()
     {
         $data = [
-            'title' => trans('Modules/Cms/Content::Content.admin.add_new_title'),
+            'title' => trans($this->plugin->pathPlugin.'::Content.admin.add_new_title'),
             'sub_title' => '',
-            'title_description' => trans('Modules/Cms/Content::Content.admin.add_new_des'),
+            'title_description' => trans($this->plugin->pathPlugin.'::Content.admin.add_new_des'),
             'icon' => 'fa fa-plus',
             'languages' => $this->languages,
             'content' => [],
@@ -192,7 +195,7 @@ class CmsContentController extends Controller
             'url_action' => route('admin_cms_content.create'),
 
         ];
-        return view('Modules/Cms/Content::Admin.cms_content')
+        return view($this->plugin->pathPlugin.'::Admin.cms_content')
             ->with($data);
     }
 
@@ -203,23 +206,30 @@ class CmsContentController extends Controller
     public function postCreate()
     {
         $data = request()->all();
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
         $validator = Validator::make($data, [
             'sort' => 'numeric|min:0',
             'category_id' => 'required',
             'descriptions.*.title' => 'required|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_content,alias|string|max:100',
         ], [
             'descriptions.*.title.required' => trans('validation.required', 
-            ['attribute' => trans('Modules/Cms/Content::Content.title')]),
+            ['attribute' => trans($this->plugin->pathPlugin.'::Content.title')]),
+            'alias.regex' => trans($this->plugin->pathPlugin.'::Content.alias_validate'),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 
         $dataInsert = [
             'image' => $data['image'],
+            'alias' => $data['alias'],
             'category_id' => (int) $data['category_id'],
             'status' => !empty($data['status']) ? 1 : 0,
             'sort' => (int) $data['sort'],
@@ -241,7 +251,7 @@ class CmsContentController extends Controller
         CmsContentDescription::insert($dataDes);
 
         return redirect()->route('admin_cms_content.index')
-        ->with('success', trans('Modules/Cms/Content::Content.admin.create_success'));
+        ->with('success', trans($this->plugin->pathPlugin.'::Content.admin.create_success'));
 
     }
 
@@ -255,7 +265,7 @@ class CmsContentController extends Controller
             return 'no data';
         }
         $data = [
-            'title' => trans('Modules/Cms/Content::Content.admin.edit'),
+            'title' => trans($this->plugin->pathPlugin.'::Content.admin.edit'),
             'sub_title' => '',
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
@@ -264,7 +274,7 @@ class CmsContentController extends Controller
             'categories' => (new CmsCategory)->getTreeCategories(),
             'url_action' => route('admin_cms_content.edit', ['id' => $content['id']]),
         ];
-        return view('Modules/Cms/Content::Admin.cms_content')
+        return view($this->plugin->pathPlugin.'::Admin.cms_content')
             ->with($data);
     }
 
@@ -273,32 +283,42 @@ class CmsContentController extends Controller
  */
     public function postEdit($id)
     {
+        $content = CmsContent::find($id);
         $data = request()->all();
+        
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
         $validator = Validator::make($data, [
             'category_id' => 'required',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_content,alias,' . $content->id . ',id|string|max:100',
             'sort' => 'numeric|min:0',
             'descriptions.*.title' => 'required|string|max:100',
         ], [
-            'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('Modules/Cms/Content::Content.title')]),
+            'alias.regex' => trans($this->plugin->pathPlugin.'::Content.alias_validate'),
+            'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans($this->plugin->pathPlugin.'::Content.title')]),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 //Edit
 
         $dataUpdate = [
             'image' => $data['image'],
+            'alias' => $data['alias'],
             'category_id' => $data['category_id'],
             'sort' => $data['sort'],
             'status' => empty($data['status']) ? 0 : 1,
         ];
 
-        $obj = CmsContent::find($id);
-        $obj->update($dataUpdate);
-        $obj->descriptions()->delete();
+        $content = CmsContent::find($id);
+        $content->update($dataUpdate);
+        $content->descriptions()->delete();
         $dataDes = [];
         foreach ($data['descriptions'] as $code => $row) {
             $dataDes[] = [
@@ -313,7 +333,7 @@ class CmsContentController extends Controller
         CmsContentDescription::insert($dataDes);
 
 //
-        return redirect()->route('admin_cms_content.index')->with('success', trans('Modules/Cms/Content::Content.admin.edit_success'));
+        return redirect()->route('admin_cms_content.index')->with('success', trans($this->plugin->pathPlugin.'::Content.admin.edit_success'));
 
     }
 

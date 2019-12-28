@@ -8,18 +8,19 @@ use App\Plugins\Extensions\ConfigDefault;
 class AppConfig extends ConfigDefault
 {
 
-    protected $configGroup = 'Extensions';
-    protected $configCode = 'Payment';
-    protected $configKey = 'Paypal';
+    public $configGroup = 'Extensions';
+    public $configCode = 'Payment';
+    public $configKey = 'Paypal';
+    public $pathPlugin;
     const ORDER_STATUS_PROCESSING = 2;
     const ORDER_STATUS_FAILD = 6;
 
     public function __construct()
     {
-        $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
-        $this->title = trans($this->pathExtension.'::'.$this->configKey . '.title');
-        $this->image = 'images/' . $this->pathExtension . '.png';
-        $this->version = '2.0';
+        $this->pathPlugin = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
+        $this->title = trans($this->pathPlugin.'::'.$this->configKey . '.title');
+        $this->image = 'images/' . $this->pathPlugin . '.png';
+        $this->version = '2.1';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
     }
@@ -39,7 +40,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey,
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ON, //1- Enable extension; 0 - Disable
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.title',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.title',
                 ],
                 [
                     'group' => '',
@@ -47,7 +48,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_client_id',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.paypal_client_id',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.paypal_client_id',
                 ],
                 [
                     'group' => '',
@@ -55,7 +56,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_secrect',
                     'sort' => 0, // Sort extensions in group
                     'value' => '',
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.paypal_secrect',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.paypal_secrect',
                 ],
                 [
                     'group' => '',
@@ -63,7 +64,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_log',
                     'sort' => 0, // Sort extensions in group
                     'value' => '0',
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.paypal_log',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.paypal_log',
                 ],
 
                 [
@@ -72,7 +73,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_path_log',
                     'sort' => 0, // Sort extensions in group
                     'value' => 'logs/paypal.log',
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.paypal_path_log',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.paypal_path_log',
                 ],
                 [
                     'group' => '',
@@ -80,7 +81,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_mode',
                     'sort' => 0, // Sort extensions in group
                     'value' => 'sandbox',
-                    'detail' => $this->pathExtension.'::'. $this->configKey . '.paypal_mode',
+                    'detail' => $this->pathPlugin.'::'. $this->configKey . '.paypal_mode',
                 ],
 
                 [
@@ -89,7 +90,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_logLevel',
                     'sort' => 0, // Sort extensions in group
                     'value' => 'DEBUG',
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.paypal_logLevel',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.paypal_logLevel',
                 ],
                 [
                     'group' => '',
@@ -97,7 +98,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_currency',
                     'sort' => 0, // Sort extensions in group
                     'value' => 'USD',
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.paypal_currency',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.paypal_currency',
                 ],
                 [
                     'group' => '',
@@ -105,7 +106,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_order_status_success',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ORDER_STATUS_PROCESSING,
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.paypal_order_status_success',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.paypal_order_status_success',
                 ],
                 [
                     'group' => '',
@@ -113,7 +114,7 @@ class AppConfig extends ConfigDefault
                     'key' => 'paypal_order_status_faild',
                     'sort' => 0, // Sort extensions in group
                     'value' => self::ORDER_STATUS_FAILD,
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.paypal_order_status_faild',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.paypal_order_status_faild',
                 ],
             ];
             $process = AdminConfig::insert(
@@ -157,7 +158,7 @@ class AppConfig extends ConfigDefault
 
     public function config()
     {
-        return view($this->pathExtension . '::' . $this->configKey)->with(
+        return view($this->pathPlugin . '::' . $this->configKey)->with(
             [
                 'group' => $this->configCode,
                 'key' => $this->configKey,

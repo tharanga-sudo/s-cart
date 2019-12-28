@@ -70,14 +70,26 @@ class ShopProductController extends Controller
             'sku' => trans('product.sku'),
             'name' => trans('product.name'),
             'category' => trans('product.category'),
-            'cost' => trans('product.cost'),
-            'price' => trans('product.price'),
-            'type' => trans('product.type'),
-            'kind' => trans('product.kind'),
-            'virtual' => trans('product.virtual'),
-            'status' => trans('product.status'),
-            'action' => trans('product.admin.action'),
         ];
+        if(sc_config('product_cost')){
+            $listTh['cost'] = trans('product.cost');
+        }
+        if(sc_config('product_price')){
+            $listTh['price'] = trans('product.price');
+        }
+        if(sc_config('product_type')){
+            $listTh['type'] = trans('product.type');
+        }
+        if(sc_config('product_kind')){
+            $listTh['kind'] = trans('product.kind');
+        }
+        if(sc_config('product_virtual')){
+            $listTh['virtual'] = trans('product.virtual');
+        }
+        $listTh['status'] = trans('product.status');
+        $listTh['action'] = trans('product.admin.action');
+
+
         $sort_order = request('sort_order') ?? 'id_desc';
         $keyword = request('keyword') ?? '';
         $arrSort = [
@@ -118,25 +130,42 @@ class ShopProductController extends Controller
             } elseif ($row['type'] == SC_PRODUCT_HOT) {
                 $type = '<span class="label label-danger">' . $type . '</span>';
             }
-            $dataTr[] = [
+            $dataMap = [
                 'check_row' => '<input type="checkbox" class="grid-row-checkbox" data-id="' . $row['id'] . '">',
                 'id' => $row['id'],
                 'image' => sc_image_render($row->getThumb(), '50px', '50px'),
                 'sku' => $row['sku'],
                 'name' => $row['name'],
                 'category' => implode('; ', $row->categories->pluck('name')->toArray()),
-                'cost' => $row['cost'],
-                'price' => $row['price'],
-                'type' => $type,
-                'kind' => $kind,
-                'virtual' => $this->virtuals[$row['virtual']] ?? $row['virtual'],
-                'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
-                'action' => '
-                    <a href="' . route('admin_product.edit', ['id' => $row['id']]) . '"><span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
-
-                    <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger"><i class="fa fa-trash"></i></span>'
-                ,
+                
             ];
+            if(sc_config('product_cost')){
+                $dataMap['cost'] = $row['cost'];
+            }
+            if(sc_config('product_price')){
+                $dataMap['price'] = $row['price'];
+            }
+            if(sc_config('product_type')){
+                $dataMap['type'] = $type;
+            }
+            if(sc_config('product_kind')){
+                $dataMap['kind'] = $kind;
+            }
+            if(sc_config('product_virtual')){
+                $dataMap['virtual'] = $this->virtuals[$row['virtual']] ?? $row['virtual'];
+            }
+            $dataMap['status'] = $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>';
+            $dataMap['action'] = '
+            <a href="' . route('admin_product.edit', ['id' => $row['id']]) . '">
+            <span title="' . trans('product.admin.edit') . '" type="button" class="btn btn-flat btn-primary">
+            <i class="fa fa-edit"></i>
+            </span>
+            </a>&nbsp;
+
+            <span onclick="deleteItem(' . $row['id'] . ');"  title="' . trans('admin.delete') . '" class="btn btn-flat btn-danger">
+            <i class="fa fa-trash"></i>
+            </span>';
+            $dataTr[] = $dataMap;
         }
 
         $data['listTh'] = $listTh;
@@ -154,14 +183,25 @@ class ShopProductController extends Controller
 //=menu_left
 
 //menu_right
+
         $data['menu_right'] = '
                         <div class="btn-group pull-right" style="margin-right: 10px">
                            <a href="' . route('admin_product.create') . '" class="btn  btn-success  btn-flat" title="New" id="button_create_new">
                            <i class="fa fa-plus"></i><span class="hidden-xs">' . trans('admin.add_new') . '</span>
                            </a>
                         </div>
-
                         ';
+        if(sc_config('ImportProduct')) {
+            $data['menu_right'] .= '
+            <div class="btn-group pull-right" style="margin-right: 10px">
+            <a href="' . route('admin_import_product.index') . '" class="btn  btn-success  btn-flat" title="New">
+            <i class="fa fa fa-floppy-o"></i> <span class="hidden-xs">' . trans('admin.add_new_multi') . '</span>
+            </a>
+            </div>
+            ';
+            
+        }
+
 //=menu_right
 
 //menu_sort
@@ -285,38 +325,41 @@ class ShopProductController extends Controller
 
     public function postCreate()
     {
+        
+        $data = request()->all();
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
 
-        $data = $dataOrigin = request()->all();
         switch ($data['kind']) {
             case SC_PRODUCT_SINGLE: // product single
                 $arrValidation = [
                     'kind' => 'required',
-                    'image' => 'required',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
                     'descriptions.*.content' => 'required|string',
                     'category' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_product,sku',
-                    'vendor_id' => 'required',
-                    'brand_id' => 'required',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
                 ];
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'descriptions.*.content.required' => trans('validation.required', ['attribute' => trans('product.content')]),
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
+                    'alias.regex' => trans('product.alias_validate'),
                 ];
                 break;
+
             case SC_PRODUCT_BUILD: //product build
                 $arrValidation = [
                     'kind' => 'required',
-                    'image' => 'required',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
                     'category' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_product,sku',
-                    'vendor_id' => 'required',
-                    'brand_id' => 'required',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
                     'productBuild' => 'required',
                     'productBuildQty' => 'required',
 
@@ -325,6 +368,7 @@ class ShopProductController extends Controller
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
+                    'alias.regex' => trans('product.alias_validate'),
                 ];
                 break;
 
@@ -332,12 +376,15 @@ class ShopProductController extends Controller
                 $arrValidation = [
                     'kind' => 'required',
                     'productInGroup' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_product,sku',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
                 ];
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
+                    'sku.regex' => trans('product.sku_validate'),
+                    'alias.regex' => trans('product.alias_validate'),
                 ];
                 break;
 
@@ -348,12 +395,12 @@ class ShopProductController extends Controller
                 break;
         }
 
-        $validator = Validator::make($dataOrigin, $arrValidation, $arrMsg ?? []);
+        $validator = Validator::make($data, $arrValidation, $arrMsg ?? []);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 
         $category = $data['category'] ?? [];
@@ -364,18 +411,18 @@ class ShopProductController extends Controller
         $productBuildQty = $data['productBuildQty'] ?? [];
         $subImages = $data['sub_image'] ?? [];
         $dataInsert = [
-            'brand_id' => $data['brand_id'],
-            'vendor_id' => $data['vendor_id'],
-            'price' => $data['price'],
+            'brand_id' => $data['brand_id']??0,
+            'vendor_id' => $data['vendor_id']??0,
+            'price' => $data['price']??0,
             'sku' => $data['sku'],
-            'cost' => $data['cost'],
-            'stock' => $data['stock'],
-            'type' => $data['type'],
-            'kind' => $data['kind'],
-            'virtual' => $data['virtual'],
+            'cost' => $data['cost']??0,
+            'stock' => $data['stock']??0,
+            'type' => $data['type'] ?? SC_PRODUCT_NORMAL,
+            'kind' => $data['kind']??SC_PRODUCT_SINGLE,
+            'alias' => $data['alias'],
+            'virtual' => $data['virtual'] ?? SC_VIRTUAL_PHYSICAL,
             'date_available' => !empty($data['date_available']) ? $data['date_available'] : null,
-            'sku' => $data['sku'],
-            'image' => $data['image'],
+            'image' => $data['image']??'',
             'status' => (!empty($data['status']) ? 1 : 0),
             'sort' => (int) $data['sort'],
         ];
@@ -469,6 +516,7 @@ class ShopProductController extends Controller
     public function edit($id)
     {
         $product = ShopProduct::find($id);
+
         if ($product === null) {
             return 'no data';
         }
@@ -531,35 +579,36 @@ class ShopProductController extends Controller
     {
         $product = ShopProduct::find($id);
         $data = request()->all();
-        $dataOrigin = request()->all();
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['name'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
         switch ($product['kind']) {
             case SC_PRODUCT_SINGLE: // product single
                 $arrValidation = [
-                    'image' => 'required',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
                     'descriptions.*.content' => 'required|string',
                     'category' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
-                    'vendor_id' => 'required',
-                    'brand_id' => 'required',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
                 ];
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'descriptions.*.content.required' => trans('validation.required', ['attribute' => trans('product.content')]),
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
+                    'alias.regex' => trans('product.alias_validate'),
                 ];
                 break;
             case SC_PRODUCT_BUILD: //product build
                 $arrValidation = [
-                    'image' => 'required',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
                     'category' => 'required',
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
-                    'vendor_id' => 'required',
-                    'brand_id' => 'required',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
                     'productBuild' => 'required',
                     'productBuildQty' => 'required',
                 ];
@@ -567,17 +616,21 @@ class ShopProductController extends Controller
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                     'category.required' => trans('validation.required', ['attribute' => trans('product.category')]),
                     'sku.regex' => trans('product.sku_validate'),
+                    'alias.regex' => trans('product.alias_validate'),
                 ];
                 break;
 
             case SC_PRODUCT_GROUP: //product group
                 $arrValidation = [
-                    'sku' => 'required|regex:/(^([0-9A-Za-z\-\._]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
+                    'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
+                    'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
                     'productInGroup' => 'required',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
                 ];
                 $arrMsg = [
+                    'sku.regex' => trans('product.sku_validate'),
+                    'alias.regex' => trans('product.alias_validate'),
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
                 ];
                 break;
@@ -586,18 +639,17 @@ class ShopProductController extends Controller
                 break;
         }
 
-        $validator = Validator::make($dataOrigin, $arrValidation, $arrMsg ?? []);
+        $validator = Validator::make($data, $arrValidation, $arrMsg ?? []);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 //Edit
 
         $category = $data['category'] ?? [];
         $attribute = $data['attribute'] ?? [];
-        $descriptions = $data['descriptions'];
         $productInGroup = $data['productInGroup'] ?? [];
         $productBuild = $data['productBuild'] ?? [];
         $productBuildQty = $data['productBuildQty'] ?? [];
@@ -613,6 +665,7 @@ class ShopProductController extends Controller
             'virtual' => $data['virtual'] ?? SC_VIRTUAL_PHYSICAL,
             'date_available' => !empty($data['date_available']) ? $data['date_available'] : null,
             'sku' => $data['sku'],
+            'alias' => $data['alias'],
             'status' => (!empty($data['status']) ? 1 : 0),
             'sort' => (int) $data['sort'],
         ];

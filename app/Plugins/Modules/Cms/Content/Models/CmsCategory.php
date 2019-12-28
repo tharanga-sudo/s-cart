@@ -18,10 +18,7 @@ class CmsCategory extends Model
         'keyword',
         'description',
     ];
-    public function __construct()
-    {
-        parent::__construct();
-    }
+
     public function descriptions()
     {
         return $this->hasMany(CmsCategoryDescription::class, 'category_id', 'id');
@@ -205,7 +202,7 @@ class CmsCategory extends Model
 
     public function getUrl()
     {
-        return route('cms.category', ['name' => sc_word_format_url(empty($this->title) ? 'no-title' : $this->title), 'id' => $this->id]);
+        return route('cms.category', ['alias' => $this->alias]);
     }
 
     //Fields language
@@ -273,6 +270,7 @@ class CmsCategory extends Model
                     $table->increments('id');
                     $table->string('image', 100)->nullable();
                     $table->tinyInteger('parent')->default(0);
+                    $table->string('alias', 120)->unique();
                     $table->tinyInteger('sort')->default(0);
                     $table->tinyInteger('status')->default(0);
                 });

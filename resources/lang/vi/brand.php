@@ -2,6 +2,8 @@
 return [
     'id'      => 'ID',
     'name'    => 'Tên nhãn hiệu',
+    'alias'                 => 'URL tùy chỉnh <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
+    'alias_validate'        => 'Tối đa 100 kí tự trong nhóm: "A-Z", "a-z", "0-9" and "-_" ',
     'email'   => 'Email',
     'phone'   => 'Số điện thoại',
     'address' => 'Địa chỉ',
@@ -10,7 +12,7 @@ return [
     'sort'    => 'Sắp xếp',
     'status'  => 'Status',
     'admin'   => [
-        'title'          => 'Nhà cung cấp',
+        'title'          => 'Nhãn hiệu',
         'create_success' => 'Tạo mới thành công!',
         'edit_success'   => 'Cập nhật thành công!',
         'list'           => 'Danh sách nhãn hiệu',

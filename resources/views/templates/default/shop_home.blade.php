@@ -1,4 +1,4 @@
-@extends('templates.'.sc_store('template').'.shop_layout')
+@extends($templatePath.'.shop_layout')
 
 @section('center')
           <div class="features_items"><!--features_items-->
@@ -20,15 +20,15 @@
 
                           </div>
                       @if ($product_new->price != $product_new->getFinalPrice() && $product_new->kind != SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/sale.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
                       @elseif($product_new->type == SC_PRODUCT_NEW)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/new.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
                       @elseif($product_new->type == SC_PRODUCT_HOT)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/hot.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/hot.png') }}" class="new" alt="" />
                       @elseif($product_new->kind == SC_PRODUCT_BUILD)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/bundle.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/bundle.png') }}" class="new" alt="" />
                       @elseif($product_new->kind == SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/group.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/group.png') }}" class="new" alt="" />
                       @endif
                       </div>
                       <div class="choose">
@@ -66,15 +66,15 @@
                           </div>
 
                       @if ($product_hot->price != $product_hot->getFinalPrice() && $product_hot->kind != SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/sale.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
                       @elseif($product_hot->type == SC_PRODUCT_NEW)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/new.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
                       @elseif($product_hot->type == SC_PRODUCT_HOT)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/hot.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/hot.png') }}" class="new" alt="" />
                       @elseif($product_hot->kind == SC_PRODUCT_BUILD)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/bundle.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/bundle.png') }}" class="new" alt="" />
                       @elseif($product_hot->kind == SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/group.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/group.png') }}" class="new" alt="" />
                       @endif
 
                       </div>
@@ -127,15 +127,15 @@
                           </div>
 
                       @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/sale.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
                       @elseif($product->type == SC_PRODUCT_NEW)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/new.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
                       @elseif($product->type == SC_PRODUCT_HOT)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/hot.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/hot.png') }}" class="new" alt="" />
                       @elseif($product->kind == SC_PRODUCT_BUILD)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/bundle.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/bundle.png') }}" class="new" alt="" />
                       @elseif($product->kind == SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/group.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/group.png') }}" class="new" alt="" />
                       @endif
                         </div>
                       </div>
@@ -159,15 +159,15 @@
                           </div>
 
                       @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/sale.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
                       @elseif($product->type == SC_PRODUCT_NEW)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/new.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
                       @elseif($product->type == SC_PRODUCT_HOT)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/hot.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/hot.png') }}" class="new" alt="" />
                       @elseif($product->kind == SC_PRODUCT_BUILD)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/bundle.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/bundle.png') }}" class="new" alt="" />
                       @elseif($product->kind == SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/group.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/group.png') }}" class="new" alt="" />
                       @endif
                         </div>
                       </div>

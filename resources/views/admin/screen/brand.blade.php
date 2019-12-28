@@ -28,7 +28,7 @@
                             <div class="fields-group">
 
                                 <div class="form-group   {{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label for="name" class="col-sm-2  control-label">{{ trans('brand.name') }}</label>
+                                    <label for="name" class="col-sm-2  control-label">{{ trans('brand.name') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -44,6 +44,23 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
+                                    <label for="alias" class="col-sm-2  control-label">{!! trans('brand.alias') !!}</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+                                            <input type="text" id="alias" name="alias"
+                                                value="{!! old('alias',($brand['alias']??'')) !!}" class="form-control"
+                                                placeholder="" />
+                                        </div>
+                                        @if ($errors->has('alias'))
+                                        <span class="help-block">
+                                            {{ $errors->first('alias') }}
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                
                                 <div class="form-group   {{ $errors->has('url') ? ' has-error' : '' }}">
                                     <label for="url" class="col-sm-2  control-label">{{ trans('brand.url') }}</label>
                                     <div class="col-sm-8">
@@ -85,8 +102,12 @@
                                             {{ $errors->first('image') }}
                                         </span>
                                         @endif
-                                        <div id="preview_image" class="img_holder"><img
-                                                src="{{ asset(old('image',($brand['image']??''))) }}"></div>
+                                        
+                                        <div id="preview_image" class="img_holder">
+                                            @if (old('image',$brand['image']??''))
+                                            <img src="{{ asset(old('image',$brand['image']??'')) }}">
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
 

@@ -54,9 +54,10 @@ $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
+$pathInstall = str_replace('index.php','install.php',$_SERVER['PHP_SELF']);
 // Configuration
 if (is_file('install.php')) {
-    header('Location: '.route('home').'/install.php');
+    header('Location: '.$pathInstall);
     exit;
 }
 $response->send();

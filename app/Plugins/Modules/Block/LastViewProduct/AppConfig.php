@@ -8,15 +8,16 @@ use App\Plugins\Modules\ConfigDefault;
 class AppConfig extends ConfigDefault
 {
 
-    protected $configGroup = 'Modules';
-    protected $configCode = 'Block';
-    protected $configKey = 'LastViewProduct';
+    public $configGroup = 'Modules';
+    public $configCode = 'Block';
+    public $configKey = 'LastViewProduct';
+    public $pathPlugin;
 
     public function __construct()
     {
-        $this->pathExtension = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
-        $this->title = trans($this->pathExtension.'::'. $this->configKey . '.title');
-        $this->version = '2.0';
+        $this->pathPlugin = $this->configGroup . '/' . $this->configCode . '/' . $this->configKey;
+        $this->title = trans($this->pathPlugin.'::'. $this->configKey . '.title');
+        $this->version = '2.1';
         $this->auth = 'Naruto';
         $this->link = 'https://s-cart.org';
     }
@@ -35,7 +36,7 @@ class AppConfig extends ConfigDefault
                     'key' => $this->configKey,
                     'group' => $this->configGroup,
                     'value' => self::ON, //1- Enable extension; 0 - Disable
-                    'detail' => $this->pathExtension.'::'.$this->configKey . '.title',
+                    'detail' => $this->pathPlugin.'::'.$this->configKey . '.title',
                 ]
             );
             if (!$process) {

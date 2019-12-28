@@ -1,4 +1,4 @@
-@extends('templates.'.sc_store('template').'.shop_layout')
+@extends($templatePath.'.shop_layout')
 
 @section('main')
 <section >
@@ -50,7 +50,7 @@
 @section('breadcrumb')
     <div class="breadcrumbs">
         <ol class="breadcrumb">
-          <li><a href="{{ route('home') }}">Home</a></li>
+          <li><a href="{{ route('home') }}">{{ trans('front.home') }}</a></li>
           <li class="active">{{ $title }}</li>
         </ol>
       </div>

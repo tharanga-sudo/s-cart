@@ -193,21 +193,29 @@ class ShopNewsController extends Controller
     {
 
         $data = request()->all();
+
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
         $validator = Validator::make($data, [
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_news,alias|string|max:100',
             'descriptions.*.title' => 'required|string|max:100',
         ], [
+            'alias.regex' => trans('news.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('news.title')]),
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 
         $dataInsert = [
             'image' => $data['image'],
             'sort' => $data['sort'],
+            'alias' => $data['alias'],
             'status' => !empty($data['status']) ? 1 : 0,
         ];
         $news = ShopNews::create($dataInsert);
@@ -259,28 +267,36 @@ class ShopNewsController extends Controller
     {
         $shopNews = ShopNews::find($id);
         $data = request()->all();
+
+        $langFirst = array_key_first(sc_language_all()->toArray()); //get first code language active
+        $data['alias'] = !empty($data['alias'])?$data['alias']:$data['descriptions'][$langFirst]['title'];
+        $data['alias'] = sc_word_format_url($data['alias']);
+        $data['alias'] = sc_word_limit($data['alias'], 100);
+
         $validator = Validator::make($data, [
             'descriptions.*.title' => 'required|string|max:100',
+            'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_news,alias,' . $shopNews->id . ',id|string|max:100',
         ], [
+            'alias.regex' => trans('news.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('news.title')]),
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
+                ->withInput($data);
         }
 //Edit
 
         $dataUpdate = [
             'image' => $data['image'],
+            'alias' => $data['alias'],
             'sort' => $data['sort'],
             'status' => !empty($data['status']) ? 1 : 0,
         ];
 
-        $obj = ShopNews::find($id);
-        $obj->update($dataUpdate);
-        $obj->descriptions()->delete();
+        $shopNews->update($dataUpdate);
+        $shopNews->descriptions()->delete();
         $dataDes = [];
         foreach ($data['descriptions'] as $code => $row) {
             $dataDes[] = [

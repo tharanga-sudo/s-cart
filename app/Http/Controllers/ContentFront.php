@@ -23,7 +23,7 @@ class ContentFront extends GeneralController
     {
         $page = $this->getPage('contact');
         return view(
-            'templates.' . sc_store('template') . '.shop_contact',
+            $this->templatePath . '.shop_contact',
             array(
                 'title' => trans('front.contact'),
                 'description' => '',
@@ -102,15 +102,14 @@ class ContentFront extends GeneralController
 
     /**
      * Render page
-     * @param  [type] $key [description]
-     * @return [type]      [description]
+     * @param  [string] $alias
      */
-    public function pages($key = null)
+    public function pages($alias = null)
     {
-        $page = $this->getPage($key);
+        $page = $this->getPage($alias);
         if ($page) {
             return view(
-                'templates.' . sc_store('template') . '.shop_page',
+                $this->templatePath . '.shop_page',
                 array(
                     'title' => $page->title,
                     'description' => '',
@@ -125,12 +124,12 @@ class ContentFront extends GeneralController
 
     /**
      * Get page info
-     * @param  [type] $key [description]
+     * @param  [string] $alias [description]
      * @return [type]      [description]
      */
-    public function getPage($key = null)
+    public function getPage($alias = null)
     {
-        return ShopPage::where('key', $key)
+        return ShopPage::where('alias', $alias)
             ->where('status', 1)
             ->first();
     }
@@ -144,7 +143,7 @@ class ContentFront extends GeneralController
         $news = (new ShopNews)
             ->getItemsNews($limit = sc_config('product_new'), $opt = 'paginate');
         return view(
-            'templates.' . sc_store('template') . '.shop_news',
+            $this->templatePath . '.shop_news',
             array(
                 'title' => trans('front.blog'),
                 'description' => sc_store('description'),
@@ -157,18 +156,18 @@ class ContentFront extends GeneralController
     /**
      * News detail
      *
-     * @param   [type]  $name 
+     * @param   [string]  $alias 
      * @param   [type]  $id
      *
      * @return  view
      */
-    public function newsDetail($name, $id)
+    public function newsDetail($alias)
     {
-        $news_currently = ShopNews::find($id);
+        $news_currently = ShopNews::where('alias', $alias)->first();
         if ($news_currently) {
             $title = ($news_currently) ? $news_currently->title : trans('front.not_found');
             return view(
-                'templates.' . sc_store('template') . '.shop_news_detail',
+                $this->templatePath . '.shop_news_detail',
                 array(
                     'title' => $title,
                     'news_currently' => $news_currently,
@@ -180,7 +179,7 @@ class ContentFront extends GeneralController
             );
         } else {
             return view(
-                'templates.' . sc_store('template') . '.notfound',
+                $this->templatePath . '.notfound',
                 array(
                     'title' => trans('front.not_found'),
                     'description' => '',

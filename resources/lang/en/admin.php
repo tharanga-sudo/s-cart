@@ -212,6 +212,7 @@ return [
       'detail'                            => 'Detail',
       'access_denied'                     => 'Access denied!',
       'access_denied_msg'                 => 'Can\'t disable this language. Please change default language before do that.',
+      'import_data'                       => 'Import data',
 
       'menu_titles'                       => [
             'admin'             => 'Admin',
@@ -222,6 +223,7 @@ return [
             'operation_log'     => 'Operation log',
             'config_manager'    => 'Config Manager',
             'product_mamager'   => 'Product Manager',
+            'catalog_mamager'   => 'Product & catalog',
             'categories'        => 'Categories',
             'customer_manager'  => 'Customer Manager',
             'brands'            => 'Brands',
@@ -285,6 +287,7 @@ return [
       'delete'                            => 'Delete',
       'edit'                              => 'Edit',
       'add_new'                           => 'Add new',
+      'add_new_multi'                     => 'Add new multiple product',
       'sort'                              => 'Sort',
       'export'                            => 'Export',
       'refresh'                           => 'Refresh',

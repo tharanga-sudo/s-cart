@@ -14,7 +14,7 @@ abstract class  ConfigDefault
     const OFF = 0;
     const ALLOW = 1;
     const DENIED = 0;
-    public $pathExtension;
+    public $pathPlugin;
 
     /**
      * Install app

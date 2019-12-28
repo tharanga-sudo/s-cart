@@ -144,6 +144,8 @@ class ShopOrder extends Model
             $dataOrder['address2'] = sc_clean($dataOrder['address2']);
             $dataOrder['country'] = sc_clean($dataOrder['country']);
             $dataOrder['phone'] = sc_clean($dataOrder['phone']);
+            $dataOrder['postcode'] = sc_clean($dataOrder['postcode']);
+            $dataOrder['company'] = sc_clean($dataOrder['company']);
             $dataOrder['payment_method'] = sc_clean($dataOrder['payment_method']);
             $dataOrder['shipping_method'] = sc_clean($dataOrder['shipping_method']);
             $dataOrder['comment'] = sc_clean($dataOrder['comment']);
@@ -198,7 +200,7 @@ class ShopOrder extends Model
             $codeDiscount = session('Discount') ?? '';
             if ($codeDiscount) {
                 if (!empty(sc_config('Discount'))) {
-                    $moduleClass = sc_get_class_total_controller('Discount');
+                    $moduleClass = sc_get_class_extension_controller($code = 'Total', $key = 'Discount');
                     $returnModuleDiscount = (new $moduleClass)->apply($codeDiscount, $uID, $msg = 'Order #' . $orderID);
                     $arrReturnModuleDiscount = json_decode($returnModuleDiscount, true);
                     if ($arrReturnModuleDiscount['error'] == 1) {

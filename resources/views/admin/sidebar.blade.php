@@ -5,7 +5,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset(Admin::user()->avatar) }}" class="img-circle" alt="User Image">
+          <img src="{{ Admin::user()->avatar?asset(Admin::user()->avatar):asset('admin/avatar/user.jpg') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{ Admin::user()->name }}</p>
@@ -25,72 +25,78 @@
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-
+      <ul class="sidebar-menu tree" data-widget="tree">
 @php
   $menus = Admin::getMenuVisible();
 @endphp
 {{-- Level 0 --}}
         @foreach ($menus[0] as $level0)
-          @if ($level0->type ==1)
-            <li class="header">{{ sc_language_render($level0->title) }}</li>
-          @elseif($level0->uri)
-              <li class="">
-                <a href="{{ $level0->uri?sc_url_render($level0->uri):'#' }}">
-                  <i class="fa {{ $level0->icon }}"></i> <span>{{ sc_language_render($level0->title) }}</span>
-                </a>
-              </li>
-          @else
+        <li class="header">
+          {{ sc_language_render($level0->title) }}
+        </li>
+        {{-- LEvel 1  --}}
+          @foreach ($menus[$level0->id] as $level1)
+            @if($level1->uri)
+              <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span></a></li>
+            @else
             <li class="treeview">
               <a href="#">
-                <i class="fa {{ $level0->icon }}"></i> <span>{{ sc_language_render($level0->title) }}</span>
+                <i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
-    {{-- Level 1 --}}
-            @if (isset($menus[$level0->id]) && count($menus[$level0->id]))
+            {{-- LEvel 2  --}}
               <ul class="treeview-menu">
-                @foreach ($menus[$level0->id] as $level1)
-                  @if($level1->uri)
-                    <li class=""><a href="{{ $level1->uri?sc_url_render($level1->uri):'#' }}"><i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span></a></li>
+                @if (isset($menus[$level1->id]))
+                @foreach ($menus[$level1->id] as $level2)
+                  @if($level2->uri)
+                    <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
                   @else
                   <li class="treeview">
                     <a href="#">
-                      <i class="fa {{ $level1->icon }}"></i> <span>{{ sc_language_render($level1->title) }}</span>
+                      <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
                       <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                       </span>
                     </a>
-            {{-- LEvel 2  --}}
-                        @if (isset($menus[$level1->id]) && count($menus[$level1->id]))
-                          <ul class="treeview-menu">
-                            @foreach ($menus[$level1->id] as $level2)
-                              @if($level2->uri)
-                                <li class=""><a href="{{ $level2->uri?sc_url_render($level2->uri):'#' }}"><i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span></a></li>
-                              @else
-                              <li class="treeview">
-                                <a href="#">
-                                  <i class="fa {{ $level2->icon }}"></i> <span>{{ sc_language_render($level2->title) }}</span>
-                                  <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                  </span>
-                                </a>
-
-                                </li>
-                              @endif
-                            @endforeach
-                          </ul>
-                        @endif
-                        {{--  end level 2 --}}
+      
+                  {{-- LEvel 3  --}}
+                  <ul class="treeview-menu">
+                    @if (isset($menus[$level2->id]))
+                    @foreach ($menus[$level2->id] as $level3)
+                      @if($level3->uri)
+                        <li class=""><a href="{{ $level3->uri?sc_url_render($level3->uri):'#' }}"><i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span></a></li>
+                      @else
+                      <li class="treeview">
+                        <a href="#">
+                          <i class="fa {{ $level3->icon }}"></i> <span>{{ sc_language_render($level3->title) }}</span>
+                          <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                          </span>
+                        </a>
+          
+          
+                        
+                        </li>
+                      @endif
+                    @endforeach
+                    @endif
+    
+                  </ul>
+                  {{-- end level 3 --}}
+                    
                     </li>
                   @endif
-                 @endforeach
+                @endforeach
+                @endif
+
               </ul>
+              {{-- end level 2 --}}
+              </li>
             @endif
-              {{-- end level 1 --}}
-            </li>
-          @endif
+          @endforeach
+      {{--  end level 1 --}}
 
         @endforeach
       {{-- end level 0 --}}

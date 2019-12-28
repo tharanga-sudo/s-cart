@@ -132,6 +132,9 @@ Get final price
  */
     public function showPrice($classNew = null, $classOld = null, $divWrap = null)
     {
+        if (!sc_config('product_price')) {
+            return false;
+        }
         $priceFinal = $this->getFinalPrice();
         switch ($this->kind) {
             case SC_PRODUCT_GROUP:
@@ -161,14 +164,63 @@ Get final price
 
     }
 
+    /**
+     * [showPriceDetail description]
+     *
+     * @param   [type]  $classNew  [$classNew description]
+     * @param   [type]  $classOld  [$classOld description]
+     * @param   [type]  $divWrap   [$divWrap description]
+     *
+     * @return  [type]             [return description]
+     */
+    public function showPriceDetail($classNew = null, $classOld = null, $divWrap = null)
+    {
+        if (!sc_config('product_price')) {
+            return false;
+        }
+        $priceFinal = $this->getFinalPrice();
+        switch ($this->kind) {
+            case SC_PRODUCT_GROUP:
+                $str = '<span class="' . (($classNew) ? $classNew : 'sc-new-price') . '">' . trans('product.price_group_chose') . '</span>';
+                if ($divWrap != null) {
+                    $str = '<div class="' . $divWrap . '">' . $str . '</div>';
+                }
+                return $str;
+                break;
+
+            default:
+                if ($this->price == $priceFinal) {
+                    $str = '<span class="' . (($classNew) ? $classNew : 'sc-new-price') . '">' . sc_currency_render($this->price) . '</span>';
+                    if ($divWrap != null) {
+                        $str = '<div class="' . $divWrap . '">' . $str . '</div>';
+                    }
+                    return $str;
+                } else {
+                    $str = '<span class="' . (($classNew) ? $classNew : 'sc-new-price') . '">' . sc_currency_render($priceFinal) . '</span><span class="' . (($classNew) ? $classOld : 'sc-old-price') . '">' . sc_currency_render($this->price) . '</span>';
+                    if ($divWrap != null) {
+                        $str = '<div class="' . $divWrap . '">' . $str . '</div>';
+                    }
+                    return $str;
+                }
+                break;
+        }
+
+    }
+
 /**
  * Get product detail
  * @param  [int] $id [description]
+ * @param  [string] $alias [description]
  * @return [type]     [description]
  */
-    public function getProduct($id)
+    public function getProduct($id = null, $alias = null)
     {
-        $product = $this->where('id', $id)
+        if($id) {
+            $product = $this->where('id', $id);  
+        } else {
+            $product = $this->where('alias', $alias);
+        }
+        $product = $product
             ->where('status', 1)
             ->with('images')
             ->with('promotionPrice');
@@ -353,7 +405,7 @@ Get image
  */
     public function getUrl()
     {
-        return route('product.detail', ['name' => sc_word_format_url(empty($this->name) ? $this->sku : $this->name), 'id' => $this->id]);
+        return route('product.detail', ['alias' => $this->alias]);
     }
 
 //Fields language
@@ -462,6 +514,9 @@ Get image
  */
     public function allowSale()
     {
+        if(!sc_config('product_price')) {
+            return false;
+        }
         if ($this->status &&
             (sc_config('product_preorder') == 1 || $this->date_available == null || date('Y-m-d H:i:s') >= $this->date_available) &&
             (sc_config('product_buy_out_of_stock') || $this->stock) &&

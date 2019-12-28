@@ -3,7 +3,9 @@
 return [
     'id'                    => 'ID',
     'sku'                   => 'Mã hàng',
-    'sku_validate'          => 'Chỉ sử dụng kí tự trong nhóm: "A-Z", "a-z", "0-9" and ".-_" ',
+    'alias'                 => 'URL tùy chỉnh <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span>',
+    'sku_validate'          => 'Chỉ sử dụng kí tự trong nhóm: "A-Z", "a-z", "0-9" and "-_" ',
+    'alias_validate'        => 'Tối đa 100 kí tự trong nhóm: "A-Z", "a-z", "0-9" and "-_" ',
     'price'                 => 'Giá bán',
     'price_promotion'       => 'Giá khuyến mãi',
     'price_promotion_start' => 'Ngày bắt đầu',
@@ -16,6 +18,7 @@ return [
     'category'              => 'Danh mục',
     'cost'                  => 'Giá cost',
     'stock'                 => 'Số lượng',
+    'stock_status'          => 'Tình trạng sản phẩm',
     'name'                  => 'Tên',
     'keyword'               => 'Từ khóa',
     'description'           => 'Mô tả',
@@ -40,6 +43,7 @@ return [
     'overview'              => 'Mô tả',
     'comment'               => 'Đánh giá',
     'price_group'           => 'Bấm xem giá',
+    'price_group_chose'     => 'Chọn sản phẩm',
     'groups'                => 'Nhóm sản phẩm',
     'builds'                => 'Bộ sản phẩm',
 
@@ -106,4 +110,20 @@ return [
         'only_view' => 'Chỉ xem',
         'service'   => 'Dịch vụ',
     ],
+    'config_manager' => [
+        'title' => ' Cấu hình sản phẩm',
+        'field'                   => 'Trường cấu hình',
+        'value'                    => 'Giá trị',
+        'brand'                    => 'Sử dụng NHÃN HIỆU',
+        'vendor'                    => 'Sử dụng NHÀ CUNG CẤP',
+        'price'                    => 'Sử dụng GIÁ',
+        'cost'                    => 'Sử dụng GIÁ GỐC',
+        'stock'                    => 'Sử dụng SỐ LƯỢNG',
+        'type'                    => 'Sử dụng PHÂN LOẠI (mới, hot,...)',
+        'kind'                    => 'Sử dụng KIỂU (đơn, nhóm, bộ)',
+        'virtual'                    => 'Sử dụng Loại ĐẶC TÍNH',
+        'attribute'                    => 'Sử dụng THUỘC TÍNH (màu sắc, kích thước,...)',
+        'promotion'                    => 'Sử dụng GIÁ KHUYẾN MÃI',
+        'available'                    => 'Sử dụng THỜI GIAN KHẢ DỤNG',
+    ]
 ];

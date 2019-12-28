@@ -1,4 +1,4 @@
-@extends('templates.'.sc_store('template').'.shop_layout')
+@extends($templatePath.'.shop_layout')
 
 
 @section('main')

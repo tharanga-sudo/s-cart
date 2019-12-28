@@ -1,3 +1,9 @@
+@if (sc_config('SITE_STATUS') != 'on')
+  @include($templatePath . '.maintenance')
+  @php
+    exit();
+  @endphp
+@endif
 
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
@@ -33,21 +39,21 @@
 @include('common.css')
 <!--//end css defaut -->
 
-    <link href="{{ asset('templates/'.sc_store('template').'/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('templates/'.sc_store('template').'/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('templates/'.sc_store('template').'/css/prettyPhoto.css')}}" rel="stylesheet">
-    <link href="{{ asset('templates/'.sc_store('template').'/css/animate.css')}}" rel="stylesheet">
-    <link href="{{ asset('templates/'.sc_store('template').'/css/main.css')}}" rel="stylesheet">
-    <link href="{{ asset('templates/'.sc_store('template').'/css/responsive.css')}}" rel="stylesheet">
+    <link href="{{ asset($templateFile.'/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset($templateFile.'/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{ asset($templateFile.'/css/prettyPhoto.css')}}" rel="stylesheet">
+    <link href="{{ asset($templateFile.'/css/animate.css')}}" rel="stylesheet">
+    <link href="{{ asset($templateFile.'/css/main.css')}}" rel="stylesheet">
+    <link href="{{ asset($templateFile.'/css/responsive.css')}}" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="{{ asset('templates/'.sc_store('template').'/js/html5shiv.js')}}"></script>
-    <script src="{{ asset('templates/'.sc_store('template').'/js/respond.min.js')}}"></script>
+    <script src="{{ asset($templateFile.'/js/html5shiv.js')}}"></script>
+    <script src="{{ asset($templateFile.'/js/respond.min.js')}}"></script>
     <![endif]-->
-    <link rel="shortcut icon" href="{{ asset('templates/'.sc_store('template').'/images/ico/favicon.ico')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('templates/'.sc_store('template').'/images/ico/apple-touch-icon-144-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('templates/'.sc_store('template').'/images/ico/apple-touch-icon-114-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('templates/'.sc_store('template').'/images/ico/apple-touch-icon-72-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('templates/'.sc_store('template').'/images/ico/apple-touch-icon-57-precomposed.png')}}">
+    <link rel="shortcut icon" href="{{ asset($templateFile.'/images/ico/favicon.ico')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-144-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-114-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-72-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset($templateFile.'/images/ico/apple-touch-icon-57-precomposed.png')}}">
 
 
 
@@ -70,7 +76,7 @@
 <!--//head-->
 <body>
 
-@include('templates.'.sc_store('template').'.header')
+@include($templatePath.'.header')
 
 <!--Module banner -->
   @isset ($blocksContent['banner_top'])
@@ -130,14 +136,14 @@
         </div>
 
         <!--Notice -->
-        @include('templates.'.sc_store('template').'.notice')
+        @include($templatePath.'.notice')
         <!--//Notice -->
 
         <!--body-->
         @section('main')
-          @include('templates.'.sc_store('template').'.left')
-          @include('templates.'.sc_store('template').'.center')
-          @include('templates.'.sc_store('template').'.right')
+          @include($templatePath.'.left')
+          @include($templatePath.'.center')
+          @include($templatePath.'.right')
         @show
         <!--//body-->
 
@@ -145,14 +151,14 @@
     </div>
   </section>
 
-@include('templates.'.sc_store('template').'.footer')
+@include($templatePath.'.footer')
 
-<script src="{{ asset('templates/'.sc_store('template').'/js/jquery.js')}}"></script>
-<script src="{{ asset('templates/'.sc_store('template').'/js/jquery-ui.min.js')}}"></script>
-<script src="{{ asset('templates/'.sc_store('template').'/js/bootstrap.min.js')}}"></script>
-<script src="{{ asset('templates/'.sc_store('template').'/js/jquery.scrollUp.min.js')}}"></script>
-<script src="{{ asset('templates/'.sc_store('template').'/js/jquery.prettyPhoto.js')}}"></script>
-<script src="{{ asset('templates/'.sc_store('template').'/js/main.js')}}"></script>
+<script src="{{ asset($templateFile.'/js/jquery.js')}}"></script>
+<script src="{{ asset($templateFile.'/js/jquery-ui.min.js')}}"></script>
+<script src="{{ asset($templateFile.'/js/bootstrap.min.js')}}"></script>
+<script src="{{ asset($templateFile.'/js/jquery.scrollUp.min.js')}}"></script>
+<script src="{{ asset($templateFile.'/js/jquery.prettyPhoto.js')}}"></script>
+<script src="{{ asset($templateFile.'/js/main.js')}}"></script>
 
 
 @stack('scripts')

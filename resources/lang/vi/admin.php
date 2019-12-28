@@ -219,6 +219,7 @@ return [
     'detail' => 'Chi tiết',
     'access_denied' => 'Hành động từ chối!',
     'access_denied_msg' => 'Bạn không thể khóa ngôn ngữ này vì nó đang là mặc định. Phải thay đổi ngôn ngữ mặc định trước.',
+    'import_data'                       => 'Import dữ liệu',
 
     'menu_titles' => [
         'admin' => 'Admin',
@@ -229,6 +230,7 @@ return [
         'operation_log' => 'Nhật ký truy cập',
         'config_manager' => 'Quản lý cấu hình',
         'product_mamager' => 'Quản lý sản phẩm',
+        'catalog_mamager' => 'Sản phẩm & danh mục',
         'categories' => 'Danh mục',
         'customer_manager' => 'Quản lý khách hàng',
         'brands' => 'Nhãn hiệu',
@@ -290,6 +292,7 @@ return [
     'delete' => 'Xóa',
     'edit' => 'Chỉnh sửa',
     'add_new' => 'Thêm mới',
+    'add_new_multi' => 'Thêm mới nhiều sản phẩm',
     'sort' => 'Sắp xếp',
     'export' => 'Xuất',
     'refresh' => 'Làm mới',

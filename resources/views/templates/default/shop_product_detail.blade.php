@@ -1,4 +1,4 @@
-@extends('templates.'.sc_store('template').'.shop_layout')
+@extends($templatePath.'.shop_layout')
 
 @section('center')
           <div class="product-details"><!--product-details-->
@@ -38,22 +38,33 @@
             <div class="col-sm-6">
               <div class="product-information"><!--/product-information-->
                 @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
-                <img src="{{ asset('templates/'.sc_store('template').'/images/home/sale2.png') }}" class="newarrival" alt="" />
+                <img src="{{ asset($templateFile.'/images/home/sale2.png') }}" class="newarrival" alt="" />
                 @elseif($product->type == SC_PRODUCT_NEW)
-                <img src="{{ asset('templates/'.sc_store('template').'/images/home/new2.png') }}" class="newarrival" alt="" />
+                <img src="{{ asset($templateFile.'/images/home/new2.png') }}" class="newarrival" alt="" />
                 @elseif($product->type == SC_PRODUCT_HOT)
-                <img src="{{ asset('templates/'.sc_store('template').'/images/home/hot2.png') }}" class="newarrival" alt="" />
+                <img src="{{ asset($templateFile.'/images/home/hot2.png') }}" class="newarrival" alt="" />
                 @elseif($product->kind == SC_PRODUCT_BUILD)
-                <img src="{{ asset('templates/'.sc_store('template').'/images/home/bundle2.png') }}" class="newarrival" alt="" />
+                <img src="{{ asset($templateFile.'/images/home/bundle2.png') }}" class="newarrival" alt="" />
                 @elseif($product->kind == SC_PRODUCT_GROUP)
-                <img src="{{ asset('templates/'.sc_store('template').'/images/home/group2.png') }}" class="newarrival" alt="" />
+                <img src="{{ asset($templateFile.'/images/home/group2.png') }}" class="newarrival" alt="" />
                 @endif
 
                 <h2  id="product-detail-name">{{ $product->name }}</h2>
                 <p>SKU: <span  id="product-detail-model">{{ $product->sku }}</span></p>
                 <div id="product-detail-price">
-                  {!! $product->showPrice() !!}
+                  {!! $product->showPriceDetail() !!}
                 </div>
+
+                @if ($product->kind == SC_PRODUCT_GROUP)
+                <span id="product-detail-cart-group" style="display:none">
+                  <label>{{ trans('product.quantity') }}:</label>
+                  <input type="number" name="qty" value="1" min="1" />
+                  <button type="submit" class="btn btn-fefault cart">
+                    <i class="fa fa-shopping-cart"></i>
+                    {{trans('front.add_to_cart')}}
+                  </button>
+                </span>                      
+                @else ($product->allowSale())
                 <span>
                   <label>{{ trans('product.quantity') }}:</label>
                   <input type="number" name="qty" value="1" min="1" />
@@ -61,24 +72,45 @@
                     <i class="fa fa-shopping-cart"></i>
                     {{trans('front.add_to_cart')}}
                   </button>
-                </span>
+                </span>  
+                @endif
+
+
                 <div  id="product-detail-attr">
                   @if ($product->attributes())
                   {!! $product->renderAttributeDetails() !!}
                   @endif
                 </div>
-                <b>{{ trans('product.availability') }}:</b>
-                <span id="product-detail-available">
-                    @if (sc_config('show_date_available') && $product->date_available >= date('Y-m-d H:i:s'))
-                    {{ $product->date_available }}
-                    @elseif($product->stock <=0 && sc_config('product_buy_out_of_stock') == 0)
+
+                @if (sc_config('product_stock'))
+                <b>{{ trans('product.stock_status') }}:</b>
+                <span id="stock_status">
+                    @if($product->stock <=0 && !sc_config('product_buy_out_of_stock'))
                     {{ trans('product.out_stock') }}
                     @else
                     {{ trans('product.in_stock') }}
                     @endif
                 </span>
                 <br>
-                <b>{{ trans('product.brand') }}:</b> <span id="product-detail-brand">{{ empty($product->brand->name)?'None':$product->brand->name }}</span><br>
+                @endif
+
+
+                @if (sc_config('product_available') && $product->date_available >= date('Y-m-d H:i:s'))
+                  <b>{{ trans('product.date_available') }}:</b>
+                  <span id="product-detail-available">
+                    {{ $product->date_available }}
+                  </span>
+                  <br>
+                @endif
+                
+              <div class="description">
+                {{ $product->description }}
+              </div>
+
+                @if (sc_config('product_brand') && !empty($product->brand->name))
+                  <b>{{ trans('product.brand') }}:</b> <span id="product-detail-brand">{{ empty($product->brand->name)?'None':$product->brand->name }}</span><br>
+                @endif
+
 
               @if ($product->kind == SC_PRODUCT_GROUP)
               <div class="products-group">
@@ -142,9 +174,9 @@
                             <a href="{{ $product_rel->getUrl() }}"><p>{{ $product_rel->name }}</p></a>
                           </div>
                           @if ($product_rel->price != $product_rel->getFinalPrice())
-                          <img src="{{ asset('templates/'.sc_store('template').'/images/home/sale.png') }}" class="new" alt="" />
+                          <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
                           @elseif($product_rel->type == 1)
-                          <img src="{{ asset('templates/'.sc_store('template').'/images/home/new.png') }}" class="new" alt="" />
+                          <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
                           @endif
                       </div>
                     </div>
@@ -186,7 +218,8 @@
               $('#loading').show();
           },
           success: function(data){
-            console.log(data);
+            //console.log(data);
+            $('#product-detail-cart-group').show();
             $('#product-detail-name').html(data.name);
             $('#product-detail-model').html(data.sku);
             $('#product-detail-price').html(data.showPrice);

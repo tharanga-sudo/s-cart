@@ -25,7 +25,7 @@ class ShopAccount extends GeneralController
     public function index()
     {
         $user = Auth::user();
-        return view('templates.' . sc_store('template') . '.account.index')
+        return view($this->templatePath . '.account.index')
             ->with(
                 [
                 'title' => trans('account.my_profile'),
@@ -44,7 +44,7 @@ class ShopAccount extends GeneralController
     {
         $user = Auth::user();
         $id = $user->id;
-        return view('templates.' . sc_store('template') . '.account.change_password')
+        return view($this->templatePath . '.account.change_password')
         ->with(
             [
                 'title' => trans('account.change_password'),
@@ -116,7 +116,7 @@ class ShopAccount extends GeneralController
         $user = Auth::user();
         $id = $user->id;
         $dataUser = ShopUser::find($id);
-        return view('templates.' . sc_store('template') . '.account.change_infomation')
+        return view($this->templatePath . '.account.change_infomation')
             ->with(
                 [
                     'title' => trans('account.change_infomation'),
@@ -138,27 +138,66 @@ class ShopAccount extends GeneralController
     {
         $user = Auth::user();
         $id = $user->id;
+        $data = request()->all();
+        $dataUpdate = [
+            'first_name' => $data['first_name'],
+            'address1' => $data['address1'],
+        ];
+        $validate = [
+            'first_name' => 'required|string|max:100',
+            'address1' => 'required|string|max:255',
+        ];
+        if(sc_config('customer_lastname')) {
+            $validate['last_name'] = 'required|max:100';
+            $dataUpdate['last_name'] = $data['last_name']??'';
+        }
+        if(sc_config('customer_address2')) {
+            $validate['address2'] = 'required|max:100';
+            $dataUpdate['address2'] = $data['address2']??'';
+        }
+        if(sc_config('customer_phone')) {
+            $validate['phone'] = 'required|regex:/^0[^0][0-9\-]{7,13}$/';
+            $dataUpdate['phone'] = $data['phone']??'';
+        }
+        if(sc_config('customer_country')) {
+            $validate['country'] = 'required|min:2';
+            $dataUpdate['country'] = $data['country']??'';
+        }
+        if(sc_config('customer_postcode')) {
+            $validate['postcode'] = 'nullable|min:5';
+            $dataUpdate['postcode'] = $data['postcode']??'';
+        }
+        if(sc_config('customer_company')) {
+            $validate['company'] = 'nullable';
+            $dataUpdate['company'] = $data['company']??'';
+        }   
+        if(sc_config('customer_sex')) {
+            $validate['sex'] = 'required';
+            $dataUpdate['sex'] = $data['sex']??'';
+        }   
+        if(sc_config('customer_birthday')) {
+            $validate['birthday'] = 'nullable|date|date_format:Y-m-d';
+            $dataUpdate['birthday'] = $data['birthday']??'';
+        } 
+        if(sc_config('customer_group')) {
+            $validate['group'] = 'nullable';
+            $dataUpdate['group'] = $data['group']??'';
+        }
+
 
         $messages = [
             'required' => trans('validation.required'),
         ];
         $v = Validator::make(
-            $request->all(), 
-            [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'phone' => 'required|regex:/^0[^0][0-9\-]{7,13}$/',
-                'address1' => 'required',
-                'address2' => 'required',
-                'country' => 'required',
-            ], 
+            $dataUpdate, 
+            $validate, 
             $messages
         );
         if ($v->fails()) {
             return redirect()->back()->withErrors($v->errors());
         }
 
-        ShopUser::updateInfo($request->all(), $id);
+        ShopUser::updateInfo($dataUpdate, $id);
 
         return redirect()->route('member.index')
             ->with(['message' => trans('account.update_success')]);
@@ -174,7 +213,7 @@ class ShopAccount extends GeneralController
         $id = $user->id;
         $orders = ShopOrder::with('orderTotal')->where('user_id', $id)->sort()->get();
         $statusOrder = ShopOrderStatus::pluck('name', 'id')->all();
-        return view('templates.' . sc_store('template') . '.account.order_list')
+        return view($this->templatePath . '.account.order_list')
             ->with(
                 [
                 'title' => trans('account.order_list'),

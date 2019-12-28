@@ -39,7 +39,7 @@
                         <div
                             class="form-group   {{ $errors->has('descriptions.'.$code.'.title') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__title"
-                                class="col-sm-2  control-label">{{ trans('page.title') }}</label>
+                                class="col-sm-2  control-label">{{ trans('page.title') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -58,7 +58,7 @@
                         <div
                             class="form-group   {{ $errors->has('descriptions.'.$code.'.keyword') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__keyword"
-                                class="col-sm-2  control-label">{{ trans('page.keyword') }}</label>
+                                class="col-sm-2  control-label">{{ trans('page.keyword') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -78,7 +78,7 @@
                         <div
                             class="form-group   {{ $errors->has('descriptions.'.$code.'.description') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__description"
-                                class="col-sm-2  control-label">{{ trans('page.description') }}</label>
+                                class="col-sm-2  control-label">{{ trans('page.description') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -146,25 +146,27 @@
                         </div>
 
 
-                        <div class="form-group   {{ $errors->has('key') ? ' has-error' : '' }}">
-                            <label for="{{ $code }}__keyword"
-                                class="col-sm-2  control-label">{{ trans('page.key') }}</label>
+                        <div class="form-group   {{ $errors->has('alias') ? ' has-error' : '' }}">
+                            <label for="alias"
+                                class="col-sm-2  control-label">{!! trans('page.alias') !!}</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
                                     @if (!in_array($page['id']??'', SC_GUARD_PAGES))
-                                    <input type="text" id="key" name="key" value="{!! old('key',($page['key']??'')) !!}"
-                                        class="form-control key" placeholder="" />
+                                    <input type="text" id="alias" name="alias" value="{!! old('alias',($page['alias']??'')) !!}"
+                                        class="form-control alias" placeholder="" />
                                     @else
-                                    <input type="text" id="key" value="{!! $page['key'] !!}" disabled
-                                        class="form-control key" placeholder="" />
+                                    <input type="hidden" id="alias" name="alias" value="{!! old('alias',($page['alias']??'')) !!}"
+                                        class="form-control alias"  placeholder="" />
+                                    <input type="text" id="alias_show" value="{!! $page['alias'] !!}" disabled
+                                        class="form-control alias" placeholder="" />
                                     @endif
 
 
                                 </div>
-                                @if ($errors->has('key'))
+                                @if ($errors->has('alias'))
                                 <span class="help-block">
-                                    {{ $errors->first('key') }}
+                                    {{ $errors->first('alias') }}
                                 </span>
                                 @endif
                             </div>

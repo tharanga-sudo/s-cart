@@ -1,4 +1,4 @@
-@extends('templates.'.sc_store('template').'.shop_layout')
+@extends($templatePath.'.shop_layout')
 
 @section('center')
   <div class="features_items">
@@ -38,22 +38,25 @@
                     {!! $product->showPrice() !!}
 
                     <a href="{{ $product->getUrl() }}"><p>{{ $product->name }}</p></a>
+
                       @if ($product->allowSale())
-                       <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product->id }}','default')"><i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}</a>
+                       <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product->id }}','default')">
+                         <i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}
+                      </a>
                       @else
                         &nbsp;
                       @endif
                   </div>
                       @if ($product->price != $product->getFinalPrice() && $product->kind != SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/sale.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/sale.png') }}" class="new" alt="" />
                       @elseif($product->type == SC_PRODUCT_NEW)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/new.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/new.png') }}" class="new" alt="" />
                       @elseif($product->type == SC_PRODUCT_HOT)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/hot.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/hot.png') }}" class="new" alt="" />
                       @elseif($product->kind == SC_PRODUCT_BUILD)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/bundle.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/bundle.png') }}" class="new" alt="" />
                       @elseif($product->kind == SC_PRODUCT_GROUP)
-                      <img src="{{ asset('templates/'.sc_store('template').'/images/home/group.png') }}" class="new" alt="" />
+                      <img src="{{ asset($templateFile.'/images/home/group.png') }}" class="new" alt="" />
                       @endif
                 </div>
                 <div class="choose">
@@ -79,7 +82,7 @@
 @section('breadcrumb')
     <div class="breadcrumbs pull-left">
         <ol class="breadcrumb">
-          <li><a href="{{ route('home') }}">Home</a></li>
+          <li><a href="{{ route('home') }}">{{ trans('front.home') }}</a></li>
           <li class="active">{{ $title }}</li>
         </ol>
       </div>
