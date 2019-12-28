@@ -35,6 +35,6 @@ return [
     ],
 
     'config_manager' => [
-        'title' => 'Quản lý liên kết',
+        'title' => 'Cấu hình link website',
     ],
 ];
