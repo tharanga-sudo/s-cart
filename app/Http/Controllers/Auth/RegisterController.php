@@ -70,19 +70,19 @@ class RegisterController extends GeneralController
             $validate['reg_country'] = 'required|min:2';
         }
         if(sc_config('customer_postcode')) {
-            $validate['reg_postcode'] = 'required|min:7';
+            $validate['reg_postcode'] = 'nullable|min:5';
         }
         if(sc_config('customer_company')) {
-            $validate['reg_company'] = 'required|min:3';
+            $validate['reg_company'] = 'nullable';
         }   
         if(sc_config('customer_sex')) {
             $validate['reg_sex'] = 'required';
         }   
         if(sc_config('customer_birthday')) {
-            $validate['reg_birthday'] = 'required';
+            $validate['reg_birthday'] = 'nullable|date|date_format:Y-m-d';
         } 
         if(sc_config('customer_group')) {
-            $validate['reg_group'] = 'required';
+            $validate['reg_group'] = 'nullable';
         }  
         return Validator::make($data, $validate);
     }
@@ -105,7 +105,7 @@ class RegisterController extends GeneralController
             'address2' => $data['reg_address2']??'',
             'country' => $data['reg_country']??'VN',
             'group' => $data['reg_group']??1,
-            'birthday' => $data['reg_birthday']??null,
+            'birthday' => $data['reg_birthday']??'0000-00-00',
             'sex' => $data['reg_sex']??0,
             'postcode' => $data['reg_postcode']??null,
         ];

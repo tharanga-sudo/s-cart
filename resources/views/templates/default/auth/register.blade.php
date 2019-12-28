@@ -157,9 +157,9 @@
 
         @if (sc_config('customer_birthday'))
         <div class="form-group{{ $errors->has('reg_birthday') ? ' has-error' : '' }}">
-            <input type="text"
+            <input type="date"
                 class="is_required validate account_input form-control {{ ($errors->has('reg_birthday'))?"input-error":"" }}"
-                name="reg_birthday" placeholder="{{ trans('account.birthday') }}" value="{{ old('reg_birthday') }}">
+                name="reg_birthday" data-date-format="YYYY-MM-DD"  placeholder="{{ trans('account.birthday') }}" value="{{ old('reg_birthday','2015-08-09') }}">
             @if ($errors->has('reg_birthday'))
             <span class="help-block">
                 {{ $errors->first('reg_birthday') }}
