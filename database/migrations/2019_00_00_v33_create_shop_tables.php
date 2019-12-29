@@ -48,6 +48,8 @@ class CreateShopTables extends Migration
             $table->string('email', 150)->nullable();
             $table->string('time_active', 200);
             $table->string('address', 300);
+            $table->string('office', 300)->nullable();
+            $table->string('warehouse', 300)->nullable();
             $table->string('template', 100)->nullable();
         });
 

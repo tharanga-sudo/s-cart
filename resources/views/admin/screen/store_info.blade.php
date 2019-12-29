@@ -64,6 +64,14 @@
         <td>{{ trans('store_info.address') }}</td>
         <td><a href="#" class="fied-required editable editable-click" data-name="address" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_info.update') }}" data-title="{{ trans('store_info.address') }}" data-value="{{ $infos->address }}" data-original-title="" title="">{{$infos->address }}</a></td>
       </tr>
+      <tr>
+        <td>{{ trans('store_info.office') }}</td>
+        <td><a href="#" class="fied-required editable editable-click" data-name="office" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_info.update') }}" data-title="{{ trans('store_info.office') }}" data-value="{{ $infos->office }}" data-original-title="" title="">{{$infos->office }}</a></td>
+      </tr>
+      <tr>
+        <td>{{ trans('store_info.warehouse') }}</td>
+        <td><a href="#" class="fied-required editable editable-click" data-name="warehouse" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_info.update') }}" data-title="{{ trans('store_info.warehouse') }}" data-value="{{ $infos->warehouse }}" data-original-title="" title="">{{$infos->warehouse }}</a></td>
+      </tr>
 
       <tr>
         <td>{{ trans('store_info.email') }}</td>

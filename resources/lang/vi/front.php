@@ -13,6 +13,8 @@ return [
     'item_not_found'     => 'Dữ liệu không tồn tại!',
     'no_data'            => 'Không có dữ liệu!',
     'cart_title'         => 'Giỏ hàng',
+    'checkout'           => 'Thanh toán',
+    'cart'               => 'Giỏ hàng',
     'checkout_title'     => 'Xác nhận',
     'wishlist_page'      => 'Sản phẩm yêu thích',
     'wishlist'           => 'Sản phẩm yêu thích',

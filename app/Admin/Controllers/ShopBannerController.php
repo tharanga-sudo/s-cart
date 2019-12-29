@@ -10,10 +10,12 @@ use Validator;
 class ShopBannerController extends Controller
 {
     protected $arrTarget;
+    protected $dataType;
 
     public function __construct()
     {
         $this->arrTarget = ['_blank' => '_blank', '_self' => '_self'];
+        $this->dataType = ['0' => 'Banner', '1' => 'Background'];
     }
 
     public function index()
@@ -43,6 +45,7 @@ class ShopBannerController extends Controller
             'status' => trans('banner.status'),
             'click' => trans('banner.click'),
             'target' => trans('banner.target'),
+            'type' => trans('banner.type'),
             'action' => trans('banner.admin.action'),
         ];
 
@@ -76,6 +79,7 @@ class ShopBannerController extends Controller
                 'status' => $row['status'] ? '<span class="label label-success">ON</span>' : '<span class="label label-danger">OFF</span>',
                 'click' => number_format($row['click']),
                 'target' => $row['target'],
+                'type' => $this->dataType[$row['type']]??'N/A',
                 'action' => '
                     <a href="' . route('admin_banner.edit', ['id' => $row['id']]) . '"><span title="' . trans('banner.admin.edit') . '" type="button" class="btn btn-flat btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
 
@@ -156,6 +160,7 @@ class ShopBannerController extends Controller
             'icon' => 'fa fa-plus',
             'banner' => [],
             'arrTarget' => $this->arrTarget,
+            'dataType' => $this->dataType,
             'url_action' => route('admin_banner.create'),
         ];
         return view('admin.screen.banner')
@@ -211,6 +216,7 @@ class ShopBannerController extends Controller
             'title_description' => '',
             'icon' => 'fa fa-pencil-square-o',
             'arrTarget' => $this->arrTarget,
+            'dataType' => $this->dataType,
             'banner' => $banner,
             'url_action' => route('admin_banner.edit', ['id' => $banner['id']]),
         ];

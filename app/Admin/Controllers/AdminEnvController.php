@@ -13,8 +13,8 @@ class AdminEnvController extends Controller
 
     public function index()
     {
-        $languages = ShopLanguage::getArray();
-        $currencies = ShopCurrency::getArray();
+        $languages = ShopLanguage::getCodeActive();
+        $currencies = ShopCurrency::getCodeActive();
         $data = [
             'title' => trans('env.title'),
             'sub_title' => '',
