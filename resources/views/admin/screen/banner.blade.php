@@ -101,7 +101,7 @@
                                 <div class="col-sm-8">
                                 <select class="form-control" name="type">
                                     @foreach ($dataType as $key => $name)
-                                    <option {{ (old('type', $banner['type']) ==  $key)?'selected':'' }} value="{{ $key }}">{{ $name }}</option>
+                                    <option {{ (old('type', $banner['type']??'') ==  $key)?'selected':'' }} value="{{ $key }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('type'))
