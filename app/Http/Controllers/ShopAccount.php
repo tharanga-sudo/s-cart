@@ -177,11 +177,13 @@ class ShopAccount extends GeneralController
         }   
         if(sc_config('customer_birthday')) {
             $validate['birthday'] = 'nullable|date|date_format:Y-m-d';
-            $dataUpdate['birthday'] = $data['birthday']??'';
+            if(!empty($data['birthday'])) {
+                $dataUpdate['birthday'] = $data['birthday'];
+            }
         } 
         if(sc_config('customer_group')) {
             $validate['group'] = 'nullable';
-            $dataUpdate['group'] = $data['group']??'';
+            $dataUpdate['group'] = $data['group']??1;
         }
 
 
