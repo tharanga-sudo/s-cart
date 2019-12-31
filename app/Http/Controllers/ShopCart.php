@@ -518,7 +518,8 @@ class ShopCart extends GeneralController
         } else {
             Cart::update($rowId, ($new_qty) ? $new_qty : 0);
             return response()->json(
-                ['error' => 0,
+                [
+                    'error' => 0,
                 ]
             );
         }
