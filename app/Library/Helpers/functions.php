@@ -179,7 +179,7 @@ if (!function_exists('sc_language_render')) {
     }
 }
 /*
-Create random token
+Html render
  */
 if (!function_exists('sc_html_render')) {
     function sc_html_render($string)
