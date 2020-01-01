@@ -48,14 +48,18 @@ class AppConfig extends ConfigDefault
             if (!$process) {
                 $return = ['error' => 1, 'msg' => 'Error when install'];
             } else {
-                $checkMenu = AdminMenu::find('100');
-                if (!$checkMenu) {
-                    AdminMenu::insert([
-                        'id' => 100,
+                
+                $checkMenu = AdminMenu::where('key',$this->configKey)->first();
+                
+                if ($checkMenu) { 
+                    $position = $checkMenu->id;
+                } else {
+                    $position = AdminMenu::insertGetId([
                         'sort' => 102,
                         'parent_id' => 7,
                         'title' => 'admin.module_manager.cms_manager',
                         'icon' => 'fa-coffee',
+                        'key' => $this->configKey,
                     ]);
                 }
                 (new CmsCategory)->install();
@@ -65,14 +69,14 @@ class AppConfig extends ConfigDefault
                 (new CmsImage)->install();
                 AdminMenu::insert(
                     [
-                        'parent_id' => 100,
+                        'parent_id' => $position,
                         'title' => 'admin.module_manager.cms_category',
                         'icon' => 'fa-folder-open-o',
                         'uri' => 'route::admin_cms_category.index',
                     ]);
                 AdminMenu::insert(
                     [
-                        'parent_id' => 100,
+                        'parent_id' => $position,
                         'title' => 'admin.module_manager.cms_content',
                         'icon' => 'fa-copy',
                         'uri' => 'route::admin_cms_content.index',
@@ -95,12 +99,17 @@ class AppConfig extends ConfigDefault
         (new CmsContent)->uninstall();
         (new CmsContentDescription)->uninstall();
         (new CmsImage)->uninstall();
+
         //Remove menu
         (new AdminMenu)->where('uri', 'route::admin_cms_category.index')->delete();
         (new AdminMenu)->where('uri', 'route::admin_cms_content.index')->delete();
-        if (!(new AdminMenu)->where('parent_id', 100)->count()) {
-            (new AdminMenu)->find(100)->delete();
+        $checkMenu = (new AdminMenu)->where('key', $this->configKey)->first();
+        if($checkMenu) {
+            if (!(new AdminMenu)->where('parent_id', $checkMenu->id)->count()) {
+                (new AdminMenu)->where('key', $this->configKey)->delete();
+            }
         }
+
 
         return $return;
     }

@@ -200,6 +200,7 @@ function installDatabaseStep1(){
 
          error= parseInt(data.error);
         if(error != 1 && error !=0){
+            $('#msg').removeClass('success');
             $('#msg').addClass('error');
             $('#msg').html(data);
         }
@@ -211,6 +212,7 @@ function installDatabaseStep1(){
             $('.progress-bar').html("45%");
             setTimeout(installDatabaseStep2, 1000);
         }else{
+            $('#msg').removeClass('success');
             $('#msg').addClass('error');
             $('#msg').html(data.msg);
         }
@@ -233,6 +235,7 @@ function installDatabaseStep2(){
     .done(function(data) {
          error= parseInt(data.error);
         if(error != 1 && error !=0){
+            $('#msg').removeClass('success');
             $('#msg').addClass('error');
             $('#msg').html(data);
         }
@@ -244,6 +247,7 @@ function installDatabaseStep2(){
             $('.progress-bar').html("75%");
             setTimeout(completeInstall, 1000);
         }else{
+            $('#msg').removeClass('success');
             $('#msg').addClass('error');
             $('#msg').html(data.msg);
         }
