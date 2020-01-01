@@ -8,6 +8,8 @@ return [
     'long_phone' => 'Số điện thoại dài',
     'time_active' => 'Thời gian làm việc',
     'address' => 'Địa chỉ',
+    'office' => 'Văn Phòng',
+    'warehouse' => 'Nhà kho',
     'email' => 'Email',
     'language' => 'Ngôn ngữ mặc định',
     'timezone' => 'Múi giờ',

@@ -1,5 +1,5 @@
   @php
-    $banners = \App\Models\ShopBanner::where('status', 1)->sort()->get()
+    $banners = \App\Models\ShopBanner::where('status', 1)->where('type', 0)->sort()->get()
   @endphp
  @if (!empty($banners))
  <section id="slider"><!--slider-->

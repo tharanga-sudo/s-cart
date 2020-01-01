@@ -95,6 +95,23 @@
                                 </div>
                             </div>
 
+                            @if (!empty($dataType))
+                            <div class="form-group {{ $errors->has('type') ? ' has-error' : '' }}">
+                                <label class="col-sm-2  control-label">{{ trans('banner.type') }}</label>
+                                <div class="col-sm-8">
+                                <select class="form-control" name="type">
+                                    @foreach ($dataType as $key => $name)
+                                    <option {{ (old('type', $banner['type']??'') ==  $key)?'selected':'' }} value="{{ $key }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('type'))
+                                <span class="help-block">
+                                    {{ $errors->first('type') }}
+                                </span>
+                                @endif
+                                </div>
+                              </div>
+                            @endif
 
 
                             <div class="form-group   {{ $errors->has('sort') ? ' has-error' : '' }}">

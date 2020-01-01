@@ -49,6 +49,7 @@ class CreateAdminTables extends Migration
             $table->string('icon', 50);
             $table->string('uri', 255)->nullable();
             $table->integer('type')->default(0);
+            $table->string('key',50)->unique()->nullable();
             $table->string('permission')->nullable();
 
             $table->timestamps();
@@ -173,14 +174,13 @@ class CreateAdminTables extends Migration
             ['id' => 41, 'parent_id' => 35, 'sort' => 0, 'title' => 'admin.extension_manager.Total', 'icon' => 'fa-cog', 'uri' => 'admin::extension/total', 'type' => 0],
             ['id' => 42, 'parent_id' => 35, 'sort' => 0, 'title' => 'admin.extension_manager.Other', 'icon' => 'fa-circle-thin', 'uri' => 'admin::extension/other', 'type' => 0],
             ['id' => 43, 'parent_id' => 36, 'sort' => 0, 'title' => 'admin.module_manager.Cms', 'icon' => 'fa-modx', 'uri' => 'admin::module/cms', 'type' => 0],
-            ['id' => 44, 'parent_id' => 36, 'sort' => 0, 'title' => 'admin.module_manager.Block', 'icon' => 'fa-bars', 'uri' => 'admin::module/block', 'type' => 0],
-            ['id' => 45, 'parent_id' => 36, 'sort' => 0, 'title' => 'admin.module_manager.Other', 'icon' => 'fa-bars', 'uri' => 'admin::module/other', 'type' => 0],
+            ['id' => 44, 'parent_id' => 36, 'sort' => 0, 'title' => 'admin.module_manager.Block', 'icon' => 'fa-cube', 'uri' => 'admin::module/block', 'type' => 0],
+            ['id' => 45, 'parent_id' => 36, 'sort' => 0, 'title' => 'admin.module_manager.Other', 'icon' => 'fa-circle-thin', 'uri' => 'admin::module/other', 'type' => 0],
             ['id' => 46, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.users', 'icon' => 'fa-users', 'uri' => 'admin::user', 'type' => 0],
             ['id' => 47, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.roles', 'icon' => 'fa-user', 'uri' => 'admin::role', 'type' => 0],
             ['id' => 48, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.permission', 'icon' => 'fa-ban', 'uri' => 'admin::permission', 'type' => 0],
             ['id' => 49, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.menu', 'icon' => 'fa-bars', 'uri' => 'admin::menu', 'type' => 0],
             ['id' => 50, 'parent_id' => 38, 'sort' => 0, 'title' => 'lang::admin.menu_titles.operation_log', 'icon' => 'fa-history', 'uri' => 'admin::log', 'type' => 0],
-            ['id' => 51, 'parent_id' => 9, 'sort' => 302, 'title' => 'lang::admin.menu_titles.api_manager', 'icon' => 'fa-plug', 'uri' => '', 'type' => 0],
             ['id' => 52, 'parent_id' => 7, 'sort' => 103, 'title' => 'lang::news.admin.title', 'icon' => 'fa-file-powerpoint-o', 'uri' => 'admin::news', 'type' => 0],
             ['id' => 53, 'parent_id' => 5, 'sort' => 3, 'title' => 'lang::env.title', 'icon' => 'fa-cog', 'uri' => 'admin::env', 'type' => 0],
             ['id' => 54, 'parent_id' => 37, 'sort' => 0, 'title' => 'lang::admin.menu_titles.report_product', 'icon' => 'fa-bars', 'uri' => 'admin::report/product', 'type' => 0],

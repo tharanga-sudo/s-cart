@@ -7,15 +7,18 @@ $suffix = sc_config('SUFFIX_URL')??'';
 $prefixCmsCategory = sc_config('PREFIX_CMS_CATEGORY')??'cms';
 $prefixCmsEntry = sc_config('PREFIX_CMS_ENTRY')??'entry';
 
-Route::group(
-    [
-        'namespace' => 'App\Plugins\Modules\Cms\Content\Controllers',
-    ], function () use($suffix, $prefixCmsCategory, $prefixCmsEntry) {
-        Route::get('/'.$prefixCmsCategory.'/{alias}', 'ContentController@category')
-            ->name('cms.category');
-        Route::get('/'.$prefixCmsEntry.'/{alias}'.$suffix, 'ContentController@content')
-            ->name('cms.content');
-    });
+if(sc_config('Content')) {
+    Route::group(
+        [
+            'namespace' => 'App\Plugins\Modules\Cms\Content\Controllers',
+        ], function () use($suffix, $prefixCmsCategory, $prefixCmsEntry) {
+            Route::get('/'.$prefixCmsCategory.'/{alias}', 'ContentController@category')
+                ->name('cms.category');
+            Route::get('/'.$prefixCmsEntry.'/{alias}'.$suffix, 'ContentController@content')
+                ->name('cms.content');
+        });
+}
+
 
 /**
  * Route admin

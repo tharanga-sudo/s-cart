@@ -48,6 +48,8 @@ class CreateShopTables extends Migration
             $table->string('email', 150)->nullable();
             $table->string('time_active', 200);
             $table->string('address', 300);
+            $table->string('office', 300)->nullable();
+            $table->string('warehouse', 300)->nullable();
             $table->string('template', 100)->nullable();
         });
 
@@ -129,24 +131,6 @@ class CreateShopTables extends Migration
             $table->increments('id');
             $table->integer('fee');
             $table->integer('shipping_free');
-        });
-
-        Schema::create('shop_api', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 20)->unique();
-            $table->string('hidden_default', 255)->nullable();
-            $table->string('type', 50);
-        });
-        Schema::create('shop_api_process', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('api_id');
-            $table->string('secret_key', 100)->unique();
-            $table->string('hidden_fileds', 255)->nullable();
-            $table->string('ip_allow', 300)->nullable();
-            $table->string('ip_deny', 300)->nullable();
-            $table->dateTime('exp')->nullable();
-            $table->tinyInteger('status')->default(0);
-            $table->timestamps();
         });
 
         Schema::create('shop_brand', function (Blueprint $table) {
@@ -856,17 +840,6 @@ class CreateShopTables extends Migration
         ]);
         DB::table('shipping_standard')->insert([
             ['fee' => 20000, 'shipping_free' => 100000],
-        ]);
-
-        DB::table('shop_api')->insert([
-            ['name' => 'api_product_list', 'hidden_default' => '', 'type' => 'secret'],
-            ['name' => 'api_product_detail', 'hidden_default' => 'cost,sold,stock,sort', 'type' => 'private'],
-            ['name' => 'api_order_list', 'hidden_default' => '', 'type' => 'public'],
-            ['name' => 'api_order_detail', 'hidden_default' => '', 'type' => 'secret'],
-        ]);
-        DB::table('shop_api_process')->insert([
-            ['api_id' => '1', 'secret_key' => '!CVCBsd$6j9ds3%flh[^d', 'hidden_fileds' => 'descriptions,cost', 'ip_allow' => '', 'ip_deny' => '127.0.0.11,1233.2.2.3', 'exp' => '2019-12-14 ', 'status' => '1'],
-            ['api_id' => '1', 'secret_key' => '%GSFf13gkLtP@d', 'hidden_fileds' => '', 'ip_allow' => '', 'ip_deny' => '', 'exp' => null, 'status' => '1'],
         ]);
 
         DB::table('shop_product')->insert([

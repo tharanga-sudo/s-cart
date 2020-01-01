@@ -11,6 +11,7 @@ class ShopLanguage extends Model
     protected $guarded                = [];
     private static $getLanguages      = null;
     private static $getArrayLanguages = null;
+    private static $getCodeActive = null;
 
     public static function getList()
     {
@@ -21,6 +22,15 @@ class ShopLanguage extends Model
         }
         return self::$getLanguages;
     }
+
+    public static function getCodeActive()
+    {
+        if (self::$getCodeActive == null) {
+            self::$getCodeActive = self::where('status', 1)->pluck('name', 'code')->all();
+        }
+        return self::$getCodeActive;
+    }
+
     public static function getArray()
     {
         if (self::$getArrayLanguages == null) {

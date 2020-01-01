@@ -8,6 +8,8 @@ return [
     'long_phone' => 'Long phone',
     'time_active' => 'Time active',
     'address' => 'Address',
+    'office' => 'Office',
+    'warehouse' => 'Warehouse',
     'email' => 'Email',
     'language' => 'Language default',
     'timezone' => 'Time zone',

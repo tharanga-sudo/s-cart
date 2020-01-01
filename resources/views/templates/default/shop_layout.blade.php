@@ -1,4 +1,4 @@
-@if (sc_config('SITE_STATUS') != 'on')
+@if (sc_config('SITE_STATUS') == 'off')
   @include($templatePath . '.maintenance')
   @php
     exit();

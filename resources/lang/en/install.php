@@ -15,6 +15,7 @@ return [
         'error_open' => 'Cant not open file .env.example',
         'process_sucess' => 'Generate file .env success!',
         'error' => 'Error while generating file .env',
+        'nofound' => 'File .env.expample no found!',
     ],
     'key' => [
         'process' => 'Generating API key',
@@ -23,7 +24,11 @@ return [
     ],
     'database' => [
         'process' => 'Initializing database',
+        'process_1' => 'Initializing table admin',
+        'process_2' => 'Initializing table shopping',
         'process_sucess' => 'Successful initialization!',
+        'process_sucess_1' => 'Insert table admin success!',
+        'process_sucess_2' => 'Insert table shopping success!',
         'file_notfound' => 'Cant not found file .sql',
         'error' => 'Error while initializing database',
     ],

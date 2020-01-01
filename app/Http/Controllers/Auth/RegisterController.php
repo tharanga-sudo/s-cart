@@ -105,10 +105,13 @@ class RegisterController extends GeneralController
             'address2' => $data['reg_address2']??'',
             'country' => $data['reg_country']??'VN',
             'group' => $data['reg_group']??1,
-            'birthday' => $data['reg_birthday']??'0000-00-00',
             'sex' => $data['reg_sex']??0,
             'postcode' => $data['reg_postcode']??null,
         ];
+        if(!empty($data['reg_birthday'])) {
+            $dataMap['birthday'] = $data['reg_birthday'];
+        }
+
         $user = ShopUser::createCustomer($dataMap);
         if ($user) {
             if (sc_config('welcome_customer')) {

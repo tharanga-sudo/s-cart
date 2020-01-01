@@ -41,7 +41,7 @@ List product single
  * @param  string  $orderBy field
  * @param  string  $sort    asc|desc
  */
-    public static function getTopSigle($limit = 8, $orderBy = 'id', $sort = 'desc')
+    public static function getTopSingle($limit = 8, $orderBy = 'id', $sort = 'desc')
     {
         return self::where('kind', SC_PRODUCT_SINGLE)->orderBy($orderBy, $sort)
             ->limit($limit)->get()->keyBy('id')->toArray();

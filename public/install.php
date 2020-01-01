@@ -27,6 +27,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
             $database_user     = request('database_user') ?? '';
             $database_password = request('database_password') ?? '';
             $admin_url         = request('admin_url') ?? '';
+            
         try {
             $api_key = 'base64:' . base64_encode(
                 Encrypter::generateKey(config('app.cipher'))
@@ -54,26 +55,52 @@ if (request()->method() == 'POST' && request()->ajax()) {
             echo json_encode(['error' => 0, 'msg' => trans('install.env.process_sucess')]);
             break;
 
-    case 'step2':
-        Artisan::call('migrate --force');
+    case 'step2-1':
         try {
-            \Illuminate\Support\Facades\DB::connection()->getPdo();
-        } catch (\Exception $e) {
-            echo json_encode(['error' => 1, 'msg' => $e->getMessage()]);
+            Artisan::call('migrate --path=/database/migrations/2020_00_00_step1_create_admin_tables.php');
+        } catch(\Exception $e) {
+            echo json_encode([
+                'error' => '1',
+                'msg' => $e->getMessage(),
+            ]);
             break;
         }
-
-        echo json_encode(['error' => 0, 'msg' => trans('install.database.process_sucess')]);
+        echo json_encode([
+            'error' => '0',
+            'msg' => trans('install.database.process_sucess_1'),
+        ]);
         break;
+
+        case 'step2-2':
+            try {
+                Artisan::call('migrate --path=/database/migrations/2020_00_00_step2_create_shop_tables.php');
+            } catch(\Exception $e) {
+                echo json_encode([
+                    'error' => '1',
+                    'msg' => $e->getMessage(),
+                ]);
+                break;
+            }
+            echo json_encode([
+                'error' => '0',
+                'msg' => trans('install.database.process_sucess_2'),
+            ]);
+            break;
 
     case 'step3':
         try {
             rename(base_path() . '/public/install.php', base_path() . '/public/install.scart');
         } catch (\Exception $e) {
-            echo json_encode(['error' => 1, 'msg' => trans('install.rename_error')]);
-            exit();
+            echo json_encode([
+                'error' => '1',
+                'msg' => trans('install.rename_error'),
+            ]);
+            break;
         }
-        echo json_encode(['error' => 0]);
+        echo json_encode([
+            'error' => '0',
+            'msg' => '',
+        ]);
         break;
 
     default:

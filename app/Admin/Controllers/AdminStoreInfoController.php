@@ -13,7 +13,7 @@ class AdminStoreInfoController extends Controller
 
     public function index()
     {
-        $languages = ShopLanguage::getArray();
+        $languages = ShopLanguage::getCodeActive();
         $data = [
             'title' => trans('store_info.admin.list'),
             'sub_title' => '',

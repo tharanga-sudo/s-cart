@@ -145,9 +145,6 @@ $('#submit-install').click(function(event) {
     if($("#formInstall").valid()){
         $(this).button('loading');
         $('.progress').show();
-        $('#msg').removeClass('error');
-        $('#msg').removeClass('success');
-            $('#msg').html('{{ trans('install.env.process') }}');
             $.ajax({
                 url: 'install.php{{ $path_lang }}',
                 type: 'POST',
@@ -176,8 +173,8 @@ $('#submit-install').click(function(event) {
                     $('#msg').html(data.msg);
                     $('.progress-bar').css("width","25%");
                     $('.progress-bar').html("25%");
-                    setTimeout(installDatabase, 1000);
-                }else{
+                    setTimeout(installDatabaseStep1, 1000);
+                } else {
                     $('#msg').removeClass('success');
                     $('#msg').addClass('error');
                     $('#msg').html(data.msg);
@@ -192,22 +189,18 @@ $('#submit-install').click(function(event) {
     }
 });
 
-function installDatabase(){
-    $('#msg').removeClass('error');
-    $('#msg').removeClass('success');
-    $('#msg').html('{{ trans('install.database.process') }}');
+function installDatabaseStep1(){
     $.ajax({
         url: 'install.php{{ $path_lang }}',
         type: 'POST',
         dataType: 'json',
-        data: {step: 'step2'},
+        data: {step: 'step2-1'},
     })
     .done(function(data) {
 
-        $('#msg').removeClass('success');
-        $('#msg').removeClass('error');
          error= parseInt(data.error);
         if(error != 1 && error !=0){
+            $('#msg').removeClass('success');
             $('#msg').addClass('error');
             $('#msg').html(data);
         }
@@ -215,10 +208,11 @@ function installDatabase(){
         {
             $('#msg').addClass('success');
             $('#msg').html(data.msg);
-            $('.progress-bar').css("width","75%");
-            $('.progress-bar').html("75%");
-            setTimeout(completeInstall, 2000);
+            $('.progress-bar').css("width","45%");
+            $('.progress-bar').html("45%");
+            setTimeout(installDatabaseStep2, 1000);
         }else{
+            $('#msg').removeClass('success');
             $('#msg').addClass('error');
             $('#msg').html(data.msg);
         }
@@ -231,10 +225,42 @@ function installDatabase(){
     })
 }
 
-function completeInstall(){
-    $('#msg').removeClass('error');
-    $('#msg').removeClass('success');
-    $('#msg').html('{{ trans('install.complete.process') }}');
+function installDatabaseStep2(){
+    $.ajax({
+        url: 'install.php{{ $path_lang }}',
+        type: 'POST',
+        dataType: 'json',
+        data: {step: 'step2-2'},
+    })
+    .done(function(data) {
+         error= parseInt(data.error);
+        if(error != 1 && error !=0){
+            $('#msg').removeClass('success');
+            $('#msg').addClass('error');
+            $('#msg').html(data);
+        }
+        else if(error === 0)
+        {
+            $('#msg').addClass('success');
+            $('#msg').html(data.msg);
+            $('.progress-bar').css("width","75%");
+            $('.progress-bar').html("75%");
+            setTimeout(completeInstall, 1000);
+        }else{
+            $('#msg').removeClass('success');
+            $('#msg').addClass('error');
+            $('#msg').html(data.msg);
+        }
+
+    })
+    .fail(function() {
+        $('#msg').removeClass('success');
+        $('#msg').addClass('error');
+        $('#msg').html('{{ trans('install.database.error') }}');
+    })
+}
+
+function completeInstall() {
     $.ajax({
         url: 'install.php{{ $path_lang }}',
         type: 'POST',
@@ -242,9 +268,6 @@ function completeInstall(){
         data: {step: 'step3'},
     })
     .done(function(data) {
-
-        $('#msg').removeClass('success');
-        $('#msg').removeClass('error');
          error= parseInt(data.error);
         if(error != 1 && error !=0){
             $('#msg').addClass('error');
@@ -257,7 +280,7 @@ function completeInstall(){
             $('.progress-bar').css("width","100%");
             $('.progress-bar').html("100%");
             $('#msg').html('{{ trans('install.complete.process_success') }}');
-            setTimeout(function(){ window.location.replace($('#admin_url').val()); }, 2000);
+            setTimeout(function(){ window.location.replace($('#admin_url').val()); }, 1000);
         }else{
             $('#msg').addClass('error');
             $('#msg').html(data.msg);
