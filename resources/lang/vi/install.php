@@ -14,6 +14,7 @@ return [
         'error_open' => 'Không thể mở file .env.example',
         'process_sucess' => 'Tạo file .env thành công!',
         'error' => 'Lỗi trong khi tạo file .env',
+        'nofound' => 'Không tìm thấy file .env.expample!',
     ],
     'key' => [
         'process' => 'Đang tạo API key',
@@ -22,7 +23,11 @@ return [
     ],
     'database' => [
         'process' => 'Cài đặt dữ liệu',
+        'process_1' => 'Cài đặt table admin',
+        'process_2' => 'Cài đặt table shopping',
         'process_sucess' => 'Cài đặt dữ liệu thành công!',
+        'process_sucess_1' => 'Hoàn thành cài đặt table admin!',
+        'process_sucess_2' => 'Hoàn thành cài đặt table shopping!',
         'error' => 'Lỗi trong khi cài đặt dữ liệu',
     ],
     'permission' => [
