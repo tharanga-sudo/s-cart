@@ -34,6 +34,9 @@ Support this project :stuck_out_tongue_winking_eye: :pray:
 - CMS content: category, news, content, web page
 - Module/Extension: Shipping, payment, discount, ...
 - Upload manager: banner, images,..
+- SEO support: customer URL
+- API module
+- Specify fields use for customer, product, order
 ...
 
 ======= ADMIN =======
@@ -56,7 +59,7 @@ Support this project :stuck_out_tongue_winking_eye: :pray:
 
 ## Requirements:
 
-Version 3.2, 3.3:
+Version 3.2, 3.3, 3.4:
 
 > Core laravel framework 6.x Requirements::
 
