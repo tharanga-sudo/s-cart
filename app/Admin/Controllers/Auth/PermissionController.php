@@ -19,9 +19,10 @@ class PermissionController extends Controller
         $routes = app()->routes->getRoutes();
         foreach ($routes as $value) {
             if (\Illuminate\Support\Str::startsWith($value->getPrefix(), config('app.admin_prefix'))) {
-                $routeAdmin[$value->getPrefix()] = [
-                    'uri' => 'ANY::' . $value->getPrefix() . '/*',
-                    'name' => $value->getPrefix() . '/*',
+                $prefix = config('app.admin_prefix')?$value->getPrefix():ltrim($value->getPrefix(),'/');
+                $routeAdmin[$prefix] = [
+                    'uri' => 'ANY::' . $prefix . '/*',
+                    'name' => $prefix . '/*',
                     'method' => 'ANY',
                 ];
                 foreach ($value->methods as $key => $method) {
@@ -308,13 +309,14 @@ Need mothod destroy to boot deleting in model
 
     public function without()
     {
+        $prefix = config('app.admin_prefix')?config('app.admin_prefix').'/':'';
         return [
-            config('app.admin_prefix') . '/login',
-            config('app.admin_prefix') . '/logout',
-            config('app.admin_prefix') . '/forgot',
-            config('app.admin_prefix') . '/deny',
-            config('app.admin_prefix') . '/locale',
-            config('app.admin_prefix') . '/uploads',
+            $prefix . 'login',
+            $prefix . 'logout',
+            $prefix . 'forgot',
+            $prefix . 'deny',
+            $prefix . 'locale',
+            $prefix . 'uploads',
         ];
     }
 
