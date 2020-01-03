@@ -285,7 +285,7 @@ class PermissionController extends Controller
             'slug' => $data['slug'],
             'http_uri' => implode(',', ($data['http_uri'] ?? [])),
         ];
-        AdminPermission::updateInfo($dataUpdate, $id);
+        $permission->update($dataUpdate);
 //
         return redirect()->route('admin_permission.index')->with('success', trans('permission.admin.edit_success'));
 
