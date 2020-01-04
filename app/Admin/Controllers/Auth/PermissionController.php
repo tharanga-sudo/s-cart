@@ -31,7 +31,7 @@ class PermissionController extends Controller
                     })) {
                         $routeAdmin[] = [
                             'uri' => $method . '::' . $value->uri,
-                            'name' => $value->getName(),
+                            'name' => $value->uri,
                             'method' => $method,
                         ];
                     }
