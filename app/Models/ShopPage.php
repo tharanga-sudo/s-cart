@@ -57,7 +57,7 @@ Get image
 
     public function getUrl()
     {
-        return route('pages', ['name' => $this->key]);
+        return route('pages', ['alias' => $this->alias]);
     }
 
 //Attributes
