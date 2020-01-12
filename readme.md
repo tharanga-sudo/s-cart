@@ -84,9 +84,9 @@ Step1: Install last version S-cart
 composer create-project lanhktc/s-cart
 ```
 Step2: Set writable permissions for the following directories: 
-- Chmod -R 777 <code>storage</code>
-- Chmod -R 777 <code>vendor</code>
-- Chmod -R 777 <code>public/data</code>
+- Chmod -R 775 <code>storage</code>
+- Chmod -R 775 <code>vendor</code>
+- Chmod -R 775 <code>public/data</code>
 
 Step3:
 ```
