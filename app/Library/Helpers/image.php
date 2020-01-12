@@ -111,7 +111,7 @@ function sc_image_get_path($path, $urlDefault = null)
 {
     $image = $urlDefault ?? sc_config('no_image', 'images/no-image.jpg');
     if ($path) {
-        if (file_exists(public_path($path)) || filter_var($path, FILTER_VALIDATE_URL)) {
+        if (file_exists(public_path($path)) || filter_var(str_replace(' ','%20', $path), FILTER_VALIDATE_URL)) {
             $image = $path;
         } else {
             $image = $image;

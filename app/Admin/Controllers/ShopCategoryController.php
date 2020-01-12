@@ -208,6 +208,7 @@ class ShopCategoryController extends Controller
 
         $validator = Validator::make($data, [
             'image' => 'required',
+            'parent' => 'required',
             'sort' => 'numeric|min:0',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_category,alias|string|max:100',
             'descriptions.*.name' => 'required|string|max:100',
@@ -286,6 +287,7 @@ class ShopCategoryController extends Controller
 
         $validator = Validator::make($data, [
             'image' => 'required',
+            'parent' => 'required',
             'sort' => 'numeric|min:0',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_category,alias,' . $category->id . ',id|string|max:100',
             'descriptions.*.name' => 'required|string|max:100',

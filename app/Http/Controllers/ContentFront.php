@@ -115,6 +115,7 @@ class ContentFront extends GeneralController
                     'description' => '',
                     'keyword' => '',
                     'page' => $page,
+                    'og_image' => $page->image,
                 )
             );
         } else {
