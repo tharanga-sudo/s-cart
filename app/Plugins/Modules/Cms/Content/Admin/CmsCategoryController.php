@@ -209,7 +209,9 @@ class CmsCategoryController extends Controller
         $validator = Validator::make($data, [
             'sort' => 'numeric|min:0',
             'parent' => 'required',
-            'descriptions.*.title' => 'required|string|max:100',
+            'descriptions.*.title' => 'required|string|max:200',
+            'descriptions.*.keyword' => 'nullable|string|max:200',
+            'descriptions.*.description' => 'nullable|string|max:300',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_category,alias|string|max:100',
         ], [
             'alias.regex' => trans($this->plugin->pathPlugin.'::Category.alias_validate'),
@@ -289,7 +291,9 @@ class CmsCategoryController extends Controller
         $validator = Validator::make($data, [
             'sort' => 'numeric|min:0',
             'parent' => 'required',
-            'descriptions.*.title' => 'required|string|max:100',
+            'descriptions.*.title' => 'required|string|max:200',
+            'descriptions.*.keyword' => 'nullable|string|max:200',
+            'descriptions.*.description' => 'nullable|string|max:300',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_category,alias,' . $category->id . ',id|string|max:100',
         ], [
             'alias.regex' => trans($this->plugin->pathPlugin.'::Category.alias_validate'),

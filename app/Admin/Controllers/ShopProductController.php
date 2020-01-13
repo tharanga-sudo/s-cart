@@ -338,6 +338,8 @@ class ShopProductController extends Controller
                     'kind' => 'required',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
+                    'descriptions.*.keyword' => 'nullable|string|max:100',
+                    'descriptions.*.description' => 'nullable|string|max:100',
                     'descriptions.*.content' => 'required|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
@@ -357,6 +359,8 @@ class ShopProductController extends Controller
                     'kind' => 'required',
                     'sort' => 'numeric|min:0',
                     'descriptions.*.name' => 'required|string|max:100',
+                    'descriptions.*.keyword' => 'nullable|string|max:100',
+                    'descriptions.*.description' => 'nullable|string|max:100',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
@@ -379,7 +383,9 @@ class ShopProductController extends Controller
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias|string|max:100',
                     'sort' => 'numeric|min:0',
-                    'descriptions.*.name' => 'required|string|max:100',
+                    'descriptions.*.name' => 'required|string|max:200',
+                    'descriptions.*.keyword' => 'nullable|string|max:200',
+                    'descriptions.*.description' => 'nullable|string|max:300',
                 ];
                 $arrMsg = [
                     'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('product.name')]),
@@ -588,7 +594,9 @@ class ShopProductController extends Controller
             case SC_PRODUCT_SINGLE: // product single
                 $arrValidation = [
                     'sort' => 'numeric|min:0',
-                    'descriptions.*.name' => 'required|string|max:100',
+                    'descriptions.*.name' => 'required|string|max:200',
+                    'descriptions.*.keyword' => 'nullable|string|max:200',
+                    'descriptions.*.description' => 'nullable|string|max:300',
                     'descriptions.*.content' => 'required|string',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
@@ -605,7 +613,9 @@ class ShopProductController extends Controller
             case SC_PRODUCT_BUILD: //product build
                 $arrValidation = [
                     'sort' => 'numeric|min:0',
-                    'descriptions.*.name' => 'required|string|max:100',
+                    'descriptions.*.name' => 'required|string|max:200',
+                    'descriptions.*.keyword' => 'nullable|string|max:200',
+                    'descriptions.*.description' => 'nullable|string|max:300',
                     'category' => 'required',
                     'sku' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,sku,' . $product->id . ',id',
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
@@ -626,7 +636,9 @@ class ShopProductController extends Controller
                     'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_product,alias,' . $product->id . ',id|string|max:100',
                     'productInGroup' => 'required',
                     'sort' => 'numeric|min:0',
-                    'descriptions.*.name' => 'required|string|max:100',
+                    'descriptions.*.name' => 'required|string|max:200',
+                    'descriptions.*.keyword' => 'nullable|string|max:200',
+                    'descriptions.*.description' => 'nullable|string|max:300',
                 ];
                 $arrMsg = [
                     'sku.regex' => trans('product.sku_validate'),

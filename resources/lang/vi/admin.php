@@ -362,4 +362,8 @@ return [
         'cms_news' => 'Blog/Tin tức',
         'empty' => 'Chưa có module!',
     ],
+    'max_c' => 'Tối đa :max kí tự',
+    'min_c' => 'Tối thiểu :min kí tự',
+    'min_v' => 'Lớn hơn :value',
+    'max_v' => 'Nhỏ hơn :value',
 ];

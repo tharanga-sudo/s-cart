@@ -213,7 +213,9 @@ class CmsContentController extends Controller
         $validator = Validator::make($data, [
             'sort' => 'numeric|min:0',
             'category_id' => 'required',
-            'descriptions.*.title' => 'required|string|max:100',
+            'descriptions.*.title' => 'required|string|max:200',
+            'descriptions.*.keyword' => 'nullable|string|max:200',
+            'descriptions.*.description' => 'nullable|string|max:300',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_content,alias|string|max:100',
         ], [
             'descriptions.*.title.required' => trans('validation.required', 
@@ -295,7 +297,9 @@ class CmsContentController extends Controller
             'category_id' => 'required',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:cms_content,alias,' . $content->id . ',id|string|max:100',
             'sort' => 'numeric|min:0',
-            'descriptions.*.title' => 'required|string|max:100',
+            'descriptions.*.title' => 'required|string|max:200',
+            'descriptions.*.keyword' => 'nullable|string|max:200',
+            'descriptions.*.description' => 'nullable|string|max:300',
         ], [
             'alias.regex' => trans($this->plugin->pathPlugin.'::Content.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans($this->plugin->pathPlugin.'::Content.title')]),

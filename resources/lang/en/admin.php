@@ -357,4 +357,8 @@ return [
             'cms_news' => 'Blog/News',
             'empty' => 'Empty module!',
       ],
+      'max_c' => 'Maximum :max characters',
+      'min_c' => 'Minimum :min characters',
+      'min_v' => 'Greater than :value',
+      'max_v' => 'Less than :value',
 ];

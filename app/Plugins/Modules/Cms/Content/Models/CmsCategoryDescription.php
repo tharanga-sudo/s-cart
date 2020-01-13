@@ -33,7 +33,7 @@ class CmsCategoryDescription extends Model
                     $table->string('lang', 10);
                     $table->string('title', 200)->nullable();
                     $table->string('keyword', 200)->nullable();
-                    $table->string('description', 200)->nullable();
+                    $table->string('description', 300)->nullable();
                     $table->primary(['category_id', 'lang']);
                 });
             } catch (\Exception $e) {
