@@ -211,7 +211,9 @@ class ShopCategoryController extends Controller
             'parent' => 'required',
             'sort' => 'numeric|min:0',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_category,alias|string|max:100',
-            'descriptions.*.name' => 'required|string|max:100',
+            'descriptions.*.name' => 'required|string|max:200',
+            'descriptions.*.keyword' => 'nullable|string|max:200',
+            'descriptions.*.description' => 'nullable|string|max:300',
         ], [
             'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('category.name')]),
             'alias.regex' => trans('category.alias_validate'),
@@ -290,7 +292,9 @@ class ShopCategoryController extends Controller
             'parent' => 'required',
             'sort' => 'numeric|min:0',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_category,alias,' . $category->id . ',id|string|max:100',
-            'descriptions.*.name' => 'required|string|max:100',
+            'descriptions.*.name' => 'required|string|max:200',
+            'descriptions.*.keyword' => 'nullable|string|max:200',
+            'descriptions.*.description' => 'nullable|string|max:300',
         ], [
             'descriptions.*.name.required' => trans('validation.required', ['attribute' => trans('category.name')]),
             'alias.regex' => trans('category.alias_validate'),

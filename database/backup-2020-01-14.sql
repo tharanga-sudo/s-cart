@@ -164,7 +164,7 @@ CREATE TABLE `admin_permission` (
 
 LOCK TABLES `admin_permission` WRITE;
 /*!40000 ALTER TABLE `admin_permission` DISABLE KEYS */;
-INSERT INTO `admin_permission` VALUES (1,'Admin manager','admin.manager','GET::sc_admin/user,GET::sc_admin/role,GET::sc_admin/permission,ANY::sc_admin/log/*,ANY::sc_admin/menu/*','2020-01-01 04:12:51',NULL),(2,'Dashboard','dashboard','GET::sc_admin','2020-01-01 04:12:51',NULL),(3,'Auth manager','auth.full','ANY::sc_admin/auth/*','2020-01-01 04:12:51',NULL),(4,'Setting manager','setting.full','ANY::sc_admin/store_info/*,ANY::sc_admin/store_value/*,ANY::sc_admin/url_config/*,ANY::sc_admin/product_config/*, ANY::sc_admin/customer_config/*, ANY::sc_admin/env/*,ANY::sc_admin/email/*,ANY::sc_admin/email_template/*,ANY::sc_admin/language/*,ANY::sc_admin/currency/*,ANY::sc_admin/backup/*','2020-01-01 04:12:51',NULL),(5,'Upload management','upload.full','ANY::sc_admin/uploads/*','2020-01-01 04:12:51',NULL),(6,'Module manager','module.full','ANY::sc_admin/module/*','2020-01-01 04:12:51',NULL),(7,'Extension manager','extension.full','ANY::sc_admin/extension/*','2020-01-01 04:12:51',NULL),(8,'CMS manager','cms.full','ANY::sc_admin/page/*,ANY::sc_admin/banner/*,ANY::sc_admin/cms_category/*,ANY::sc_admin/cms_content/*,ANY::sc_admin/news/*','2020-01-01 04:12:51',NULL),(11,'Discount manager','discount.full','ANY::sc_admin/shop_discount/*','2020-01-01 04:12:51',NULL),(14,'Shipping status','shipping_status.full','ANY::sc_admin/shipping_status/*','2020-01-01 04:12:51',NULL),(15,'Payment  status','payment_status.full','ANY::sc_admin/payment_status/*','2020-01-01 04:12:51',NULL),(17,'Customer manager','customer.full','ANY::sc_admin/customer/*,ANY::sc_admin/subscribe/*','2020-01-01 04:12:51',NULL),(18,'Order status','order_status.full','ANY::sc_admin/order_status/*','2020-01-01 04:12:51',NULL),(19,'Product manager','product.full','ANY::sc_admin/category/*,ANY::sc_admin/vendor/*,ANY::sc_admin/brand/*,ANY::sc_admin/attribute_group/*,ANY::sc_admin/product/*','2020-01-01 04:12:51',NULL),(20,'Order Manager','order.full','ANY::sc_admin/order/*','2020-01-01 04:12:51',NULL),(21,'Report manager','report.full','ANY::sc_admin/report/*','2020-01-01 04:12:51',NULL),(22,'Template manager','template.full','ANY::sc_admin/block_content/*,ANY::sc_admin/link/*,ANY::sc_admin/template/*','2020-01-01 04:12:51',NULL);
+INSERT INTO `admin_permission` VALUES (1,'Admin manager','admin.manager','GET::sc_admin/user,GET::sc_admin/role,GET::sc_admin/permission,ANY::sc_admin/log/*,ANY::sc_admin/menu/*','2020-01-14 14:07:01',NULL),(2,'Dashboard','dashboard','GET::sc_admin','2020-01-14 14:07:01',NULL),(3,'Auth manager','auth.full','ANY::sc_admin/auth/*','2020-01-14 14:07:01',NULL),(4,'Setting manager','setting.full','ANY::sc_admin/store_info/*,ANY::sc_admin/store_value/*,ANY::sc_admin/url_config/*,ANY::sc_admin/product_config/*, ANY::sc_admin/customer_config/*, ANY::sc_admin/env/*,ANY::sc_admin/email/*,ANY::sc_admin/email_template/*,ANY::sc_admin/language/*,ANY::sc_admin/currency/*,ANY::sc_admin/backup/*','2020-01-14 14:07:01',NULL),(5,'Upload management','upload.full','ANY::sc_admin/uploads/*','2020-01-14 14:07:01',NULL),(6,'Module manager','module.full','ANY::sc_admin/module/*','2020-01-14 14:07:01',NULL),(7,'Extension manager','extension.full','ANY::sc_admin/extension/*','2020-01-14 14:07:01',NULL),(8,'CMS manager','cms.full','ANY::sc_admin/page/*,ANY::sc_admin/banner/*,ANY::sc_admin/cms_category/*,ANY::sc_admin/cms_content/*,ANY::sc_admin/news/*','2020-01-14 14:07:01',NULL),(11,'Discount manager','discount.full','ANY::sc_admin/shop_discount/*','2020-01-14 14:07:01',NULL),(14,'Shipping status','shipping_status.full','ANY::sc_admin/shipping_status/*','2020-01-14 14:07:01',NULL),(15,'Payment  status','payment_status.full','ANY::sc_admin/payment_status/*','2020-01-14 14:07:01',NULL),(17,'Customer manager','customer.full','ANY::sc_admin/customer/*,ANY::sc_admin/subscribe/*','2020-01-14 14:07:01',NULL),(18,'Order status','order_status.full','ANY::sc_admin/order_status/*','2020-01-14 14:07:01',NULL),(19,'Product manager','product.full','ANY::sc_admin/category/*,ANY::sc_admin/vendor/*,ANY::sc_admin/brand/*,ANY::sc_admin/attribute_group/*,ANY::sc_admin/product/*','2020-01-14 14:07:01',NULL),(20,'Order Manager','order.full','ANY::sc_admin/order/*','2020-01-14 14:07:01',NULL),(21,'Report manager','report.full','ANY::sc_admin/report/*','2020-01-14 14:07:01',NULL),(22,'Template manager','template.full','ANY::sc_admin/block_content/*,ANY::sc_admin/link/*,ANY::sc_admin/template/*','2020-01-14 14:07:01',NULL);
 /*!40000 ALTER TABLE `admin_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +193,7 @@ CREATE TABLE `admin_role` (
 
 LOCK TABLES `admin_role` WRITE;
 /*!40000 ALTER TABLE `admin_role` DISABLE KEYS */;
-INSERT INTO `admin_role` VALUES (1,'Administrator','administrator','2020-01-01 04:12:51',NULL),(2,'Group only View','view.all','2020-01-01 04:12:51',NULL),(3,'Manager','manager','2020-01-01 04:12:51',NULL),(4,'Cms manager','cms','2020-01-01 04:12:51',NULL),(5,'Accountant','accountant','2020-01-01 04:12:51',NULL),(6,'Marketing','maketing','2020-01-01 04:12:51',NULL);
+INSERT INTO `admin_role` VALUES (1,'Administrator','administrator','2020-01-14 14:07:01',NULL),(2,'Group only View','view.all','2020-01-14 14:07:01',NULL),(3,'Manager','manager','2020-01-14 14:07:01',NULL),(4,'Cms manager','cms','2020-01-14 14:07:01',NULL),(5,'Accountant','accountant','2020-01-14 14:07:01',NULL),(6,'Marketing','maketing','2020-01-14 14:07:01',NULL);
 /*!40000 ALTER TABLE `admin_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +220,7 @@ CREATE TABLE `admin_role_menu` (
 
 LOCK TABLES `admin_role_menu` WRITE;
 /*!40000 ALTER TABLE `admin_role_menu` DISABLE KEYS */;
-INSERT INTO `admin_role_menu` VALUES (1,38,'2020-01-01 04:12:51',NULL),(2,38,'2020-01-01 04:12:51',NULL),(3,38,'2020-01-01 04:12:51',NULL);
+INSERT INTO `admin_role_menu` VALUES (1,38,'2020-01-14 14:07:01',NULL),(2,38,'2020-01-14 14:07:01',NULL),(3,38,'2020-01-14 14:07:01',NULL);
 /*!40000 ALTER TABLE `admin_role_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +247,7 @@ CREATE TABLE `admin_role_permission` (
 
 LOCK TABLES `admin_role_permission` WRITE;
 /*!40000 ALTER TABLE `admin_role_permission` DISABLE KEYS */;
-INSERT INTO `admin_role_permission` VALUES (3,1,'2020-01-01 04:12:51',NULL),(3,2,'2020-01-01 04:12:51',NULL),(3,3,'2020-01-01 04:12:51',NULL),(3,4,'2020-01-01 04:12:51',NULL),(3,5,'2020-01-01 04:12:51',NULL),(3,8,'2020-01-01 04:12:51',NULL),(3,11,'2020-01-01 04:12:51',NULL),(3,14,'2020-01-01 04:12:51',NULL),(3,15,'2020-01-01 04:12:51',NULL),(3,17,'2020-01-01 04:12:51',NULL),(3,18,'2020-01-01 04:12:51',NULL),(3,19,'2020-01-01 04:12:51',NULL),(3,20,'2020-01-01 04:12:51',NULL),(3,21,'2020-01-01 04:12:51',NULL),(3,22,'2020-01-01 04:12:51',NULL),(4,3,'2020-01-01 04:12:51',NULL),(4,5,'2020-01-01 04:12:51',NULL),(4,8,'2020-01-01 04:12:51',NULL),(5,2,'2020-01-01 04:12:51',NULL),(5,3,'2020-01-01 04:12:51',NULL),(5,20,'2020-01-01 04:12:51',NULL),(5,21,'2020-01-01 04:12:51',NULL),(6,2,'2020-01-01 04:12:51',NULL),(6,3,'2020-01-01 04:12:51',NULL),(6,5,'2020-01-01 04:12:51',NULL),(6,8,'2020-01-01 04:12:51',NULL),(6,11,'2020-01-01 04:12:51',NULL),(6,14,'2020-01-01 04:12:51',NULL),(6,15,'2020-01-01 04:12:51',NULL),(6,17,'2020-01-01 04:12:51',NULL),(6,18,'2020-01-01 04:12:51',NULL),(6,19,'2020-01-01 04:12:51',NULL),(6,20,'2020-01-01 04:12:51',NULL),(6,21,'2020-01-01 04:12:51',NULL);
+INSERT INTO `admin_role_permission` VALUES (3,1,'2020-01-14 14:07:01',NULL),(3,2,'2020-01-14 14:07:01',NULL),(3,3,'2020-01-14 14:07:01',NULL),(3,4,'2020-01-14 14:07:01',NULL),(3,5,'2020-01-14 14:07:01',NULL),(3,8,'2020-01-14 14:07:01',NULL),(3,11,'2020-01-14 14:07:01',NULL),(3,14,'2020-01-14 14:07:01',NULL),(3,15,'2020-01-14 14:07:01',NULL),(3,17,'2020-01-14 14:07:01',NULL),(3,18,'2020-01-14 14:07:01',NULL),(3,19,'2020-01-14 14:07:01',NULL),(3,20,'2020-01-14 14:07:01',NULL),(3,21,'2020-01-14 14:07:01',NULL),(3,22,'2020-01-14 14:07:01',NULL),(4,3,'2020-01-14 14:07:01',NULL),(4,5,'2020-01-14 14:07:01',NULL),(4,8,'2020-01-14 14:07:01',NULL),(5,2,'2020-01-14 14:07:01',NULL),(5,3,'2020-01-14 14:07:01',NULL),(5,20,'2020-01-14 14:07:01',NULL),(5,21,'2020-01-14 14:07:01',NULL),(6,2,'2020-01-14 14:07:01',NULL),(6,3,'2020-01-14 14:07:01',NULL),(6,5,'2020-01-14 14:07:01',NULL),(6,8,'2020-01-14 14:07:01',NULL),(6,11,'2020-01-14 14:07:01',NULL),(6,14,'2020-01-14 14:07:01',NULL),(6,15,'2020-01-14 14:07:01',NULL),(6,17,'2020-01-14 14:07:01',NULL),(6,18,'2020-01-14 14:07:01',NULL),(6,19,'2020-01-14 14:07:01',NULL),(6,20,'2020-01-14 14:07:01',NULL),(6,21,'2020-01-14 14:07:01',NULL);
 /*!40000 ALTER TABLE `admin_role_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,9 +320,9 @@ DROP TABLE IF EXISTS `admin_store_description`;
 CREATE TABLE `admin_store_description` (
   `config_id` int(11) NOT NULL,
   `lang` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `keyword` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keyword` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `maintain_content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`config_id`,`lang`),
   KEY `admin_store_description_lang_index` (`lang`)
@@ -366,7 +366,7 @@ CREATE TABLE `admin_user` (
 
 LOCK TABLES `admin_user` WRITE;
 /*!40000 ALTER TABLE `admin_user` DISABLE KEYS */;
-INSERT INTO `admin_user` VALUES (1,'admin','$2y$10$JcmAHe5eUZ2rS0jU1GWr/.xhwCnh2RU13qwjTPcqfmtZXjZxcryPO','Administrator','/admin/avatar/user.jpg',NULL,'2020-01-01 04:12:51',NULL);
+INSERT INTO `admin_user` VALUES (1,'admin','$2y$10$JcmAHe5eUZ2rS0jU1GWr/.xhwCnh2RU13qwjTPcqfmtZXjZxcryPO','Administrator','/admin/avatar/user.jpg',NULL,'2020-01-14 14:07:01',NULL);
 /*!40000 ALTER TABLE `admin_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -630,9 +630,9 @@ DROP TABLE IF EXISTS `shop_category_description`;
 CREATE TABLE `shop_category_description` (
   `category_id` int(11) NOT NULL,
   `lang` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `keyword` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keyword` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`category_id`,`lang`),
   KEY `shop_category_description_lang_index` (`lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -968,7 +968,7 @@ CREATE TABLE `shop_news_description` (
   `lang` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `keyword` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`shop_news_id`,`lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1032,7 +1032,7 @@ CREATE TABLE `shop_order` (
 
 LOCK TABLES `shop_order` WRITE;
 /*!40000 ALTER TABLE `shop_order` DISABLE KEYS */;
-INSERT INTO `shop_order` VALUES (1,1,5000,2000,0,1,1,1,0,7000,'USD',1.00,0,7000,'Naruto','Kun','ADDRESS 1','ADDRESS 2','VN',NULL,NULL,'667151172','test@test.com','ok','Cash','ShippingStandard',NULL,NULL,NULL,'2020-01-01 04:12:57',NULL);
+INSERT INTO `shop_order` VALUES (1,1,5000,2000,0,1,1,1,0,7000,'USD',1.00,0,7000,'Naruto','Kun','ADDRESS 1','ADDRESS 2','VN',NULL,NULL,'667151172','test@test.com','ok','Cash','ShippingStandard',NULL,NULL,NULL,'2020-01-14 14:07:07',NULL);
 /*!40000 ALTER TABLE `shop_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1096,7 +1096,7 @@ CREATE TABLE `shop_order_history` (
 
 LOCK TABLES `shop_order_history` WRITE;
 /*!40000 ALTER TABLE `shop_order_history` DISABLE KEYS */;
-INSERT INTO `shop_order_history` VALUES (1,1,'New order',0,1,1,'2020-01-01 11:12:58');
+INSERT INTO `shop_order_history` VALUES (1,1,'New order',0,1,1,'2020-01-14 21:07:07');
 /*!40000 ALTER TABLE `shop_order_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1194,7 +1194,7 @@ CREATE TABLE `shop_page_description` (
   `lang` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `keyword` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`page_id`,`lang`),
   KEY `shop_page_description_lang_index` (`lang`)
@@ -1374,7 +1374,7 @@ CREATE TABLE `shop_product_description` (
   `lang` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `keyword` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`product_id`,`lang`),
   KEY `shop_product_description_lang_index` (`lang`)
@@ -1611,7 +1611,7 @@ CREATE TABLE `shop_user` (
 
 LOCK TABLES `shop_user` WRITE;
 /*!40000 ALTER TABLE `shop_user` DISABLE KEYS */;
-INSERT INTO `shop_user` VALUES (1,'Naruto','Kun','test@test.com',0,NULL,'$2y$10$s8u30T5SuyOQr6s9SkYMO.FCsb2Le.Ney8pEUTRDTIC8B3.hsL3r6','70000','HCM','HCM city','KTC','VN','0667151172',NULL,1,1,'2020-01-01 04:12:57',NULL);
+INSERT INTO `shop_user` VALUES (1,'Naruto','Kun','test@test.com',0,NULL,'$2y$10$bGurfZi5wqn0MJtXrSPJP.rS7WEAMIkoT0Bwyee9yjk2xAPulvWL2','70000','HCM','HCM city','KTC','VN','0667151172',NULL,1,1,'2020-01-14 14:07:07',NULL);
 /*!40000 ALTER TABLE `shop_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1656,4 +1656,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-01 11:13:30
+-- Dump completed on 2020-01-14 21:08:12

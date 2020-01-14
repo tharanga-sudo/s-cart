@@ -52,16 +52,16 @@
                             </div>
 
 {{-- select permission --}}
+@php
+$listPermission = [];
+$old_permission = old('permission',($role?$role->permissions->pluck('id')->toArray():''));
+    if(is_array($old_permission)){
+        foreach($old_permission as $value){
+            $listPermission[] = (int)$value;
+        }
+    }
+@endphp
                             <div class="form-group  {{ $errors->has('permission') ? ' has-error' : '' }}">
-        @php
-        $listPermission = [];
-        $old_permission = old('permission',($role?$role->permissions->pluck('id')->toArray():''));
-            if(is_array($old_permission)){
-                foreach($old_permission as $value){
-                    $listPermission[] = (int)$value;
-                }
-            }
-        @endphp
                                 <label for="permission" class="col-sm-2  control-label">{{ trans('role.admin.select_permission') }}</label>
                                 <div class="col-sm-8">
                                     <select class="form-control input-sm permission select2"  multiple="multiple" data-placeholder="{{ trans('role.admin.select_permission') }}" style="width: 100%;" name="permission[]" >
@@ -78,6 +78,31 @@
                                 </div>
                             </div>
 {{-- //select permission --}}
+
+
+{{-- select administrators --}}
+@php
+$listadministrators = [];
+$roleCheck = $role ? $role->administrators->pluck('name', 'id')->all():[];
+$old_administrators = old('administrators',array_keys($roleCheck));
+@endphp
+                        <div class="form-group  {{ $errors->has('administrators') ? ' has-error' : '' }}">
+                            <label for="administrators" class="col-sm-2  control-label">{{ trans('role.admin.select_user') }}</label>
+                            <div class="col-sm-8">
+                                <select class="form-control input-sm administrators select2"  multiple="multiple" data-placeholder="{{ trans('role.admin.select_user') }}" style="width: 100%;" name="administrators[]" >
+                                    <option value=""></option>
+                                    @foreach ($userList as $k => $v)
+                                        <option value="{{ $k }}"  {{ (in_array($k, $old_administrators))?'selected':'' }}>{{ $v }}</option>
+                                    @endforeach
+                                </select>
+                                    @if ($errors->has('administrators'))
+                                        <span class="help-block">
+                                            {{ $errors->first('administrators') }}
+                                        </span>
+                                    @endif
+                            </div>
+                        </div>
+{{-- //select administrators --}}
 
 
                         </div>

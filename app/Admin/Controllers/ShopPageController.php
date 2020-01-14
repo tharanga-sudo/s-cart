@@ -196,7 +196,9 @@ class ShopPageController extends Controller
         $data['alias'] = sc_word_limit($data['alias'], 100);
         $validator = Validator::make($data, [
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_page,alias|string|max:100',
-            'descriptions.*.title' => 'required|string|max:100',
+            'descriptions.*.title' => 'required|string|max:200',
+            'descriptions.*.keyword' => 'nullable|string|max:200',
+            'descriptions.*.description' => 'nullable|string|max:300',
         ], [
             'alias.regex' => trans('page.alias_validate'),
             'descriptions.*.title.required' => trans('validation.required', ['attribute' => trans('page.title')]),
@@ -267,7 +269,9 @@ class ShopPageController extends Controller
         $data['alias'] = sc_word_limit($data['alias'], 100);
 
         $validator = Validator::make($data, [
-            'descriptions.*.title' => 'required|string|max:100',
+            'descriptions.*.title' => 'required|string|max:200',
+            'descriptions.*.keyword' => 'nullable|string|max:200',
+            'descriptions.*.description' => 'nullable|string|max:300',
             'alias' => 'required|regex:/(^([0-9A-Za-z\-_]+)$)/|unique:shop_page,alias,' . $page->id . ',id|string|max:100',
         ], [
             'alias.regex' => trans('page.alias_validate'),

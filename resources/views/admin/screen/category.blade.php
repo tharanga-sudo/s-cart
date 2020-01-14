@@ -48,8 +48,12 @@
                                 </div>
                                 @if ($errors->has('descriptions.'.$code.'.name'))
                                 <span class="help-block">
-                                    {{ $errors->first('descriptions.'.$code.'.name') }}
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('descriptions.'.$code.'.name') }}
                                 </span>
+                                @else
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>200]) }}
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -68,8 +72,12 @@
                                 </div>
                                 @if ($errors->has('descriptions.'.$code.'.keyword'))
                                 <span class="help-block">
-                                    {{ $errors->first('descriptions.'.$code.'.keyword') }}
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('descriptions.'.$code.'.keyword') }}
                                 </span>
+                                @else
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>200]) }}
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -79,17 +87,17 @@
                             <label for="{{ $code }}__description"
                                 class="col-sm-2  control-label">{{ trans('category.description') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="text" id="{{ $code }}__description"
+                                    <textarea type="text" id="{{ $code }}__description" 
                                         name="descriptions[{{ $code }}][description]"
-                                        value="{!! old()?old('descriptions.'.$code.'.description'):($descriptions[$code]['description']??'') !!}"
-                                        class="form-control {{ $code.'__description' }}" placeholder="" />
-                                </div>
+                                        class="form-control {{ $code.'__description' }}" placeholder="" />{{  old()?old('descriptions.'.$code.'.description'):($descriptions[$code]['description']??'')  }}</textarea>
                                 @if ($errors->has('descriptions.'.$code.'.description'))
                                 <span class="help-block">
-                                    {{ $errors->first('descriptions.'.$code.'.description') }}
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('descriptions.'.$code.'.description') }}
                                 </span>
+                                @else
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>300]) }}
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -114,7 +122,7 @@
                                 </select>
                                 @if ($errors->has('parent'))
                                 <span class="help-block">
-                                    {{ $errors->first('parent') }}
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('parent') }}
                                 </span>
                                 @endif
                             </div>
@@ -131,7 +139,7 @@
                                 </div>
                                 @if ($errors->has('alias'))
                                 <span class="help-block">
-                                    {{ $errors->first('alias') }}
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('alias') }}
                                 </span>
                                 @endif
                             </div>
@@ -153,7 +161,7 @@
                                 </div>
                                 @if ($errors->has('image'))
                                 <span class="help-block">
-                                    {{ $errors->first('image') }}
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('image') }}
                                 </span>
                                 @endif
                                 <div id="preview_image" class="img_holder">
@@ -176,7 +184,7 @@
                                 </div>
                                 @if ($errors->has('sort'))
                                 <span class="help-block">
-                                    {{ $errors->first('sort') }}
+                                    <i class="fa fa-info-circle"></i> {{ $errors->first('sort') }}
                                 </span>
                                 @endif
                             </div>

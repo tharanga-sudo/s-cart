@@ -98,7 +98,7 @@
                         <div
                             class="form-group    {{ $errors->has('descriptions.'.$code.'.name') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__name"
-                                class="col-sm-2 asterisk control-label">{{ trans('product.name') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
+                                class="col-sm-2  control-label">{{ trans('product.name') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -111,6 +111,10 @@
                                     <i class="fa fa-info-circle"></i>
                                     {{ $errors->first('descriptions.'.$code.'.name') }}
                                 </span>
+                                @else
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>200]) }}
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -132,6 +136,10 @@
                                     <i class="fa fa-info-circle"></i>
                                     {{ $errors->first('descriptions.'.$code.'.keyword') }}
                                 </span>
+                                @else
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>200]) }}
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -141,18 +149,18 @@
                             <label for="{{ $code }}__description"
                                 class="col-sm-2  control-label">{{ trans('product.description') }} <span class="seo" title="SEO"><i class="fa fa-coffee" aria-hidden="true"></i></span></label>
                             <div class="col-sm-8">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
-                                    <input type="text" id="{{ $code }}__description"
+                                    <textarea id="{{ $code }}__description"
                                         name="descriptions[{{ $code }}][description]"
-                                        value="{!! old('descriptions.'.$code.'.description') !!}"
-                                        class="form-control input-sm {{ $code.'__description' }}" placeholder="" />
-                                </div>
+                                        class="form-control input-sm {{ $code.'__description' }}" placeholder="" />{{ old('descriptions.'.$code.'.description') }}</textarea>
                                 @if ($errors->has('descriptions.'.$code.'.description'))
                                 <span class="help-block">
                                     <i class="fa fa-info-circle"></i>
                                     {{ $errors->first('descriptions.'.$code.'.description') }}
                                 </span>
+                                @else
+                                    <span class="help-block">
+                                        <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>300]) }}
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -160,7 +168,7 @@
                         <div
                             class="form-group   kind kind0  {{ $errors->has('descriptions.'.$code.'.content') ? ' has-error' : '' }}">
                             <label for="{{ $code }}__content"
-                                class="col-sm-2 asterisk control-label">{{ trans('product.content') }}</label>
+                                class="col-sm-2  control-label">{{ trans('product.content') }}</label>
                             <div class="col-sm-8">
                                 <textarea id="{{ $code }}__content" class="editor"
                                     name="descriptions[{{ $code }}][content]">
@@ -191,7 +199,7 @@
                             }
                             @endphp
                             <label for="category"
-                                class="col-sm-2 asterisk control-label">{{ trans('product.admin.select_category') }}</label>
+                                class="col-sm-2  control-label">{{ trans('product.admin.select_category') }}</label>
                             <div class="col-sm-8">
                                 <select class="form-control input-sm category select2" multiple="multiple"
                                     data-placeholder="{{ trans('product.admin.select_category') }}" style="width: 100%;"
@@ -215,7 +223,7 @@
                         {{-- images --}}
                         <div class="form-group  kind kind0 kind1 {{ $errors->has('image') ? ' has-error' : '' }}">
                             <label for="image"
-                                class="col-sm-2 asterisk control-label">{{ trans('product.image') }}</label>
+                                class="col-sm-2  control-label">{{ trans('product.image') }}</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <input type="text" id="image" name="image" value="{!! old('image') !!}"
@@ -272,7 +280,7 @@
 
                         {{-- sku --}}
                         <div class="form-group  kind kind0 kind1 kind2 {{ $errors->has('sku') ? ' has-error' : '' }}">
-                            <label for="sku" class="col-sm-2 asterisk control-label">{{ trans('product.sku') }}</label>
+                            <label for="sku" class="col-sm-2  control-label">{{ trans('product.sku') }}</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -296,7 +304,7 @@
 
                         {{-- alias --}}
                         <div class="form-group  kind kind0 kind1 kind2 {{ $errors->has('alias') ? ' has-error' : '' }}">
-                            <label for="alias" class="col-sm-2 asterisk control-label">{!! trans('product.alias') !!}</label>
+                            <label for="alias" class="col-sm-2  control-label">{!! trans('product.alias') !!}</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
@@ -321,7 +329,7 @@
                         {{-- select brand --}}
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('brand_id') ? ' has-error' : '' }}">
                             <label for="brand_id"
-                                class="col-sm-2 asterisk control-label">{{ trans('product.brand') }}</label>
+                                class="col-sm-2  control-label">{{ trans('product.brand') }}</label>
                             <div class="col-sm-8">
                                 <select class="form-control input-sm brand_id select2" style="width: 100%;"
                                     name="brand_id">
@@ -346,7 +354,7 @@
                         {{-- select vendor --}}
                         <div class="form-group  kind kind0 kind1  {{ $errors->has('vendor_id') ? ' has-error' : '' }}">
                             <label for="vendor_id"
-                                class="col-sm-2 asterisk control-label">{{ trans('product.vendor') }}</label>
+                                class="col-sm-2  control-label">{{ trans('product.vendor') }}</label>
                             <div class="col-sm-8">
                                 <select class="form-control input-sm vendor_id select2" style="width: 100%;"
                                     name="vendor_id">

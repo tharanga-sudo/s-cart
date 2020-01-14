@@ -38,7 +38,11 @@
                                         </div>
                                         @if ($errors->has('name'))
                                         <span class="help-block">
-                                            {{ $errors->first('name') }}
+                                            <i class="fa fa-info-circle"></i> {{ $errors->first('name') }}
+                                        </span>
+                                        @else
+                                        <span class="help-block">
+                                            <i class="fa fa-info-circle"></i> {{ trans('admin.max_c',['max'=>100]) }}
                                         </span>
                                         @endif
                                     </div>
@@ -55,7 +59,7 @@
                                         </div>
                                         @if ($errors->has('alias'))
                                         <span class="help-block">
-                                            {{ $errors->first('alias') }}
+                                            <i class="fa fa-info-circle"></i> {{ $errors->first('alias') }}
                                         </span>
                                         @endif
                                     </div>
@@ -72,7 +76,7 @@
                                         </div>
                                         @if ($errors->has('url'))
                                         <span class="help-block">
-                                            {{ $errors->first('url') }}
+                                            <i class="fa fa-info-circle"></i> {{ $errors->first('url') }}
                                         </span>
                                         @endif
                                     </div>
@@ -99,7 +103,7 @@
                                         </div>
                                         @if ($errors->has('image'))
                                         <span class="help-block">
-                                            {{ $errors->first('image') }}
+                                            <i class="fa fa-info-circle"></i> {{ $errors->first('image') }}
                                         </span>
                                         @endif
                                         
@@ -122,7 +126,7 @@
                                         </div>
                                         @if ($errors->has('sort'))
                                         <span class="help-block">
-                                            {{ $errors->first('sort') }}
+                                            <i class="fa fa-info-circle"></i> {{ $errors->first('sort') }}
                                         </span>
                                         @endif
                                     </div>

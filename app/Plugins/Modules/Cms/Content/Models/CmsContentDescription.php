@@ -33,7 +33,7 @@ class CmsContentDescription extends Model
                     $table->string('lang', 10);
                     $table->string('title', 200)->nullable();
                     $table->string('keyword', 200)->nullable();
-                    $table->string('description', 200)->nullable();
+                    $table->string('description', 300)->nullable();
                     $table->text('content')->nullable();
                     $table->primary(['cms_content_id', 'lang']);
                 });

@@ -56,9 +56,9 @@ class CreateShopTables extends Migration
         Schema::create('admin_store_description', function (Blueprint $table) {
             $table->integer('config_id');
             $table->string('lang', 10)->index();
-            $table->string('title', 300)->nullable();
+            $table->string('title', 200)->nullable();
             $table->string('description', 300)->nullable();
-            $table->string('keyword', 300)->nullable();
+            $table->string('keyword', 200)->nullable();
             $table->text('maintain_content')->nullable();
             $table->primary(['config_id', 'lang']);
         });
@@ -156,9 +156,9 @@ class CreateShopTables extends Migration
         Schema::create('shop_category_description', function (Blueprint $table) {
             $table->integer('category_id');
             $table->string('lang', 10)->index();
-            $table->string('name', 100)->nullable();
-            $table->string('keyword', 300)->nullable();
-            $table->string('description', 500)->nullable();
+            $table->string('name', 200)->nullable();
+            $table->string('keyword', 200)->nullable();
+            $table->string('description', 300)->nullable();
             $table->primary(['category_id', 'lang']);
         });
 
@@ -282,7 +282,7 @@ class CreateShopTables extends Migration
             $table->string('lang', 10)->index();
             $table->string('title', 200)->nullable();
             $table->string('keyword', 200)->nullable();
-            $table->string('description', 200)->nullable();
+            $table->string('description', 300)->nullable();
             $table->text('content')->nullable();
             $table->primary(['page_id', 'lang']);
         });
@@ -302,7 +302,7 @@ class CreateShopTables extends Migration
             $table->string('lang', 10);
             $table->string('title', 200)->nullable();
             $table->string('keyword', 200)->nullable();
-            $table->string('description', 200)->nullable();
+            $table->string('description', 300)->nullable();
             $table->text('content')->nullable();
             $table->primary(['shop_news_id', 'lang']);
         });
@@ -340,7 +340,7 @@ class CreateShopTables extends Migration
             $table->string('lang', 10)->index();
             $table->string('name', 200)->nullable();
             $table->string('keyword', 200)->nullable();
-            $table->string('description', 200)->nullable();
+            $table->string('description', 300)->nullable();
             $table->text('content')->nullable();
             $table->primary(['product_id', 'lang']);
         });

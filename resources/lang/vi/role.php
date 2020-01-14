@@ -24,6 +24,7 @@ return [
         'export'            => 'Xuất',
         'refresh'           => 'Làm mới',
         'select_permission' => 'Chọn quyền hạn',
+        'select_user'       => 'Chọn người dùng',
         'result_item'       => 'Showing <b>:item_from</b> to <b>:item_to</b> of <b>:item_total</b> items</b>',
         'sort'              => 'Sắp xếp',
         'sort_order'        => [
