@@ -28,6 +28,7 @@ return [
         'keep_password'      => 'Leave blank if you don\'t want to change the password',
         'select_http_method' => 'Select method',
         'select_permission'  => 'Select permission',
+        'select_user'        => 'Select user',
         'sort_order'         => [
             'id_asc'    => 'ID asc',
             'id_desc'   => 'ID desc',

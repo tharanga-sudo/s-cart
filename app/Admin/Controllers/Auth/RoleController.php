@@ -5,6 +5,7 @@ namespace App\Admin\Controllers\Auth;
 use App\Admin\Admin;
 use App\Admin\Models\AdminPermission;
 use App\Admin\Models\AdminRole;
+use App\Admin\Models\AdminUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
@@ -156,6 +157,7 @@ class RoleController extends Controller
             'icon' => 'fa fa-plus',
             'role' => [],
             'permission' => (new AdminPermission)->pluck('name', 'id')->all(),
+            'userList' => (new AdminUser)->pluck('name', 'id')->all(),
             'url_action' => route('admin_role.create'),
 
         ];
@@ -192,9 +194,14 @@ class RoleController extends Controller
 
         $role = AdminRole::createRole($dataInsert);
         $permission = $data['permission'] ?? [];
+        $administrators = $data['administrators'] ?? [];
         //Insert permission
         if ($permission) {
             $role->permissions()->attach($permission);
+        }
+        //Insert administrators
+        if ($administrators) {
+            $role->administrators()->attach($administrators);
         }
         return redirect()->route('admin_role.index')->with('success', trans('role.admin.create_success'));
 
@@ -216,6 +223,7 @@ class RoleController extends Controller
             'icon' => 'fa fa-pencil-square-o',
             'role' => $role,
             'permission' => (new AdminPermission)->pluck('name', 'id')->all(),
+            'userList' => (new AdminUser)->pluck('name', 'id')->all(),
             'url_action' => route('admin_role.edit', ['id' => $role['id']]),
         ];
         return view('admin.auth.role')
@@ -250,10 +258,16 @@ class RoleController extends Controller
         ];
         $role->update($dataUpdate);
         $permission = $data['permission'] ?? [];
+        $administrators = $data['administrators'] ?? [];
         $role->permissions()->detach();
+        $role->administrators()->detach();
         //Insert permission
         if ($permission) {
             $role->permissions()->attach($permission);
+        }
+        //Insert administrators
+        if ($administrators) {
+            $role->administrators()->attach($administrators);
         }
 //
         return redirect()->route('admin_role.index')->with('success', trans('role.admin.edit_success'));
