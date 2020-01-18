@@ -61,4 +61,8 @@ return [
     'rename_error' => 'Không thể đổi tên tập tin install.php. Vui lòng xóa hoặc đổi tên nó thủ công!',
     'terms' => '<span style="color:red">*</span> Đồng ý với quy định cài đặt',
     'requirement_check' => 'Kiểm tra điều kiện',
+    'check_extension' => 'Kiểm tra extension',
+    'check_writable' => 'Kiểm tra quyền ghi',
+    'check_failed' => 'Thất bại',
+    'check_ok' => 'OK',
 ];
