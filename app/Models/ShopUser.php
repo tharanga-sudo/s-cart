@@ -54,7 +54,7 @@ class ShopUser extends Authenticatable
             $content = $checkContent->text;
             $dataFind = [
                 '/\{\{\$title\}\}/',
-                '/\{\{\$reason_sednmail\}\}/',
+                '/\{\{\$reason_sendmail\}\}/',
                 '/\{\{\$note_sendmail\}\}/',
                 '/\{\{\$note_access_link\}\}/',
                 '/\{\{\$reset_link\}\}/',
@@ -62,7 +62,7 @@ class ShopUser extends Authenticatable
             ];
             $dataReplace = [
                 trans('email.forgot_password.title'),
-                trans('email.forgot_password.reason_sednmail'),
+                trans('email.forgot_password.reason_sendmail'),
                 trans('email.forgot_password.note_sendmail', ['site_admin' => config('mail.from.name')]),
                 trans('email.forgot_password.note_access_link', ['reset_button' => trans('email.forgot_password.reset_button')]),
                 route('password.reset', ['token' => $token]),
