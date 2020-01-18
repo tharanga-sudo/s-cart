@@ -5,11 +5,11 @@
 <div class="container">
     <div class="row">
         <h2 class="title text-center">{{ trans('account.my_profile') }}</h2>
-<ul>
-    <li><span class="glyphicon glyphicon-forward"></span> <a href="{{ route('member.change_password') }}">{{ trans('account.change_password') }}</a></li>
-    <li><span class="glyphicon glyphicon-forward"></span> <a href="{{ route('member.change_infomation') }}">{{ trans('account.change_infomation') }}</a></li>
-    <li><span class="glyphicon glyphicon-forward"></span> <a href="{{ route('member.order_list') }}">{{ trans('account.order_list') }}</a></li>
-</ul>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a href="{{ route('member.change_password') }}">{{ trans('account.change_password') }}</a></li>
+            <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a href="{{ route('member.change_infomation') }}">{{ trans('account.change_infomation') }}</a></li>
+            <li class="list-group-item"><i class="fa fa-angle-double-right" aria-hidden="true"></i> <a href="{{ route('member.order_list') }}">{{ trans('account.order_list') }}</a></li>
+        </ul>
     </div>
 </div>
 </section>

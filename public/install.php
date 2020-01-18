@@ -107,21 +107,36 @@ if (request()->method() == 'POST' && request()->ajax()) {
         break;
     }
 } else {
-
+    $dirsWritable = [
+        storage_path(),
+        public_path('data'),
+        base_path('vendor'),
+        base_path('bootstrap/cache'),
+    ];
+    exec('chmod o+w -R ' . implode(' ', $dirsWritable));
+    
     $requirements = [
-        'PHP >= 7.2.0'                 => version_compare(PHP_VERSION, '7.2.0', '>='),
-        'BCMath PHP Extension'         => extension_loaded('bcmath'),
-        'Ctype PHP Extension'          => extension_loaded('ctype'),
-        'JSON PHP Extension'           => extension_loaded('json'),
-        'OpenSSL PHP Extension'        => extension_loaded('openssl'),
-        'PDO PHP Extension'            => extension_loaded('pdo'),
-        'Tokenizer PHP Extension'      => extension_loaded('tokenizer'),
-        'XML PHP extension'            => extension_loaded('xml'),
-        'xmlwriter PHP extension'      => extension_loaded('xmlwriter'),
-        'Mbstring PHP extension'       => extension_loaded('mbstring'),
-        'ZipArchive PHP extension'     => extension_loaded('zip'),
-        'GD (optional) PHP extension'  => extension_loaded('gd'),
-        'Dom (optional) PHP extension' => extension_loaded('dom'),
+        'ext' => [
+            'PHP >= 7.2.0'                 => version_compare(PHP_VERSION, '7.2.0', '>='),
+            'BCMath PHP Extension'         => extension_loaded('bcmath'),
+            'Ctype PHP Extension'          => extension_loaded('ctype'),
+            'JSON PHP Extension'           => extension_loaded('json'),
+            'OpenSSL PHP Extension'        => extension_loaded('openssl'),
+            'PDO PHP Extension'            => extension_loaded('pdo'),
+            'Tokenizer PHP Extension'      => extension_loaded('tokenizer'),
+            'XML PHP extension'            => extension_loaded('xml'),
+            'xmlwriter PHP extension'      => extension_loaded('xmlwriter'),
+            'Mbstring PHP extension'       => extension_loaded('mbstring'),
+            'ZipArchive PHP extension'     => extension_loaded('zip'),
+            'GD (optional) PHP extension'  => extension_loaded('gd'),
+            'Dom (optional) PHP extension' => extension_loaded('dom'),
+        ],
+        'writable' => [
+            storage_path() => is_writable(storage_path()),
+            public_path('data') => is_writable(public_path('data')),
+            base_path('vendor') => is_writable(base_path('vendor')),
+            base_path('bootstrap/cache') => is_writable(base_path('bootstrap/cache')),
+        ]
     ];
 
     echo view('install', array(

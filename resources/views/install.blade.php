@@ -20,15 +20,22 @@
             .success,.passed{
                 color: #418802;
             }
+            .passed,.failed{
+                text-align: right;
+                float: right;
+            }
+            .container{
+                font-size: 13px !important;
+            }
         </style>
 </head>
 <body>
 <div class="container">
     <div class="row" style=" margin-top:10px">
-    <div class="col-md-12  col-sm-offset-1">
-
-    <div class="col-md-4 col-sm-8">
-        <div style="text-align: center;display: inline"><img alt="Logo-Scart" title="Logo-Scart" src="images/scart-min.png" style="width: 130px; max-height: 50px;padding: 5px;">
+        <div class="col-md-1"></div>
+    <div class="col-md-5 col-sm-8">
+        <div style="text-align: center;display: inline;line-height: 80px;">
+            <img alt="Logo-Scart" title="Logo-Scart" src="images/scart-min.png" style="width: 130px; max-height: 50px;padding: 5px;">
         </div>
 
         <div class="btn-group">
@@ -50,20 +57,41 @@
             <p>{!! trans('install.info.terms') !!}</p>
         </div>
 
-<h3>{{ trans('install.requirement_check') }}</h3>
-@if (count($requirements))
+@php
+    $checkRequire = 'pass';
+@endphp
+<b>{{ trans('install.check_extension') }}</b>:
+@if (count($requirements['ext']))
     <ul>
-        @foreach ($requirements as $label => $result)
+        @foreach ($requirements['ext'] as $label => $result)
             @php
-                $status = $result ? 'passed' : 'failed';
+                if($result) {
+                    $status = 'passed';
+                } else {
+                    $status = $checkRequire = 'failed';
+                }
             @endphp
-                <li>{{ $label }} ... <span class='{{ $status }}'>{{ $status }}</span></li>
+                <li>{{ $label }}<span class='{{ $status }}'>{{ $result ? trans('install.check_ok') : trans('install.check_failed') }}</span></li>
         @endforeach
     </ul>
 @endif
-
+<b>{{ trans('install.check_writable') }}</b>:
+@if (count($requirements['writable']))
+    <ul>
+        @foreach ($requirements['writable'] as $label => $result)
+            @php
+                if($result) {
+                    $status = 'passed';
+                } else {
+                    $status = $checkRequire = 'failed';
+                }
+            @endphp
+                <li>{{ $label }}<span class='{{ $status }}'>{{ $result ? trans('install.check_ok') : trans('install.check_failed') }}</span></li>
+        @endforeach
+    </ul>
+@endif
     </div>
-    <div id="signupbox"  class="mainbox col-md-6  col-sm-8">
+    <div id="signupbox"  class="mainbox col-md-5  col-sm-8">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h1>{{ $title }}</h1>
@@ -118,7 +146,7 @@
                         <div class="form-group">
                             <div class="controls col-md-4 "></div>
                             <div class="controls col-md-8 ">
-                                <input type="button" {{ max($requirements)?'':'disabled'}} data-loading-text="{{ trans('install.installing_button') }}"  value="{{ trans('install.installing') }}" class="btn btn-primary btn btn-info" id="submit-install" />
+                                <input type="button" {{ ($checkRequire == 'pass')?'':'disabled'}} data-loading-text="{{ trans('install.installing_button') }}"  value="{{ trans('install.installing') }}" class="btn btn-primary btn btn-info" id="submit-install" />
                             </div>
                         </div>
                         <div class="row">
@@ -132,8 +160,6 @@
             </div>
         </div>
     </div>
-
-</div>
 
     </div>
 </div>

@@ -63,4 +63,8 @@ return [
     'rename_error' => 'Can not rename file install.php. Please remove or rename it!',
     'terms' => '<span style="color:red">*</span> Agree with the terms and conditions',
     'requirement_check' => 'Requirement check',
+    'check_extension' => 'Check extension',
+    'check_writable' => 'Check writable',
+    'check_failed' => 'Failed',
+    'check_ok' => 'OK',
 ];

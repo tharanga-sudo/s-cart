@@ -36,4 +36,11 @@ return [
     'last_name'               => 'Họ',
     'sex_women'               => 'Nữ',
     'sex_men'                 => 'Nam',
+    'orders'                   => [
+        'empty' => 'Bạn chưa có đơn hàng nào',
+        'total' => 'Số tiền',
+        'status' => 'Trạng thái',
+        'date_add' => 'Ngày tạo',
+        'detail_order' => 'Chi tiết',
+    ]
 ];

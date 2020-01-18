@@ -2,7 +2,7 @@
 use App\Mail\SendMail;
 use Illuminate\Support\Facades\Mail;
 
-function sc_send_mail($view, $data = array(), $config = array(), $fileAttach = array(), $fileAttachData = array())
+function sc_send_mail($view, $data = [], $config = [], $fileAttach = [], $fileAttachData = [])
 {
     if (!empty(sc_config('email_action_mode'))) {
         try {
