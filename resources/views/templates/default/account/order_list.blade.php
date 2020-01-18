@@ -7,7 +7,7 @@
         <h2 class="title text-center">{{ $title }}</h2>
 @if (count($orders) ==0)
     <div class="col-md-12 text-danger">
-        {{ trans('front.profile.empty_order') }}
+        {{ trans('account.orders.empty') }}
     </div>
 @else
 <table class="table box  table-bordered table-responsive">
@@ -15,9 +15,9 @@
       <tr>
         <th style="width: 50px;">No.</th>
         <th style="width: 100px;">SKU</th>
-        <th>{{ trans('front.profile.total') }}</th>
-        <th>{{ trans('front.profile.status') }}</th>
-        <th>{{ trans('front.profile.date_add') }}</th>
+        <th>{{ trans('account.orders.total') }}</th>
+        <th>{{ trans('account.orders.status') }}</th>
+        <th>{{ trans('account.orders.date_add') }}</th>
         <th></th>
       </tr>
     </thead>
@@ -37,7 +37,7 @@
         <td>{{ $statusOrder[$order->status]}}</td>
         <td>{{ $order->created_at }}</td>
         <td>
-            <a data-toggle="modal" data-target="#order-{{ $order->id }}" href="#"><i class="glyphicon glyphicon-list-alt"></i> {{ trans('front.profile.detail_order') }}</a>
+            <a data-toggle="modal" data-target="#order-{{ $order->id }}" href="#"><i class="glyphicon glyphicon-list-alt"></i> {{ trans('account.orders.detail_order') }}</a>
         </td>
     </tr>
 
@@ -48,7 +48,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">{{ trans('front.profile.detail_order') }} #{{ $order->id }}</h4>
+            <h4 class="modal-title">{{ trans('account.orders.detail_order') }} #{{ $order->id }}</h4>
           </div>
           <div class="modal-body">
                 @foreach($order->details as $detail)
@@ -96,6 +96,7 @@
     <div class="breadcrumbs">
         <ol class="breadcrumb">
           <li><a href="{{ route('home') }}">{{ trans('front.home') }}</a></li>
+          <li><a href="{{ route('member.index') }}">{{ trans('front.my_account') }}</a></li>
           <li class="active">{{ $title }}</li>
         </ol>
       </div>
