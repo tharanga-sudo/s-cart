@@ -52,6 +52,13 @@ if (request()->method() == 'POST' && request()->ajax()) {
             echo json_encode(['error' => 1, 'msg' => $e->getMessage()]);
             exit();
         }
+        session(['infoInstall' => [
+            'timezone_default' => request('timezone_default'),
+            'language_default' => request('language_default'),
+            'admin_user' => request('admin_user'),
+            'admin_password' => request('admin_password'),
+            'admin_email' => request('admin_email'),
+        ]]);
             echo json_encode(['error' => 0, 'msg' => trans('install.env.process_sucess')]);
             break;
 
@@ -97,6 +104,7 @@ if (request()->method() == 'POST' && request()->ajax()) {
             ]);
             break;
         }
+        session()->forget('infoInstall');
         echo json_encode([
             'error' => '0',
             'msg' => '',

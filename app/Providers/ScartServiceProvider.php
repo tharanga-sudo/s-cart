@@ -13,7 +13,10 @@ class ScartServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->bootScart();
+        if(!file_exists(public_path('install.php'))) {
+            $this->bootScart();
+        }
+
     }
 
     /**
@@ -23,16 +26,29 @@ class ScartServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        foreach (glob(app_path() . '/Library/Helpers/*.php') as $filename) {
-            require_once $filename;
+        if(file_exists(app_path().'/Library/Const.php')) {
+            require_once (app_path().'/Library/Const.php');
         }
+        if(!file_exists(public_path('install.php'))) {
+            foreach (glob(app_path() . '/Library/Helpers/*.php') as $filename) {
+                require_once $filename;
+            }
+
+            foreach (glob(app_path() . '/Plugins/Extensions/*/*/Provider.php') as $filename) {
+                require_once $filename;
+            }
+            foreach (glob(app_path() . '/Plugins/Modules/*/*/Provider.php') as $filename) {
+                require_once $filename;
+            }
+
+        }
+        $this->app->bind('cart', 'App\Library\ShoppingCart\Cart');
+
         $this->registerRouteMiddleware();
     }
 
     public function bootScart()
     {
-
-        try {
             if (sc_config('LOG_SLACK_WEBHOOK_URL')) {
                 config(['logging.channels.slack.url' => sc_config('LOG_SLACK_WEBHOOK_URL')]);
             }
@@ -75,12 +91,6 @@ class ScartServiceProvider extends ServiceProvider
             //Admin prefix
             config(['app.admin_prefix' => (sc_config('ADMIN_PREFIX') ?: env('ADMIN_PREFIX', 'sc_admin'))]);
             //End Admin prefix
-
-
-        } catch (\Exception $e) {
-            //
-        }
-
     }
 
     /**

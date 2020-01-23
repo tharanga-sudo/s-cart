@@ -169,8 +169,6 @@ return [
          * S-Cart
          */
         App\Providers\ScartServiceProvider::class,
-        App\Providers\ExtensionServiceProvider::class,
-        App\Providers\ShoppingCartServiceProvider::class,
         App\Admin\Providers\AdminServiceProvider::class,
 
     ],
