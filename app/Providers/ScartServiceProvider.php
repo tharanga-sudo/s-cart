@@ -13,7 +13,13 @@ class ScartServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        foreach (glob(app_path() . '/Library/Helpers/*.php') as $filename) {
+            require_once $filename;
+        }
         if(!file_exists(public_path('install.php'))) {
+            foreach (glob(app_path() . '/Plugins/*/*/Provider.php') as $filename) {
+                require_once $filename;
+            }
             $this->bootScart();
         }
 
@@ -28,19 +34,6 @@ class ScartServiceProvider extends ServiceProvider
     {
         if(file_exists(app_path().'/Library/Const.php')) {
             require_once (app_path().'/Library/Const.php');
-        }
-        if(!file_exists(public_path('install.php'))) {
-            foreach (glob(app_path() . '/Library/Helpers/*.php') as $filename) {
-                require_once $filename;
-            }
-
-            foreach (glob(app_path() . '/Plugins/Extensions/*/*/Provider.php') as $filename) {
-                require_once $filename;
-            }
-            foreach (glob(app_path() . '/Plugins/Modules/*/*/Provider.php') as $filename) {
-                require_once $filename;
-            }
-
         }
         $this->app->bind('cart', 'App\Library\ShoppingCart\Cart');
 
@@ -87,10 +80,6 @@ class ScartServiceProvider extends ServiceProvider
             //Debug mode
             config(['app.debug' => env('APP_DEBUG') ? true : ((sc_config('APP_DEBUG') === 'on') ? true : false)]);
             //End debug mode
-
-            //Admin prefix
-            config(['app.admin_prefix' => (sc_config('ADMIN_PREFIX') ?: env('ADMIN_PREFIX', 'sc_admin'))]);
-            //End Admin prefix
     }
 
     /**

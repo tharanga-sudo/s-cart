@@ -4,11 +4,11 @@
 
 <div class="row">
 
-  <div class="col-md-6">
+  <div class="col-md-12">
 
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">{{ trans('store_info.admin.config_mode') }}</h3>
+        <h3 class="box-title">{{ trans('store_info.admin.title') }}</h3>
       </div>
 
       <div class="box-body table-responsive no-padding box-primary">
@@ -40,7 +40,7 @@
                       {{ $errors->first('image') }}
                   </span>
               @endif
-            <div id="preview_image" class="img_holder">{!! sc_image_render($infos->logo,'100px') !!}</div>
+            <div id="preview_image" class="img_holder">{!! sc_image_render($infos->logo,'100px', '', 'Logo') !!}</div>
 
         </td>
       </tr>
@@ -103,7 +103,7 @@
   </div>
 
 
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="box box-primary">
         @foreach ($infosDescription as $obj => $infoDescription)
           @if ($obj =='maintain_content')
@@ -158,18 +158,10 @@ $(document).ready(function() {
             }
         },
         success: function(data) {
-          if(data.stt == 1){
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000
-            });
-
-            Toast.fire({
-              type: 'success',
-              title: '{{ trans('admin.msg_change_success') }}'
-            })
+          if(data.error == 0){
+            alertJs('success', '{{ trans('admin.msg_change_success') }}');
+          } else {
+            alertJs('error', data.msg);
           }
       }
     });
@@ -207,18 +199,10 @@ var selectedRows = function () {
         data: {"name": 'logo',"value":$(this).val(),"_token": "{{ csrf_token() }}",},
       })
       .done(function(data) {
-        if(data.stt == 1){
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'success',
-            title: '{{ trans('admin.msg_change_success') }}'
-          })
+        if(data.error == 0){
+          alertJs('success', '{{ trans('admin.msg_change_success') }}');
+        } else {
+          alertJs('error', data.msg);
         }
       });
   });
@@ -241,18 +225,10 @@ var selectedRows = function () {
         data: {"name": name,"value":isChecked,"_token": "{{ csrf_token() }}",},
       })
       .done(function(data) {
-        if(data.stt == 1){
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          });
-
-          Toast.fire({
-            type: 'success',
-            title: '{{ trans('admin.msg_change_success') }}'
-          })
+        if(data.error == 0){
+          alertJs('success', '{{ trans('admin.msg_change_success') }}');
+        } else {
+          alertJs('error', data.msg);
         }
       });
 

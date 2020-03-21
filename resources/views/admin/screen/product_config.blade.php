@@ -61,7 +61,7 @@ $(document).ready(function() {
             }
         },
         success: function(data) {
-          if(data.stt == 1){
+          if(data.error == ){
             const Toast = Swal.mixin({
               toast: true,
               position: 'top-end',
@@ -141,20 +141,20 @@ $('.grid-trash').on('click', function() {
   })
 
   swalWithBootstrapButtons.fire({
-    title: 'Are you sure to delete this item ?',
+    title: '{{ trans('admin.confirm_delete') }}',
     text: "",
     type: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
+    confirmButtonText: '{{ trans('admin.confirm_delete_yes') }}',
     confirmButtonColor: "#DD6B55",
-    cancelButtonText: 'No, cancel!',
+    cancelButtonText: '{{ trans('admin.confirm_delete_no') }}',
     reverseButtons: true,
 
     preConfirm: function() {
         return new Promise(function(resolve) {
             $.ajax({
                 method: 'post',
-                url: '{{ $url_delete_item }}',
+                url: '{{ $urlDeleteItem ?? '' }}',
                 data: {
                   ids:ids,
                     _token: '{{ csrf_token() }}',
@@ -170,8 +170,8 @@ $('.grid-trash').on('click', function() {
   }).then((result) => {
     if (result.value) {
       swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Item has been deleted.',
+        '{{ trans('admin.confirm_delete_deleted') }}',
+        '{{ trans('admin.confirm_delete_deleted_msg') }}',
         'success'
       )
     } else if (
@@ -208,7 +208,7 @@ $('.grid-trash').on('click', function() {
         data: {"name": name,"value":isChecked,"_token": "{{ csrf_token() }}",},
       })
       .done(function(data) {
-        if(data.stt == 1){
+        if(data.error == 0){
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',

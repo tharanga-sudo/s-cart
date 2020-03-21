@@ -38,8 +38,8 @@
           </tr>
 
           <tr>
-            <td>{{ trans('env.PREFIX_VENDOR') }}</td>
-            <td>https://your-domain.com/<a href="#" class="fied-required editable editable-click" data-name="PREFIX_VENDOR" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.PREFIX_VENDOR') }}" data-value="{{ sc_config('PREFIX_VENDOR') }}" data-original-title="" title=""></a>/name-of-vendor{{ sc_config('SUFFIX_URL') }}</td>
+            <td>{{ trans('env.PREFIX_SUPPLIER') }}</td>
+            <td>https://your-domain.com/<a href="#" class="fied-required editable editable-click" data-name="PREFIX_SUPPLIER" data-type="text" data-pk="" data-source="" data-url="{{ route('admin_store_value.update') }}" data-title="{{ trans('env.PREFIX_SUPPLIER') }}" data-value="{{ sc_config('PREFIX_SUPPLIER') }}" data-original-title="" title=""></a>/name-of-supplier{{ sc_config('SUFFIX_URL') }}</td>
           </tr>
 
           <tr>
@@ -148,20 +148,13 @@ $(document).ready(function() {
             }
         },
         success: function(data) {
-          if(data.stt == 1){
+          if(data.error == 0){
             if(data.field == 'ADMIN_PREFIX'){
               window.location.replace("/"+data.value+'/env');
             }
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000
-            });
-            Toast.fire({
-              type: 'success',
-              title: '{{ trans('admin.msg_change_success') }}'
-            })
+            alertJs('success','{{ trans('admin.msg_change_success') }}');
+          } else {
+            alertJs('error', data.msg);
           }
       }
     });
@@ -230,20 +223,20 @@ $('.grid-trash').on('click', function() {
   })
 
   swalWithBootstrapButtons.fire({
-    title: 'Are you sure to delete this item ?',
+    title: '{{ trans('admin.confirm_delete') }}',
     text: "",
     type: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
+    confirmButtonText: '{{ trans('admin.confirm_delete_yes') }}',
     confirmButtonColor: "#DD6B55",
-    cancelButtonText: 'No, cancel!',
+    cancelButtonText: '{{ trans('admin.confirm_delete_no') }}',
     reverseButtons: true,
 
     preConfirm: function() {
         return new Promise(function(resolve) {
             $.ajax({
                 method: 'post',
-                url: '{{ $url_delete_item }}',
+                url: '{{ $urlDeleteItem ?? '' }}',
                 data: {
                   ids:ids,
                     _token: '{{ csrf_token() }}',
@@ -259,8 +252,8 @@ $('.grid-trash').on('click', function() {
   }).then((result) => {
     if (result.value) {
       swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Item has been deleted.',
+        '{{ trans('admin.confirm_delete_deleted') }}',
+        '{{ trans('admin.confirm_delete_deleted_msg') }}',
         'success'
       )
     } else if (
