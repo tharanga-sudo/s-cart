@@ -33,8 +33,8 @@
                       </div>
                       <div class="choose">
                         <ul class="nav nav-pills nav-justified">
-                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','wishlist')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_wishlist')}}</a></li>
-                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','compare')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_compare')}}</a></li>
+          {{--                <li><a onClick="addToCartAjax('{{ $product_new->id }}','wishlist')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_wishlist')}}</a></li>
+                          <li><a onClick="addToCartAjax('{{ $product_new->id }}','compare')"><i class="fa fa-plus-square"></i>{{trans('front.add_to_compare')}}</a></li>--}}
                         </ul>
                       </div>
                     </div>
