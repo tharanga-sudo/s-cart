@@ -78,7 +78,7 @@ class ImportProductController extends Controller
                 $dataUpdate['kind'] = (int)$row['kind'] ?? 0;
                 $dataUpdate['virtual'] = (int)$row['virtual'] ?? 0;
                 $dataUpdate['status'] = (int)$row['status'] ?? 0;
-                $dataUpdate['alias'] = (int)$row['alias'] ?? 0;
+                $dataUpdate['alias'] = $row['alias'] ?? 0;
                 $dataUpdate['view'] = (int)$row['view'] ?? 0;
                 $dataUpdate['sort'] = (int)$row['sort'] ?? 0;
                 if ($row['date_available']) {
