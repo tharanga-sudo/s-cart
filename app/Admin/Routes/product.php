@@ -8,4 +8,5 @@ $router->group(['prefix' => 'product'], function ($router) {
     $router->post('/delete', 'ShopProductController@deleteList')->name('admin_product.delete');
     $router->get('/import', 'ShopProductController@import')->name('admin_product.import');
     $router->post('/import', 'ShopProductController@postImport')->name('admin_product.import');
+
 });
