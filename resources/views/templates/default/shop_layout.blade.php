@@ -13,7 +13,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2CG1T5QC5S"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-2CG1T5QC5S');
@@ -69,7 +73,33 @@
           href="{{ asset($templateFile.'/images/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed"
           href="{{ asset($templateFile.'/images/ico/apple-touch-icon-57-precomposed.png')}}">
+    <style type="text/css" rel="stylesheet">
+        .btn.btn-default.dropdown-toggle {
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            border: none;
+            background-color: #eee;
+            height: 40px;
+        }
 
+        #keyword {
+            border-text-outline: none;
+            height: 40px;
+            border: none;
+            background: #eee;
+        }
+        #btnSearch{
+            background: #eee;
+            border: none;
+            height: 40px;
+            margin-left: -4px;
+        }
+        #btnSearch:focus{
+            border: none;
+            background: rgba(238, 238, 238, 0.6);
+        }
+
+    </style>
 
     <!--Module header -->
 @isset ($blocksContent['header'])

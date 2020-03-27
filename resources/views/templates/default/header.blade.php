@@ -45,68 +45,97 @@
                         </ul>
                     </div>
                 </div>
-               {{-- <div class="col-sm-6">
-                    <div class="btn-group pull-right">
-                        <div class="btn-group locale">
-                            @if (count($languages)>1)
-                                <button type="button" class="btn btn-default dropdown-toggle usa"
-                                        data-toggle="dropdown"><img
-                                            src="{{ asset($languages[app()->getLocale()]['icon']) }}"
-                                            style="height: 25px;">
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    @foreach ($languages as $key => $language)
-                                        <li><a href="{{ url('locale/'.$key) }}"><img
-                                                        src="{{ asset($language['icon']) }}" style="height: 25px;"></a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </div>
-                        @if (count($currencies)>1)
-                            <div class="btn-group locale">
-                                <button type="button" class="btn btn-default dropdown-toggle usa"
-                                        data-toggle="dropdown">
-                                    {{ sc_currency_info()['name'] }}
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    @foreach ($currencies as $key => $currency)
-                                        <li><a href="{{ url('currency/'.$currency->code) }}">{{ $currency->name }}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                    </div>
-                </div>--}}
+                {{-- <div class="col-sm-6">
+                     <div class="btn-group pull-right">
+                         <div class="btn-group locale">
+                             @if (count($languages)>1)
+                                 <button type="button" class="btn btn-default dropdown-toggle usa"
+                                         data-toggle="dropdown"><img
+                                             src="{{ asset($languages[app()->getLocale()]['icon']) }}"
+                                             style="height: 25px;">
+                                     <span class="caret"></span>
+                                 </button>
+                                 <ul class="dropdown-menu">
+                                     @foreach ($languages as $key => $language)
+                                         <li><a href="{{ url('locale/'.$key) }}"><img
+                                                         src="{{ asset($language['icon']) }}" style="height: 25px;"></a>
+                                         </li>
+                                     @endforeach
+                                 </ul>
+                             @endif
+                         </div>
+                         @if (count($currencies)>1)
+                             <div class="btn-group locale">
+                                 <button type="button" class="btn btn-default dropdown-toggle usa"
+                                         data-toggle="dropdown">
+                                     {{ sc_currency_info()['name'] }}
+                                     <span class="caret"></span>
+                                 </button>
+                                 <ul class="dropdown-menu">
+                                     @foreach ($currencies as $key => $currency)
+                                         <li><a href="{{ url('currency/'.$currency->code) }}">{{ $currency->name }}</a>
+                                         </li>
+                                     @endforeach
+                                 </ul>
+                             </div>
+                         @endif
+                     </div>
+                 </div>--}}
             </div>
         </div>
     </div><!--/header_top-->
     <div class="header-middle"><!--header-middle-->
         <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
+            {{--<div class="row">
+                <div class="col-sm-2 col-lg-2">
                     <div class="logo pull-left">
                         <a href="{{ route('home') }}"><img style="width: 150px;" src="{{ asset(sc_store('logo')) }}"
                                                            alt=""/></a>
                     </div>
                 </div>
-                <div class="col-sm-8">
-                    <div class="col-sm-6">
-                        <div class="search_box pull-right">
-                            <form id="searchbox" method="get" action="{{ route('search') }}">
-                                <div class="input-group">
-                                    <input type="text" class="form-control"
-                                           placeholder="{{ trans('front.search_form.keyword') }}..." name="keyword">
-                                </div>
-                            </form>
-                        </div>
+                <div class="col-sm-8 col-lg-10">
+
+                    <div class="search_box pull-right">
+                        <form id="searchbox" method="get" action="{{ route('search') }}">
+                            <div class="input-group">
+                                <input type="text" class="form-control"
+                                       placeholder="{{ trans('front.search_form.keyword') }}..." name="keyword">
+                            </div>
+                        </form>
                     </div>
 
+
                 </div>
-            </div>
+            </div>--}}
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="logo pull-left">
+                        <a href="{{ route('home') }}"><img style="width: 150px;" src="{{ asset(sc_store('logo')) }}"
+                                                           alt=""/></a>
+                    </div>
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <form id="searchbox" method="get" action="{{ route('search') }}">
+                        <div class="input-group"><input id="keyword" class="form-control"  placeholder="{{ trans('front.search_form.keyword') }}..." name="keyword"
+                                                        aria-label="Text input with segmented button dropdown">
+                            <div class="input-group-btn">
+
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"> All Categories <span class="caret"></span><span
+                                            class="sr-only">Toggle Dropdown</span></button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                                <button type="submit" class="btn btn-default" id="btnSearch"><i class="fa fa-search"></i> </button>
+                            </div>
+                        </div><!-- /input-group -->
+                    </form>
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
         </div>
     </div><!--/header-middle-->
 
