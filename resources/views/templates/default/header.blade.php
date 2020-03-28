@@ -5,7 +5,6 @@
                 <div class="col-sm-8">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> {{ sc_store('phone') }}</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> {{ sc_store('email') }}</a></li>
                             <li><a href="#"> Most Customised Online Shopping Experience | Apekade.lk</a></li>
                         </ul>
@@ -23,10 +22,6 @@
                             {{--<li><a href="{{ route('compare') }}"><span class="cart-qty sc-compare"
                                                                        id="shopping-compare">{{ Cart::instance('compare')->count() }}</span><i
                                             class="fa fa-crosshairs"></i> {{ trans('front.compare') }}</a></li>--}}
-                            <li><a href="{{ route('cart') }}"><span class="cart-qty sc-cart"
-                                                                    id="shopping-cart">{{ Cart::instance('default')->count() }}</span><i
-                                            class="fa fa-shopping-cart"></i> {{ trans('front.cart_title') }}</a>
-                            </li>
                             @guest
                                 <li><a href="{{ route('login') }}"><i
                                                 class="fa fa-lock"></i> {{ trans('front.login') }}
@@ -115,7 +110,7 @@
                                                            alt=""/></a>
                     </div>
                 </div><!-- /.col-lg-6 -->
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                     <form id="searchbox" method="get" action="{{ route('search') }}">
                         <div class="input-group"><input id="search_input" class="form-control"
                                                         placeholder="{{ trans('front.search_form.keyword') }}..."
@@ -141,6 +136,21 @@
                         <div style="position: fixed;z-index: 10000;" id="products_list"></div>
                     </form>
                 </div><!-- /.col-lg-6 -->
+
+                <div class="col-lg-4">
+
+                    <div class="custom-block"><span style="margin-top:4px;color:#787d7f;display:block;font-size: 10px">CALL US NOW FOR ANY INQUIRY OR ORDER BY PHONE<br><b
+                                    style="color:#606669;font-size:13px;font-weight:600;display:block;line-height:27px;"> <i class="fa fa-phone"></i> {{ sc_store('phone') }} | IF NO ANSWER DROP SMS</b></span>
+                    </div>
+
+                </div>
+                <div class="col-lg-1">
+                    <div class="pull-right">
+                        <a href="{{ route('cart') }}"><span class="cart-qty sc-cart"
+                                                            id="shopping-cart">{{ Cart::instance('default')->count() }}</span><i
+                                    class="fa fa-shopping-basket fa-2x"></i> {{--{{ trans('front.cart_title') }}--}}</a>
+                    </div>
+                </div>
             </div><!-- /.row -->
         </div>
     </div><!--/header-middle-->

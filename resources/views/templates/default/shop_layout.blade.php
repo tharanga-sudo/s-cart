@@ -88,26 +88,42 @@
             border: none;
             background: #eee;
         }
-        #btnSearch{
+
+        #btnSearch {
             background: #eee;
             border: none;
             height: 40px;
             margin-left: -4px;
         }
-        #btnSearch:focus{
+
+        #btnSearch:focus {
             border: none;
             background: rgba(238, 238, 238, 0.6);
         }
-        .shop-menu ul li a{
+
+        .shop-menu ul li a {
             background: none;
         }
-        .shop-menu ul li a:hover{
+
+        .shop-menu ul li a:hover {
             background: none;
         }
+
         .ui-autocomplete {
             z-index: 9999 !important;
         }
 
+        .searchform input {
+            width: auto;
+        }
+
+        #products_list.list-group.list-group-item:hover {
+            cursor: copy;
+        }
+
+        .cart-qty {
+            right: -5px;
+        }
     </style>
 
     <!--Module header -->
@@ -253,7 +269,7 @@
         // keyup function looks at the keys typed on the search box
         $('#search_input').on('keyup', function () {
             // the text typed in the input field is assigned to a variable
-           // alert(0);
+            // alert(0);
             var query = $(this).val();
             // call to an ajax function
             $.ajax({
