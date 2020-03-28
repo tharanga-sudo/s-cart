@@ -447,4 +447,36 @@ class ShopFront extends GeneralController
         return redirect(url('/'));
     }
 
+
+    public function searchAjax(Request $request){
+        // check if ajax request is coming or not
+        if($request->ajax()) {
+            // select country name from database
+            //$data = ShopProduct::where('name', 'LIKE', $request->country.'%')
+            $sortBy = null;
+            $sortOrder = 'asc';
+            $data = (new ShopProduct)->getSearch($request->keyword, $limit = sc_config('product_list'), $sortBy, $sortOrder);
+            // declare an empty array for output
+            $output = '';
+            // if searched countries count is larager than zero
+            if (count($data)>0) {
+                // concatenate output to the array
+                $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
+                // loop through the result array
+                foreach ($data as $row){
+                    // concatenate output to the array
+                    $output .= '<li class="list-group-item">'.$row->name.'</li>';
+                }
+                // end of output
+                $output .= '</ul>';
+            }
+            else {
+                // if there's no matching results according to the input
+                $output .= '<li class="list-group-item">'.'No results'.'</li>';
+            }
+            // return output result array
+            return $output;
+        }
+    }
+
 }

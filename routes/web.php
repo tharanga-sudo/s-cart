@@ -16,9 +16,9 @@
 */
 Route::get('/', 'ShopFront@index')->name('home');
 Route::get('index.html', 'ShopFront@index');
-
+Route::get('search.html', 'ShopFront@ShopFront')->name('autofill');
 $suffix = sc_config('SUFFIX_URL')??'';
-
+Route::get('/api', 'ShopFront@searchAjax')->name('searchAjax');
 /*
  Auth
 */

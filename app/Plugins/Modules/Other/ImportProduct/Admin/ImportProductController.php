@@ -158,6 +158,66 @@ class ImportProductController extends Controller
             ->with(compact('arrNewDes', 'arrUpdateDes', 'arrErrorDes'));
     }
 
+
+    public function productCategoryData()
+    {
+        $data = request()->all();
+        $validator = Validator::make(
+            $data,
+            [
+                'file' => 'required|mimes:csv,txt|file|max:2048',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $file = request('file');
+        $csv = array_map("str_getcsv", file($file->getRealPath(), FILE_SKIP_EMPTY_LINES));
+        unset($csv[1]); //Uset line comment
+        $keys = array_shift($csv);
+        foreach ($csv as $i => $row) {
+            $csv[$i] = array_combine($keys, $row);
+        }
+        $arrNew = [];
+        $arrUpdate = [];
+        $arrError = [];
+        foreach (array_chunk($csv, 100) as $rows) {
+            foreach ($rows as $row) {
+               /* $sku = $row['sku'] ?? '';
+                if ($sku == '') {
+                    continue;
+                }*/
+                $dataUpdate = [];
+                $dataUpdate['sku'] = $sku ?? '';
+                $dataUpdate['image'] = $row['image'] ?? '';
+                $dataUpdate['brand_id'] = (int)$row['brand_id'] ?? 0;
+                $dataUpdate['sort'] = (int)$row['sort'] ?? 0;
+                if ($row['date_available']) {
+                    $dataUpdate['date_available'] = $row['date_available'];
+                }
+
+                $checkProduct = (new ShopProduct)->where('sku', $sku)->first();
+                if ($checkProduct) {
+                    unset($dataUpdate['sku']);
+                    (new ShopProduct)->where('sku', $sku)
+                        ->update($dataUpdate);
+                    $arrUpdate[] = $sku;
+                } else {
+                    (new ShopProduct)->create($dataUpdate);
+                    $arrNew[] = $sku;
+                }
+            }
+        }
+        return redirect(route('admin_import_product.category'))
+            ->with(compact('arrNew', 'arrUpdate', 'arrError'));
+    }
+
+
+
     public function exportFormat()
     {
         $type = request('type');

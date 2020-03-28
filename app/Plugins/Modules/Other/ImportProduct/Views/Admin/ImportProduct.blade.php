@@ -106,7 +106,6 @@
 
                 <!-- /.box-footer -->
             </form>  
-            
             <div class="response">
                 @if($errors->has('file_des'))
                     <span class="text-red">{{ $errors->first('file_des') }}</span>
@@ -149,7 +148,12 @@
                 </div>
               
 
-            </div>            
+            </div>
+
+
+
+
+
 
 
         </div>

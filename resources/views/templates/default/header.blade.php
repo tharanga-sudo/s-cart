@@ -2,15 +2,16 @@
     <div class="header_top"><!--header_top-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
                             <li><a href="#"><i class="fa fa-phone"></i> {{ sc_store('phone') }}</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> {{ sc_store('email') }}</a></li>
+                            <li><a href="#"> Most Customised Online Shopping Experience | Apekade.lk</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             @php
@@ -19,9 +20,9 @@
                             <li><a href="{{ route('wishlist') }}"><span class="cart-qty  sc-wishlist"
                                                                         id="shopping-wishlist">{{ Cart::instance('wishlist')->count() }}</span><i
                                             class="fa fa-star"></i> {{ trans('front.wishlist') }}</a></li>
-                            <li><a href="{{ route('compare') }}"><span class="cart-qty sc-compare"
+                            {{--<li><a href="{{ route('compare') }}"><span class="cart-qty sc-compare"
                                                                        id="shopping-compare">{{ Cart::instance('compare')->count() }}</span><i
-                                            class="fa fa-crosshairs"></i> {{ trans('front.compare') }}</a></li>
+                                            class="fa fa-crosshairs"></i> {{ trans('front.compare') }}</a></li>--}}
                             <li><a href="{{ route('cart') }}"><span class="cart-qty sc-cart"
                                                                     id="shopping-cart">{{ Cart::instance('default')->count() }}</span><i
                                             class="fa fa-shopping-cart"></i> {{ trans('front.cart_title') }}</a>
@@ -116,12 +117,15 @@
                 </div><!-- /.col-lg-6 -->
                 <div class="col-lg-6">
                     <form id="searchbox" method="get" action="{{ route('search') }}">
-                        <div class="input-group"><input id="keyword" class="form-control"  placeholder="{{ trans('front.search_form.keyword') }}..." name="keyword"
+                        <div class="input-group"><input id="search_input" class="form-control"
+                                                        placeholder="{{ trans('front.search_form.keyword') }}..."
+                                                        name="keyword"
                                                         aria-label="Text input with segmented button dropdown">
                             <div class="input-group-btn">
 
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false"> All Categories <span class="caret"></span><span
+                                        aria-haspopup="true" aria-expanded="false"> All Categories <span
+                                            class="caret"></span><span
                                             class="sr-only">Toggle Dropdown</span></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="#">Action</a></li>
@@ -130,9 +134,11 @@
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#">Separated link</a></li>
                                 </ul>
-                                <button type="submit" class="btn btn-default" id="btnSearch"><i class="fa fa-search"></i> </button>
+                                <button type="submit" class="btn btn-default" id="btnSearch"><i
+                                            class="fa fa-search"></i></button>
                             </div>
                         </div><!-- /input-group -->
+                        <div style="position: fixed;z-index: 10000;" id="products_list"></div>
                     </form>
                 </div><!-- /.col-lg-6 -->
             </div><!-- /.row -->

@@ -82,7 +82,7 @@
             height: 40px;
         }
 
-        #keyword {
+        #search_input {
             border-text-outline: none;
             height: 40px;
             border: none;
@@ -97,6 +97,15 @@
         #btnSearch:focus{
             border: none;
             background: rgba(238, 238, 238, 0.6);
+        }
+        .shop-menu ul li a{
+            background: none;
+        }
+        .shop-menu ul li a:hover{
+            background: none;
+        }
+        .ui-autocomplete {
+            z-index: 9999 !important;
         }
 
     </style>
@@ -238,6 +247,41 @@
     @endforeach
 @endisset
 <!--//Module bottom -->
+<script type="text/javascript">
+    // jQuery wait till the page is fullt loaded
+    $(document).ready(function () {
+        // keyup function looks at the keys typed on the search box
+        $('#search_input').on('keyup', function () {
+            // the text typed in the input field is assigned to a variable
+           // alert(0);
+            var query = $(this).val();
+            // call to an ajax function
+            $.ajax({
+                // assign a controller function to perform search action - route name is search
+                url: "{{ route('searchAjax') }}",
+                // since we are getting data methos is assigned as GET
+                type: "GET",
+                // data are sent the server
+                data: {'keyword': query},
+                // if search is succcessfully done, this callback function is called
+                success: function (data) {
+                    // print the search results in the div called country_list(id)
+                    $('#products_list').html(data);
+                }
+            })
+            // end of ajax call
+        });
 
+        // initiate a click function on each search result
+        $(document).on('click', 'li', function () {
+            // declare the value in the input field to a variable
+            var value = $(this).text();
+            // assign the value to the search box
+            $('#search_input').val(value);
+            // after click is done, search results segment is made empty
+            $('#products_list').html("");
+        });
+    });
+</script>
 </body>
 </html>
