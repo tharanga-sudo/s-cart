@@ -82,28 +82,7 @@
     </div><!--/header_top-->
     <div class="header-middle"><!--header-middle-->
         <div class="container">
-            {{--<div class="row">
-                <div class="col-sm-2 col-lg-2">
-                    <div class="logo pull-left">
-                        <a href="{{ route('home') }}"><img style="width: 150px;" src="{{ asset(sc_store('logo')) }}"
-                                                           alt=""/></a>
-                    </div>
-                </div>
-                <div class="col-sm-8 col-lg-10">
-
-                    <div class="search_box pull-right">
-                        <form id="searchbox" method="get" action="{{ route('search') }}">
-                            <div class="input-group">
-                                <input type="text" class="form-control"
-                                       placeholder="{{ trans('front.search_form.keyword') }}..." name="keyword">
-                            </div>
-                        </form>
-                    </div>
-
-
-                </div>
-            </div>--}}
-            <div class="row">
+                       <div class="row">
                 <div class="col-lg-2">
                     <div class="logo pull-left">
                         <a href="{{ route('home') }}"><img style="width: 150px;" src="{{ asset(sc_store('logo')) }}"
@@ -140,7 +119,7 @@
                 <div class="col-lg-4">
 
                     <div class="custom-block"><span style="margin-top:4px;color:#787d7f;display:block;font-size: 10px">CALL US NOW FOR ANY INQUIRY OR ORDER BY PHONE<br><b
-                                    style="color:#606669;font-size:13px;font-weight:600;display:block;line-height:27px;"> <i class="fa fa-phone"></i> {{ sc_store('phone') }} | IF NO ANSWER DROP SMS</b></span>
+                                    style="color:#606669;font-size:15px;font-weight:600;display:block;line-height:27px;font-family: 'Oswald';"> <i class="fa fa-phone"></i> {{ sc_store('phone') }} | IF NO ANSWER DROP SMS</b></span>
                     </div>
 
                 </div>
@@ -169,7 +148,7 @@
                         </button>
                     </div>
                     <div class="mainmenu pull-left">
-                        <ul class="nav navbar-nav collapse navbar-collapse">
+                        <ul class="nav navbar-nav collapse navbar-collapse" id="header_menu">
                             <li><a href="{{ route('home') }}" class="active">{{ trans('front.home') }}</a></li>
                             <li class="dropdown"><a href="#">{{ trans('front.shop') }}<i
                                             class="fa fa-angle-down"></i></a>

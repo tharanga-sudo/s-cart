@@ -74,7 +74,7 @@ return [
         'submit'  => 'Submit',
     ],
     'search_form'        => [
-        'keyword' => 'Your keyword',
+        'keyword' => 'Search in Apekade',
     ],
 
     'email_action'       => [

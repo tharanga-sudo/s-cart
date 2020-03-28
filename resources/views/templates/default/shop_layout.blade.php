@@ -53,6 +53,8 @@
     <!-- css default for item s-cart -->
 @include('common.css')
 <!--//end css defaut -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
     <link href="{{ asset($templateFile.'/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset($templateFile.'/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -74,6 +76,8 @@
     <link rel="apple-touch-icon-precomposed"
           href="{{ asset($templateFile.'/images/ico/apple-touch-icon-57-precomposed.png')}}">
     <style type="text/css" rel="stylesheet">
+
+
         .btn.btn-default.dropdown-toggle {
             border-top-right-radius: 0px;
             border-bottom-right-radius: 0px;
@@ -124,6 +128,37 @@
         .cart-qty {
             right: -5px;
         }
+
+        .mainmenu ul li a:hover, .mainmenu ul li a {
+            font-family: 'Oswald';
+            font-size: 12.5px;
+            letter-spacing: 0.025em;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .contactinfo {
+            font-family: 'Oswald';
+            font-size: 12.5px;
+            letter-spacing: 0.025em;
+            font-weight: 400;
+        }
+
+        .shop-menu ul li a {
+            font-family: 'Poppins';
+            font-size: 13px;
+            letter-spacing: 0.025em;
+            font-weight: 400;
+
+        }
+        .contactinfo ul li a {
+            font-family: 'Poppins';
+            font-size: 13px;
+            letter-spacing: 0.025em;
+
+
+        }
+
     </style>
 
     <!--Module header -->

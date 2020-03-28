@@ -41,7 +41,7 @@
 
                       @if ($product->allowSale())
                        <a class="btn btn-default add-to-cart" onClick="addToCartAjax('{{ $product->id }}','default')">
-                         <i class="fa fa-shopping-cart"></i>{{trans('front.add_to_cart')}}
+                         <i class="fa fa-shopping-basket"></i>{{trans('front.add_to_cart')}}
                       </a>
                       @else
                         &nbsp;
