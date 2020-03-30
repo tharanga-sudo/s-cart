@@ -1,13 +1,13 @@
 {
-    "name": "lanhktc/s-cart",
-    "description": "Free Laravel e-commerce for business: shopping cart, cms content, and more...",
+    "name": "tharanga-sudo/product-bucket",
+    "description": "FOSS e-commerce solution",
     "keywords": ["Open source","E-commerce", "Ecommerce", "Shopping cart",  "CMS", "framework", "laravel","shop", "store","business"],
-    "homepage": "https://s-cart.org",
+    "homepage": "https://buking.lk",
     "license": "MIT",
     "authors": [
         {
-            "name": "KTC",
-            "email": "lanhktc@gmail.com"
+            "name": "tharanga",
+            "email": "nteeje@gmail.com"
         }
     ],
     "type" : "project",
@@ -15,9 +15,10 @@
         "php": "^7.2",
         "aws/aws-sdk-php": "^3.0",
         "barryvdh/laravel-dompdf": "0.8.*",
+        "enea/laravel-cashier": "^2.0",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^6.2",
+        "laravel/framework": "5.8",
         "laravel/helpers": "^1.1",
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
