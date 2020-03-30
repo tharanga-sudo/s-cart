@@ -1,9 +1,9 @@
 <?php
 return [
-    'version' => '3.4.5',
-    'homepage' => 'https://apekade.lk',
-    'name' => 'Apekade',
-    'title' => 'FOSS eCommerce for Businesses',
+    'version' => '4.0.1',
+    'homepage' => 'https://buking.lk',
+    'name' => 'Core Developers',
+    'title' => 'FOSS eCommerce for Businesses by Core Developers',
     'github' => 'https://github.com/tharanga-sudo',
     'email' => 'nteeje@gmail.com',
     'settings' => [
